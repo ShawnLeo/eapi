@@ -1,0 +1,21 @@
+server:
+  port: 7050
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
+        physical-strategy: com.meimeitech.eapi.util.ImprovedNamingStrategy
+    show-sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:~/.h2/swagger;AUTO_SERVER=TRUE
+    username: sa
+    password: sa
+  h2:
+    console:
+      path: /h2-console
+      settings:
+        web-allow-others: true
