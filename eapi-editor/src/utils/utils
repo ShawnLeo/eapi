@@ -1,0 +1,35 @@
+
+/** ***** 返回路径参数 ***** **/
+  // TODO 这个规则还有待完善
+export const pathParam = (path) => {
+  let leftArray = path.split('/{');
+    let params = [];
+  leftArray.forEach((item, index) => {
+    if (leftArray[index + 1]) {
+      let rightArray = leftArray[index + 1].split('}');
+      if (rightArray.length > 1) {
+        params.push(rightArray[0]);
+      }
+    }
+  });
+
+  return params;
+};
+
+export const reverse = (children) => { // 迭代处理 反显数据处理
+  children.forEach(item => {
+    if ((item.dataType === 'object' || item.dataType === 'array') ||
+      (item.dataModel && (item.dataModel.dataType === 'object' || item.dataModel.dataType === 'array'))) {
+      item._expanded = true;
+    }
+    if (item.dataType === 'array' || (item.dataModel && item.dataModel.dataType === 'array')) {
+      item.isArrayItem = true;
+    }
+    if (item.children && item.children.length > 0) {
+      reverse(item.children);
+    }
+    if (item.dataModel && item.dataModel.children && item.dataModel.children.length > 0) {
+      reverse(item.dataModel.children);
+    }
+  });
+};

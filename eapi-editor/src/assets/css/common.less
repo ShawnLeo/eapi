@@ -1,0 +1,46 @@
+/*全局变量*/
+/* 基础布局类*/
+@import './variable.less';
+
+html {
+  font: 14px @font-family;
+  //transition: color .3s ease-in, border .3s ease-in;
+}
+#app {
+  overflow-x: hidden;
+}
+
+ol, ul, li {
+  list-style: none;
+}
+.clearfix {
+  zoom: 1;
+}
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.txtCenter{
+  text-align: center;
+}
+img{
+  vertical-align: middle;
+}
+a{
+  color: @primary-color;
+}
+.text-underLine{
+  color: @primary-color;
+  text-decoration: underline;
+}
+

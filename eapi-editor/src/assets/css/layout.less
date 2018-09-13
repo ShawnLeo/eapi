@@ -1,0 +1,221 @@
+//全局变量
+@import './variable.less';
+.main-content{
+  width: @max-content-width;
+  min-width: @max-content-width;
+  margin: 40px auto;
+  .ivu-card-head{
+    .title-1{
+      color: @primary-color;
+    }
+    i{
+      color: @text-color
+    }
+    .title-2{
+      color: @text-color
+    }
+  }
+  .left-content{
+    width:200px;
+    padding: 0px;
+    .ivu-card-body {
+      padding: 0px;
+      .ivu-menu-item-group-title{
+        color: @dark-text-color;
+        font-weight: bold;
+      }
+    }
+    .ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu) {
+      color: #1188FC;
+      border-left: 2px solid #1188FC;
+      border-right: none;
+      background: @primary-table-bg-color;
+      z-index: 2;
+    }
+  }
+  .ivu-table-wrapper,.ivu-page{
+    margin-top: 16px;
+  }
+  .right-content{
+    width:@common-content-width;
+    padding: 0px;
+    .ivu-btn-ghost {
+      color: @primary-color;
+      background-color: transparent;
+      border-color: @primary-color;
+    }
+    .ivu-table-wrapper{
+      .ivu-table{
+        th{
+          //height: 40px;
+          //background-color: #FFFFFF;
+          color: @text-color;
+        }
+        td{
+          height: 40px;
+          .ivu-table-cell{
+            padding-left: 5px;
+            padding-right: 5px;
+          }
+        }
+      }
+    }
+    .ivu-table-body{
+      .buyColor{
+        color: @success-color
+      }
+      .sellCol{
+        color: @error-color;
+      }
+      .handleCoL{
+        color: @primary-color;
+      }
+    }
+  }
+  .center-content{
+    width: @common-content-width;
+    min-width: @common-content-width;
+    margin: 0px auto;
+  }
+  .cont-group {
+    margin-top: 40px;
+    .ivu-card-head {
+      padding: 16px 24px;
+      p {
+        font-size: @font-size-large;
+        color: #1B1F3A;
+        font-weight: normal;
+        span{
+          color: @text-color;
+          font-size: @font-size-small;
+          padding-left: 16px;
+        }
+      }
+    }
+    .ivu-card-extra{
+      a{
+        padding-left: 40px;
+      }
+    }
+    .ivu-card-body {
+      font-size: @font-size-small;
+      color: @text-color;
+    }
+    &.table-large {
+      .ivu-card-body{
+        padding: 2px 24px 0px;
+      }
+      .ivu-table-wrapper{
+        border: none;
+        .ivu-table:after{
+          width: 0px;
+        }
+        table{
+          color: @dark-text-color;
+          tr:last-child td{
+            border: none;
+          }
+          td .ivu-table-cell{
+            padding: 24px 0px;
+          }
+          .font16{
+            font-size: @font-size-base;
+          }
+          .status-color{
+            color: @success-color;
+          }
+          button{
+            border: none;
+            color: @primary-color;
+            font-size: @font-size-small;
+            padding: 0px;
+            + button{
+              padding-left: 32px;
+            }
+          }
+          .unSet{
+            color: @text-color;
+            font-size: @font-size-small;
+          }
+        }
+      }
+      &.table-normal{
+        .ivu-tabs-bar{
+          margin-bottom: 0px;
+          .ivu-tabs-nav .ivu-tabs-tab{
+            padding-top: 16px;
+            padding-bottom: 16px;
+          }
+        }
+        .ivu-table th{
+          background-color: #ffffff;
+          font-size: @font-size-base;
+          color: @text-color;
+          height: 55px;
+          font-weight: normal;
+          .ivu-table-cell{
+            padding: 0px;
+          }
+        }
+        .ivu-table-wrapper{
+          margin-top: 0px;
+          table{
+            td .ivu-table-cell{
+              padding: 15px 0px;
+            }
+          }
+        }
+        .ivu-page{
+          margin: 26px 0px;
+        }
+      }
+    }
+  }
+
+}
+
+.modal-form{
+  padding: 0px 124px;
+  label:before{
+    content: '';
+  }
+
+}
+.ivu-modal-content{
+  .ivu-modal-body{
+    padding: 24px;
+    color: @text-color;
+    font-size: 14px;
+    // .ivu-form .ivu-form-item-label{
+    //   padding: 0px 0px 8px;
+    //   line-height: 1.375;
+    //   font-size: @font-size-base;
+    //   color: @text-color;
+    // }
+  }
+  .ivu-modal-footer{
+    border-top:0px;
+    padding-top: 20px;
+    padding-bottom: 60px;
+    button{
+      padding: 9px 64px;
+      &.ivu-btn-text{
+        border:1px solid @text-color;
+        color: @text-color;
+      }
+    }
+    button + button{
+      margin-left: 86px;
+    }
+  }
+  .ivu-modal-header{
+    padding: 24px;
+  }
+  .ivu-modal-header p, .ivu-modal-header-inner{
+    font-size: 24px;
+    line-height: 30px;
+    height: 30px;
+    font-weight: normal;
+    color: @dark-text-color;
+  }
+}
