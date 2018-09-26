@@ -13,15 +13,21 @@
                 <Option v-for="(tag, index) in tags" :value="tag.id" :key="index">{{tag.name}}</Option>
               </Select>
             </FormItem>
+            <FormItem label="代码映射" style="margin-top:20px;">
+              <i-input v-model="interfaceItem.operationId" placeholder="Enter something..."></i-input>
+            </FormItem>
             <FormItem label="描述">
               <i-input v-model="interfaceItem.description" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
                        placeholder="描述"></i-input>
             </FormItem>
           </i-col>
           <i-col span="11" offset="1" style="border-left: 1px solid #dddee1; padding-left:30px;">
-            <FormItem label="接口状态">
-              <i-input v-model="interfaceItem.status" placeholder="Enter something..."></i-input>
+            <FormItem label="标签" style="margin-top:20px;">
+              <Select v-model="interfaceItem.status" require="true">
+                <Option v-for="(item, index) in status" :value="item.value" :key="index">{{item.label}}</Option>
+              </Select>
             </FormItem>
+              <!--<i-input v-model="interfaceItem.status" placeholder="Enter something..."></i-input>-->
             <FormItem label="创建人">
               <i-input v-model="interfaceItem.creater" placeholder="Enter something..." disabled></i-input>
             </FormItem>
@@ -78,6 +84,24 @@
         interfaceItem: {},
         interfaceItemTemp: {},
         tags: [],
+				status: [
+					{
+						value: 100,
+						label: '未开始'
+					},
+					{
+						value: 200,
+						label: '开发中'
+					},
+					{
+						value: 300,
+						label: '测试中'
+					},
+					{
+						value: 400,
+						label: '已完成'
+					}
+				],
         ruleValidate: {
           name: [
             {required: true, message: '请输入接口名称', trigger: 'blur'}

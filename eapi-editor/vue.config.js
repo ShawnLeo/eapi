@@ -1,4 +1,5 @@
 module.exports = {
   assetsDir: 'static',
-  productionSourceMap: false
+  productionSourceMap: false,
+  baseUrl: './'
 }
