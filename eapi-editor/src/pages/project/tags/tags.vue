@@ -3,7 +3,7 @@
     <Form ref="formInline" inline class="project-tags-form">
       <FormItem>
         <!--<Button type="primary" @click="handleSubmit('formInline')">Signin</Button>-->
-        <Button type="primary" icon="edit" @click="newTag">新建标签</Button>
+        <Button type="primary" icon="ios-add" @click="newTag">新建标签</Button>
       </FormItem>
       <FormItem prop="search">
         <Input type="text" placeholder="搜索"/>

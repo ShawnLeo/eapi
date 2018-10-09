@@ -3,7 +3,7 @@
     <Form ref="formInline" inline class="project-regular-form">
       <FormItem>
         <!--<Button type="primary" @click="handleSubmit('formInline')">Signin</Button>-->
-        <Button type="primary" icon="edit">新建规则</Button>
+        <Button type="primary" icon="ios-add">新建规则</Button>
       </FormItem>
       <FormItem prop="search">
         <Input type="text" placeholder="搜索"/>

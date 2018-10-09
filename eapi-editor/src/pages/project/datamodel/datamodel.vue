@@ -3,7 +3,7 @@
     <Form ref="formInline" inline class="project-datamodel-form">
       <FormItem>
         <!--<Button type="primary" @click="handleSubmit('formInline')">Signin</Button>-->
-        <Button type="primary" icon="edit" @click="newDatamodel">新建模型</Button>
+        <Button type="primary" icon="ios-add" @click="newDatamodel">新建模型</Button>
       </FormItem>
       <FormItem prop="search">
         <Input type="text" placeholder="搜索"/>

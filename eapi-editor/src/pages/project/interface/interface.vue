@@ -3,7 +3,7 @@
     <Form ref="formInline" inline class="project-interface-form">
       <FormItem>
         <!--<Button type="primary" @click="handleSubmit('formInline')">Signin</Button>-->
-        <Button type="primary" icon="edit" @click="newInterface">新建接口</Button>
+        <Button type="primary" icon="ios-add" @click="newInterface">新建接口</Button>
       </FormItem>
       <FormItem prop="search">
         <Input type="text" placeholder="搜索"/>
