@@ -156,7 +156,7 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'ghost',
+//                    type: 'ghost',
                     shape: 'circle',
                     size: 'small',
                     icon: 'md-add'
@@ -187,7 +187,7 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'ghost',
+//                    type: 'ghost',
                     shape: 'circle',
                     size: 'small',
                     icon: 'md-remove'
@@ -272,7 +272,7 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'ghost',
+//                    type: 'ghost',
                     shape: 'circle',
                     size: 'small',
                     icon: 'md-add'
@@ -303,7 +303,7 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'ghost',
+//                    type: 'ghost',
                     shape: 'circle',
                     size: 'small',
                     icon: 'md-remove'
@@ -414,7 +414,7 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'ghost',
+//                    type: 'ghost',
                     shape: 'circle',
                     size: 'small',
                     icon: 'md-add'
@@ -445,7 +445,7 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'ghost',
+//                    type: 'ghost',
                     shape: 'circle',
                     size: 'small',
                     icon: 'md-remove'
@@ -635,7 +635,7 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'ghost',
+//                    type: 'ghost',
                     shape: 'circle',
                     size: 'small',
                     icon: 'md-add'
@@ -666,7 +666,7 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'ghost',
+//                    type: 'ghost',
                     shape: 'circle',
                     size: 'small',
                     icon: 'md-remove'
