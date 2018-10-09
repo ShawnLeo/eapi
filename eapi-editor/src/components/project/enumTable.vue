@@ -142,7 +142,7 @@
                       type: 'ghost',
                       shape: 'circle',
                       size: 'small',
-                      icon: 'plus'
+                      icon: 'md-add'
                     },
                     style: {
                       //                    marginRight: '5px'
@@ -169,7 +169,7 @@
                       type: 'ghost',
                       shape: 'circle',
                       size: 'small',
-                      icon: 'minus-round'
+                      icon: 'md-remove'
                     },
                     style: {
                       marginRight: '5px'

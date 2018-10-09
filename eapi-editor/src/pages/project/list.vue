@@ -17,7 +17,7 @@
             <Card style="width:240px;margin: 15px;text-align: center">
               <div style="text-align:center" @click="newProject">
                 <!--<Icon type="ios-plus-empty" size="100"></Icon>-->
-                <Icon type="ios-add" size="100" />
+                <Icon type="md-add" size="100" />
               </div>
             </Card>
           </div>
