@@ -4,9 +4,9 @@
       <div style="min-width: 1070px;">
         <Menu ref="mainMenus" mode="horizontal" theme="dark" :active-name="$route.path" class="fl"
               @on-select="selectFn">
-          <Menu-Item name="/project/index">
-            {{ $t("menus.index") }}
-          </Menu-Item>
+          <!--<Menu-Item name="/project/index">-->
+            <!--{{ $t("menus.index") }}-->
+          <!--</Menu-Item>-->
           <Menu-Item name="/project/list">
             {{ $t("menus.projects") }}
           </Menu-Item>
@@ -23,17 +23,17 @@
           </dl>
         </div>
 
-        <div class="head-user fr">
-          <li class="head-user" v-if="state.user.phone">
-            <span class="title" growing-ignore="true">{{state.user.phone}} <Icon type="arrow-down-b"></Icon></span>
-            <ul class="head-user-list">
-              <li><a href="javascript:void(0);" @click="logout" class="btn_logout"><Icon type="log-out"></Icon>退出登录</a></li>
-            </ul>
-          </li>
-          <li class="head-user" v-else>
-            <span class="title" growing-ignore="true" @click="goLogin">登录</span>
-          </li>
-        </div>
+        <!--<div class="head-user fr">-->
+          <!--<li class="head-user" v-if="state.user.phone">-->
+            <!--<span class="title" growing-ignore="true">{{state.user.phone}} <Icon type="arrow-down-b"></Icon></span>-->
+            <!--<ul class="head-user-list">-->
+              <!--<li><a href="javascript:void(0);" @click="logout" class="btn_logout"><Icon type="log-out"></Icon>退出登录</a></li>-->
+            <!--</ul>-->
+          <!--</li>-->
+          <!--<li class="head-user" v-else>-->
+            <!--<span class="title" growing-ignore="true" @click="goLogin">登录</span>-->
+          <!--</li>-->
+        <!--</div>-->
       </div>
     </Header>
   </div>
