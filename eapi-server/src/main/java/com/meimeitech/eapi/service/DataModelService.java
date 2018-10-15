@@ -62,8 +62,8 @@ public class DataModelService {
     @Transactional
     public Response update(DataModel dataModel) {
         // delete old datamodel
-        List<DataModel> oldModels = dataModelRepository.findByTypeAndProjectIdOrderByDisplayOrder(CUSTOM_TYPE, dataModel.getProjectId());
-        this.deleteInBatch(oldModels);
+        DataModel oldModel = dataModelRepository.findById(dataModel.getId()).get();
+        this.deleteInBatch(oldModel.getChildren());
 
         // deep set
         deepSetParent(dataModel, dataModel.getChildren());
@@ -75,6 +75,9 @@ public class DataModelService {
     }
 
     public Response deleteInBatch(List<DataModel> dataModels) {
+        if (dataModels == null || dataModels.size() < 1) {
+            return Response.error("数据不存在");
+        }
         for (int i = 0; i < dataModels.size(); i++ ) {
             DataModel dataModel = dataModels.get(i);
             long count = dataModelRepository.count((Specification<DataModel>) (root, query, criteriaBuilder) -> {
