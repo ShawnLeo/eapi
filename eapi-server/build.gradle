@@ -27,8 +27,8 @@ sourceCompatibility = 1.8
 repositories {
 //	mavenCentral()
 	maven {
-		url "http://49.4.160.163:8093/nexus/content/groups/public/"
-//		url "http://10.133.255.240:8093/nexus/content/groups/public/"
+	//	url "http://49.4.160.163:8093/nexus/content/groups/public/"
+		url "http://10.133.255.240:8093/nexus/content/groups/public/"
 	}
 
 }
