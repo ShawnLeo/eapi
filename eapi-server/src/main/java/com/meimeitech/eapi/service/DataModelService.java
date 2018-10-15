@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -58,9 +59,18 @@ public class DataModelService {
         return Response.success(count > 0);
     }
 
+    @Transactional
     public Response update(DataModel dataModel) {
+        // delete old datamodel
+        List<DataModel> oldModels = dataModelRepository.findByTypeAndProjectIdOrderByDisplayOrder(CUSTOM_TYPE, dataModel.getProjectId());
+        this.deleteInBatch(oldModels);
+
+        // deep set
         deepSetParent(dataModel, dataModel.getChildren());
+
+        // update
         dataModelRepository.save(dataModel);
+
         return Response.success("SUCCESS");
     }
 
