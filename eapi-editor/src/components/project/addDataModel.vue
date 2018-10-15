@@ -71,6 +71,7 @@
 
       return {
         systemDataModel: [],
+				typeBak: 'object',
         formItem: {
           name: '',
           dataType: 'object',
@@ -153,17 +154,27 @@
 //        this.content = JSON.stringify(content, null, 2);
       },
       dataTypeChange(val) {
-        this.deleteDataModel(this.formItem.children, () => {
-          this.formItem.children = [];
-          this.formItem.children.push({
-            name: '',
-            description: '',
-            dataType: 'string',
-            example: '',
-            children: [],
-            _expanded: false
-          });
-        });
+//        this.deleteDataModel(this.formItem.children, () => {
+				this.$Modal.confirm({
+					title: '确认切换？',
+					content: '<p>切换类型将导致现有数据丢失！</p><p>你确认要切换成“' + val + '”码？</p>',
+					onOk: () => {
+						this.typeBak = this.formItem.dataType;
+						this.formItem.children = [];
+						this.formItem.children.push({
+							name: '',
+							description: '',
+							dataType: 'string',
+							example: '',
+							children: [],
+							_expanded: false
+						});
+					},
+					onCancel: () => {
+						this.formItem.dataType = this.typeBak;
+					}
+				});
+//        });
       },
       deleteDataModel(datas, callback) {
         let deleteDatas = [];
@@ -215,6 +226,7 @@
             _expanded: false
           }]
         };
+				this.typeBak = 'object';
         this.$emit('closeModal');
       }
     },

@@ -66,6 +66,7 @@ export default {
     };
     return {
       spinShow: false,
+      typeBak: '',
       systemDataModel: [],
       content: '',
       formItem: {
@@ -98,18 +99,25 @@ export default {
       this.getDataModelList();
     },
     dataTypeChange(val) {
-			this.formItem.children = [];
-			this.formItem.children.push({
-				name: '',
-				description: '',
-				dataType: 'string',
-				example: '',
-				children: [],
-				_expanded: false
+			this.$Modal.confirm({
+				title: '确认切换？',
+				content: '<p>切换类型将导致现有数据丢失！</p><p>你确认要切换成“' + val + '”码？</p>',
+				onOk: () => {
+					this.typeBak = this.formItem.dataType;
+					this.formItem.children = [];
+					this.formItem.children.push({
+						name: '',
+						description: '',
+						dataType: 'string',
+						example: '',
+						children: [],
+						_expanded: false
+					});
+				},
+				onCancel: () => {
+					this.formItem.dataType = this.typeBak;
+				}
 			});
-//      this.deleteDataModel(this.formItem.children, () => {
-//
-//      });
     },
     deleteDataModel(datas, callback) {
       let deleteDatas = [];
@@ -136,6 +144,7 @@ export default {
       }, (response) => {
         if (response.header.code === '0') {
           this.formItem = response.body;
+          this.typeBak = this.formItem.dataType;
           reverse(this.formItem.children); //
         } else {
           this.$Message.error(response.header.message);
