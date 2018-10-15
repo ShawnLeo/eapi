@@ -19,7 +19,7 @@
         <array-table :rows="formItem.children" :name="formItem.name" :level="1" v-if="formItem.dataType === 'array'"></array-table>
         <enum-table :rows="formItem.children" :level="1" v-if="formItem.dataType === 'enum'"></enum-table>
         <string-table :rows="formItem.children" :level="1" v-if="formItem.dataType === 'string'"></string-table>
-        <number-table :rows="formItem.children" :level="1" v-if="formItem.dataType === 'number'"></number-table>
+        <number-table :rows="formItem.children" :level="1" v-if="formItem.dataType === 'integer'"></number-table>
         <boolean-table :rows="formItem.children" :level="1" v-if="formItem.dataType === 'boolean'"></boolean-table>
         <file-table :rows="formItem.children" :level="1" v-if="formItem.dataType === 'file'"></file-table>
         <!-- <div style="float:right;"><Button>取消</Button> <Button type="primary">保存</Button></div> -->
