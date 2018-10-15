@@ -98,17 +98,18 @@ export default {
       this.getDataModelList();
     },
     dataTypeChange(val) {
-      this.deleteDataModel(this.formItem.children, () => {
-        this.formItem.children = [];
-        this.formItem.children.push({
-          name: '',
-          description: '',
-          dataType: 'string',
-          example: '',
-          children: [],
-          _expanded: false
-        });
-      });
+			this.formItem.children = [];
+			this.formItem.children.push({
+				name: '',
+				description: '',
+				dataType: 'string',
+				example: '',
+				children: [],
+				_expanded: false
+			});
+//      this.deleteDataModel(this.formItem.children, () => {
+//
+//      });
     },
     deleteDataModel(datas, callback) {
       let deleteDatas = [];
