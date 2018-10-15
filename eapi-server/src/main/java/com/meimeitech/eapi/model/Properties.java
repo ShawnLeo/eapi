@@ -17,6 +17,7 @@ public class Properties {
   private static final Map<String, Function<String, ? extends Property>> typeFactory
       = ImmutableMap.<String, Function<String, ? extends Property>>builder()
       .put("int", newInstanceOf(IntegerProperty.class))
+      .put("integer", newInstanceOf(IntegerProperty.class))
       .put("long", newInstanceOf(LongProperty.class))
       .put("float", newInstanceOf(FloatProperty.class))
       .put("double", newInstanceOf(DoubleProperty.class))
