@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface DataModelRepository extends JpaRepository<DataModel, String>,JpaSpecificationExecutor<DataModel> {
 
-    List<DataModel> findByTypeOrderByDisplayOrder(String system);
+    List<DataModel> findByTypeOrderByName(String system);
 
-    List<DataModel> findByTypeAndProjectIdOrderByDisplayOrder(String type, String projectId);
+    List<DataModel> findByTypeAndProjectIdOrderByName(String type, String projectId);
 }

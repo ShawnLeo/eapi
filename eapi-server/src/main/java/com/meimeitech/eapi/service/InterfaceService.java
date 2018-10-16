@@ -45,7 +45,7 @@ public class InterfaceService {
     private DataModelRepository dataModelRepository;
 
     public Response list(String projectId) {
-        return Response.success(interfaceRepository.findAllByProjectIdOrderByDisplayOrder(projectId));
+        return Response.success(interfaceRepository.findAllByProjectIdOrderByPath(projectId));
     }
 
     @Transactional
@@ -256,6 +256,6 @@ public class InterfaceService {
     }
 
     public void deleteByProjectId(String projectId) {
-        deleteInBatch(interfaceRepository.findAllByProjectIdOrderByDisplayOrder(projectId));
+        deleteInBatch(interfaceRepository.findAllByProjectIdOrderByPath(projectId));
     }
 }

@@ -29,9 +29,9 @@ public class DataModelService {
 
     public Response findByTypeAndProjectId(String type, String projectId) {
         if (type.equals(SYSTEM_TYPE)) {
-            return Response.success(dataModelRepository.findByTypeOrderByDisplayOrder(type));
+            return Response.success(dataModelRepository.findByTypeOrderByName(type));
         }
-        return Response.success(dataModelRepository.findByTypeAndProjectIdOrderByDisplayOrder(type, projectId));
+        return Response.success(dataModelRepository.findByTypeAndProjectIdOrderByName(type, projectId));
     }
 
     public Response create(DataModel dataModel) {
@@ -127,6 +127,6 @@ public class DataModelService {
     }
 
     public void deleteByProjectId(String projectId) {
-        deleteInBatch(dataModelRepository.findByTypeAndProjectIdOrderByDisplayOrder(CUSTOM_TYPE, projectId));
+        deleteInBatch(dataModelRepository.findByTypeAndProjectIdOrderByName(CUSTOM_TYPE, projectId));
     }
 }
