@@ -82,6 +82,7 @@
             description: '',
             dataType: 'string',
             example: '',
+						required: false,
             children: [],
             _expanded: false
           }]
@@ -166,6 +167,7 @@
 							description: '',
 							dataType: 'string',
 							example: '',
+							required: false,
 							children: [],
 							_expanded: false
 						});
@@ -213,17 +215,18 @@
       },
       closeModal () {
         this.formItem = {
-          name: '',
+            name: '',
             dataType: 'object',
             projectId: this.state.projectId || getStore('projectId'),
             description: '',
             children: [{
-            name: '',
-            description: '',
-            dataType: 'string',
-            example: '',
-            children: [],
-            _expanded: false
+              name: '',
+              description: '',
+              dataType: 'string',
+              example: '',
+							required: false,
+              children: [],
+              _expanded: false
           }]
         };
 				this.typeBak = 'object';

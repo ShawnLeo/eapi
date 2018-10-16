@@ -112,6 +112,7 @@
                             dataType: 'string',
                             example: '',
                             children: [],
+														required: false,
                             _expanded: false
                           });
                           this.rows[params.index]._expanded = true;
@@ -122,6 +123,7 @@
                             dataType: 'string',
                             example: '',
                             children: [],
+														required: false,
                             _expanded: false
                           });
                           this.rows[params.index]._expanded = true;
@@ -233,6 +235,7 @@
                           dataType: 'string',
                           example: '',
                           children: [],
+													required: false,
                           _expanded: false
                         });
                       }

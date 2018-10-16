@@ -222,6 +222,7 @@
                           dataType: 'string',
                           example: '',
                           children: [],
+													required: false,
                           _expanded: false
                         });
                         this.interfaceItem.responseBody[params.index]._expanded = true;
@@ -232,6 +233,7 @@
                           dataType: 'string',
                           example: '',
                           children: [],
+													required: false,
                           _expanded: false
                         });
                         this.interfaceItem.responseBody[params.index]._expanded = true;
@@ -325,6 +327,7 @@
                           dataType: 'string',
                           example: '',
                           children: [],
+													required: false,
                           _expanded: false
                         }
                       });

@@ -73,6 +73,7 @@ export default {
         name: '',
         dataType: 'object',
         description: '',
+				required: false,
         children: []
       },
       ruleValidate: {
@@ -111,6 +112,7 @@ export default {
 						dataType: 'string',
 						example: '',
 						children: [],
+						required: false,
 						_expanded: false
 					});
 				},

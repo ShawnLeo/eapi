@@ -551,6 +551,7 @@
                           dataType: 'string',
                           example: '',
                           children: [],
+													required: false,
                           _expanded: false
                         });
                         this.interfaceItem.body[params.index]._expanded = true;
@@ -561,6 +562,7 @@
                           dataType: 'string',
                           example: '',
                           children: [],
+													required: false,
                           _expanded: false
                         });
                         this.interfaceItem.body[params.index]._expanded = true;
@@ -653,6 +655,7 @@
                             description: '',
                             dataType: 'string',
                             example: '',
+														required: false,
                             children: [],
                             _expanded: false
                           }

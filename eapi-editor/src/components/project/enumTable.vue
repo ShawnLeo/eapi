@@ -59,6 +59,7 @@
                             description: '',
                             dataType: 'string',
                             example: '',
+														required: false,
                             children: [],
                             _expanded: false
                           });
@@ -154,6 +155,7 @@
                           description: '',
                           dataType: 'string',
                           example: '',
+													required: false,
                           children: [],
                           _expanded: false
                         });

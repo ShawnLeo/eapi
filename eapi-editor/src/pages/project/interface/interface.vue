@@ -94,7 +94,7 @@ export default {
         operationId: '',
         summary: '',
         description: '',
-        deprecated: true,
+        deprecated: false,
         projectId: ''
       },
       loading: false,
@@ -269,7 +269,7 @@ export default {
         operationId: '',
         summary: '',
         description: '',
-        deprecated: true,
+        deprecated: false,
         projectId: this.state.projectId || getStore('projectId')
       };
     },
