@@ -18,7 +18,7 @@ public class Project extends AbstractProject {
     @Column(name = "TITLE",length = 100)
     private String title;
 
-    @Column(name = "DESCRIPTION",length = 512)
+    @Column(name = "DESCRIPTION",length = 2000)
     private String description;
 
     @Column(name = "VERSION",length = 32)

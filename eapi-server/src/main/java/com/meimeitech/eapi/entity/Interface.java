@@ -54,13 +54,13 @@ public class Interface extends AbstractInterface {
     /**
      * 副标题
      */
-    @Column(name = "SUMMARY",length = 120)
+    @Column(name = "SUMMARY",length = 1000)
     private String summary;
 
     /**
      * 描述
      */
-    @Column(name = "DESCRIPTION",length = 150)
+    @Column(name = "DESCRIPTION",length = 2000)
     private String description;
 
     /**

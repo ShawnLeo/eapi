@@ -102,7 +102,7 @@ export default {
     dataTypeChange(val) {
 			this.$Modal.confirm({
 				title: '确认切换？',
-				content: '<p>切换类型将导致现有数据丢失！</p><p>你确认要切换成“' + val + '”码？</p>',
+				content: '<p>切换类型将导致现有数据丢失！</p><p>你确认要切换成“' + val + '”吗？</p>',
 				onOk: () => {
 					this.typeBak = this.formItem.dataType;
 					this.formItem.children = [];

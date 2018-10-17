@@ -158,7 +158,7 @@ export default {
     deleteTags() {
 			this.$Modal.confirm({
 				title: '确认删除？',
-				content: '<p>删除数据不可恢复！</p><p>确认要删除码？</p>',
+				content: '<p>删除数据不可恢复！</p><p>确认要删除吗？</p>',
 				onOk: () => {
 					deleteTagInBatch(this.selection, (response) => {
 						if (response.header.code === '0') {

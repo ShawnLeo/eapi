@@ -55,7 +55,7 @@ public class DataModel extends AbstractDataModel {
     /**
      * 描述
      */
-    @Column(name = "DESCRIPTION",length = 150)
+    @Column(name = "DESCRIPTION",length = 2000)
     private String description;
 
     /**
