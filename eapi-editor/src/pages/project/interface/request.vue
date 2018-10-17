@@ -357,7 +357,7 @@
               },
               on: {
                 'on-change': (value) => {
-                  console.log(value);
+//                  console.log(value);
 //                  this.interfaceItem.formDatas[params.index].dataType = value;
 //                  setTimeout(() => {
 //                    this.interfaceItem.formDatas[params.index].dataModel.dataType = value;
@@ -484,7 +484,7 @@
               },
               on: {
                 childrenChange: (children) => {
-                   console.log('最外层组件的children：' + JSON.stringify(children));
+//                   console.log('最外层组件的children：' + JSON.stringify(children));
                   if (JSON.stringify(children) !== JSON.stringify(this.interfaceItem.body[params.index].dataModel.children)) {
                     this.interfaceItem.body[params.index].dataModel.children = children;
                   }
