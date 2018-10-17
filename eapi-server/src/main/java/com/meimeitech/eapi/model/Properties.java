@@ -98,8 +98,9 @@ public class Properties {
   public static Property mapProperty(DataModel source) {
 
     Property property = modelRefToProperty(source);
-        if (property instanceof ArrayProperty) {
-            ArrayProperty arrayProperty = (ArrayProperty) property;
+        if (property instanceof ArrayProperty && source.getChildren() != null && source.getChildren().size() > 0) {
+          ArrayProperty arrayProperty = (ArrayProperty) property;
+          arrayProperty.setItems(mapProperty(source.getChildren().get(0)));
 //            maybeAddAllowableValues(arrayProperty.getItems(), source.getA llowableValues());
         }
 //        if (property instanceof AbstractNumericProperty) {

@@ -194,13 +194,19 @@ public class Swagger2Service {
         List<DataModel> dataModels =  dataModelRepository.findByTypeAndProjectIdOrderByName(CUSTOM_TYPE, projectId);
         Map<String, Model> map = Maps.newHashMap();
         dataModels.forEach(dataModel -> {
-            ModelImpl model = new ModelImpl().description(dataModel.getDescription())
-//                    .discriminator(dataModel.getDiscriminator())
-                    .example(dataModel.getExample())
-                    .name(dataModel.getName())
-                    .type(dataModel.getDataType());
-            Map<String, Property> modelProperties = mapProperties(dataModel.getChildren());
-            model.setProperties(modelProperties);
+            Model model;
+            if (dataModel.getDataType().equals("array")
+                    && dataModel.getChildren() != null && dataModel.getChildren().size() > 0) {
+                model = new ArrayModel().description(dataModel.getDescription())
+                        .items(Properties.mapProperty(dataModel.getChildren().get(0)));
+            } else {
+                model = new ModelImpl().description(dataModel.getDescription())
+                        .example(dataModel.getExample())
+                        .name(dataModel.getName())
+                        .type(dataModel.getDataType());
+                Map<String, Property> modelProperties = mapProperties(dataModel.getChildren());
+                model.setProperties(modelProperties);
+            }
             map.put(dataModel.getName(), model);
         });
 
