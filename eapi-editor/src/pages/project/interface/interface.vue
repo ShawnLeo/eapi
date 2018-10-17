@@ -293,15 +293,24 @@ export default {
       this.selection = selection;
     },
     deleteInterface() {
-      deleteInterfaceInBatch(this.selection, (response) => {
-        if (response.header.code === '0') {
-          this.$Message.success('删除成功！');
-          this.showEditMenus = false;
-          this.init();
-        } else {
-          this.$Message.error(response.header.message);
-        }
-      });
+			this.$Modal.confirm({
+				title: '确认删除？',
+				content: '<p>删除数据不可恢复！</p><p>确认要删除码？</p>',
+				onOk: () => {
+					deleteInterfaceInBatch(this.selection, (response) => {
+						if (response.header.code === '0') {
+							this.$Message.success('删除成功！');
+							this.showEditMenus = false;
+							this.init();
+						} else {
+							this.$Message.error(response.header.message);
+						}
+					});
+				},
+				onCancel: () => {
+					this.$Message.success("取消删除！");
+				}
+			});
     },
     newInterface() {
       this.addInterfaceModal = true;
