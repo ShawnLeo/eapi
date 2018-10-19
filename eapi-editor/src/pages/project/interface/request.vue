@@ -156,10 +156,10 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'ghost',
+//                    type: 'ghost',
                     shape: 'circle',
                     size: 'small',
-                    icon: 'plus'
+                    icon: 'md-add'
                   },
                   style: {
                     //                    marginRight: '5px'
@@ -187,10 +187,10 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'ghost',
+//                    type: 'ghost',
                     shape: 'circle',
                     size: 'small',
-                    icon: 'minus-round'
+                    icon: 'md-remove'
                   },
                   style: {
                     marginRight: '5px'
@@ -292,10 +292,10 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'ghost',
+//                    type: 'ghost',
                     shape: 'circle',
                     size: 'small',
-                    icon: 'plus'
+                    icon: 'md-add'
                   },
                   style: {
                     //                    marginRight: '5px'
@@ -323,10 +323,10 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'ghost',
+//                    type: 'ghost',
                     shape: 'circle',
                     size: 'small',
-                    icon: 'minus-round'
+                    icon: 'md-remove'
                   },
                   style: {
                     marginRight: '5px'
@@ -377,7 +377,7 @@
               },
               on: {
                 'on-change': (value) => {
-                  console.log(value);
+//                  console.log(value);
 //                  this.interfaceItem.formDatas[params.index].dataType = value;
 //                  setTimeout(() => {
 //                    this.interfaceItem.formDatas[params.index].dataModel.dataType = value;
@@ -434,10 +434,10 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'ghost',
+//                    type: 'ghost',
                     shape: 'circle',
                     size: 'small',
-                    icon: 'plus'
+                    icon: 'md-add'
                   },
                   style: {
                     //                    marginRight: '5px'
@@ -465,10 +465,10 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'ghost',
+//                    type: 'ghost',
                     shape: 'circle',
                     size: 'small',
-                    icon: 'minus-round'
+                    icon: 'md-remove'
                   },
                   style: {
                     marginRight: '5px'
@@ -504,7 +504,7 @@
               },
               on: {
                 childrenChange: (children) => {
-                   console.log('最外层组件的children：' + JSON.stringify(children));
+//                   console.log('最外层组件的children：' + JSON.stringify(children));
                   if (JSON.stringify(children) !== JSON.stringify(this.interfaceItem.body[params.index].dataModel.children)) {
                     this.interfaceItem.body[params.index].dataModel.children = children;
                   }
@@ -571,6 +571,7 @@
                           dataType: 'string',
                           example: '',
                           children: [],
+													required: false,
                           _expanded: false
                         });
                         this.interfaceItem.body[params.index]._expanded = true;
@@ -581,6 +582,7 @@
                           dataType: 'string',
                           example: '',
                           children: [],
+													required: false,
                           _expanded: false
                         });
                         this.interfaceItem.body[params.index]._expanded = true;
@@ -661,10 +663,10 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'ghost',
+//                    type: 'ghost',
                     shape: 'circle',
                     size: 'small',
-                    icon: 'plus'
+                    icon: 'md-add'
                   },
                   style: {
                     //                    marginRight: '5px'
@@ -679,6 +681,7 @@
                             description: '',
                             dataType: 'string',
                             example: '',
+														required: false,
                             children: [],
                             _expanded: false
                           }
@@ -692,10 +695,10 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'ghost',
+//                    type: 'ghost',
                     shape: 'circle',
                     size: 'small',
-                    icon: 'minus-round'
+                    icon: 'md-remove'
                   },
                   style: {
                     marginRight: '5px'

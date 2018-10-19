@@ -3,7 +3,7 @@
     <Form ref="formInline" inline class="project-interface-form">
       <FormItem>
         <!--<Button type="primary" @click="handleSubmit('formInline')">Signin</Button>-->
-        <Button type="primary" icon="edit" @click="newInterface">新建接口</Button>
+        <Button type="primary" icon="md-add" @click="newInterface">新建接口</Button>
       </FormItem>
       <FormItem prop="search">
         <Input type="text" placeholder="搜索"/>
@@ -94,7 +94,7 @@ export default {
         operationId: '',
         summary: '',
         description: '',
-        deprecated: true,
+        deprecated: false,
         projectId: ''
       },
       loading: false,
@@ -269,7 +269,7 @@ export default {
         operationId: '',
         summary: '',
         description: '',
-        deprecated: true,
+        deprecated: false,
         projectId: this.state.projectId || getStore('projectId')
       };
     },
@@ -293,15 +293,24 @@ export default {
       this.selection = selection;
     },
     deleteInterface() {
-      deleteInterfaceInBatch(this.selection, (response) => {
-        if (response.header.code === '0') {
-          this.$Message.success('删除成功！');
-          this.showEditMenus = false;
-          this.init();
-        } else {
-          this.$Message.error(response.header.message);
-        }
-      });
+			this.$Modal.confirm({
+				title: '确认删除？',
+				content: '<p>删除数据不可恢复！</p><p>确认要删除吗？</p>',
+				onOk: () => {
+					deleteInterfaceInBatch(this.selection, (response) => {
+						if (response.header.code === '0') {
+							this.$Message.success('删除成功！');
+							this.showEditMenus = false;
+							this.init();
+						} else {
+							this.$Message.error(response.header.message);
+						}
+					});
+				},
+				onCancel: () => {
+					this.$Message.success("取消删除！");
+				}
+			});
     },
     newInterface() {
       this.addInterfaceModal = true;

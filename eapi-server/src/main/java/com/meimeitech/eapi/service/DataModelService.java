@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -28,9 +29,9 @@ public class DataModelService {
 
     public Response findByTypeAndProjectId(String type, String projectId) {
         if (type.equals(SYSTEM_TYPE)) {
-            return Response.success(dataModelRepository.findByTypeOrderByDisplayOrder(type));
+            return Response.success(dataModelRepository.findByTypeOrderByName(type));
         }
-        return Response.success(dataModelRepository.findByTypeAndProjectIdOrderByDisplayOrder(type, projectId));
+        return Response.success(dataModelRepository.findByTypeAndProjectIdOrderByName(type, projectId));
     }
 
     public Response create(DataModel dataModel) {
@@ -58,13 +59,25 @@ public class DataModelService {
         return Response.success(count > 0);
     }
 
+    @Transactional
     public Response update(DataModel dataModel) {
+        // delete old datamodel
+        DataModel oldModel = dataModelRepository.findById(dataModel.getId()).get();
+        this.deleteInBatch(oldModel.getChildren());
+
+        // deep set
         deepSetParent(dataModel, dataModel.getChildren());
+
+        // update
         dataModelRepository.save(dataModel);
+
         return Response.success("SUCCESS");
     }
 
     public Response deleteInBatch(List<DataModel> dataModels) {
+        if (dataModels == null || dataModels.size() < 1) {
+            return Response.error("数据不存在");
+        }
         for (int i = 0; i < dataModels.size(); i++ ) {
             DataModel dataModel = dataModels.get(i);
             long count = dataModelRepository.count((Specification<DataModel>) (root, query, criteriaBuilder) -> {
@@ -114,6 +127,6 @@ public class DataModelService {
     }
 
     public void deleteByProjectId(String projectId) {
-        deleteInBatch(dataModelRepository.findByTypeAndProjectIdOrderByDisplayOrder(CUSTOM_TYPE, projectId));
+        deleteInBatch(dataModelRepository.findByTypeAndProjectIdOrderByName(CUSTOM_TYPE, projectId));
     }
 }

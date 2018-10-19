@@ -21,8 +21,8 @@
           </Menu-Item>
         </Menu>
         <div class="tab-bar">
-          <Button type="info" icon="play" class="fr sub-menu-button" @click="publish">发布</Button>
-          <Button type="success" icon="eye" class="fr sub-menu-button" @click="preview">预览</Button>
+          <Button type="info" icon="ios-play" class="fr sub-menu-button" @click="publish">发布</Button>
+          <Button type="success" icon="ios-eye" class="fr sub-menu-button" @click="preview">预览</Button>
           <!--<Dropdown class="fr sub-menu-button">-->
             <!--<Button icon="forward" type="ghost">-->
               <!--导出-->

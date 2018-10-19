@@ -112,6 +112,7 @@
                             dataType: 'string',
                             example: '',
                             children: [],
+														required: false,
                             _expanded: false
                           });
                           this.rows[params.index]._expanded = true;
@@ -122,6 +123,7 @@
                             dataType: 'string',
                             example: '',
                             children: [],
+														required: false,
                             _expanded: false
                           });
                           this.rows[params.index]._expanded = true;
@@ -217,10 +219,10 @@
                 return h('div', [
                   h('Button', {
                     props: {
-                      type: 'ghost',
+//                      type: 'ghost',
                       shape: 'circle',
                       size: 'small',
-                      icon: 'plus'
+                      icon: 'md-add'
                     },
                     style: {
                       //                    marginRight: '5px'
@@ -233,6 +235,7 @@
                           dataType: 'string',
                           example: '',
                           children: [],
+													required: false,
                           _expanded: false
                         });
                       }
@@ -244,10 +247,10 @@
                 return h('div', [
                   h('Button', {
                     props: {
-                      type: 'ghost',
+//                      type: 'ghost',
                       shape: 'circle',
                       size: 'small',
-                      icon: 'minus-round'
+                      icon: 'md-remove'
                     },
                     style: {
                       marginRight: '5px'

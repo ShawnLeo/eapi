@@ -48,27 +48,27 @@
               title: '元素类型',
               key: 'dataType',
               render: (h, params) => {
-                let systemDataModel = JSON.parse(getStore('systemDataModel'));
-                let customDataModel = JSON.parse(getStore('customDataModel'));
-                let options = [];
-                systemDataModel.forEach(datamodel => {
-                  if (!(datamodel.dataType === 'array' && this.isArrayItem)) {
-                    options.push(h('Option', {
-                      props: {
-                        value: datamodel.dataType
-                      }
-                    }, datamodel.dataType));
-                  }
-                });
-                customDataModel.forEach(datamodel => {
-                  if (datamodel.name !== this.name) {
-                    options.push(h('Option', {
-                      props: {
-                        value: datamodel.id
-                      }
-                    }, datamodel.name));
-                  }
-                });
+								let systemDataModel = JSON.parse(getStore('systemDataModel'));
+								let customDataModel = JSON.parse(getStore('customDataModel'));
+								let options = [];
+								systemDataModel.forEach(datamodel => {
+									if (!(datamodel.dataType === 'array' && this.isArrayItem)) {
+										options.push(h('Option', {
+											props: {
+												value: datamodel.dataType
+											}
+										}, datamodel.dataType));
+									}
+								});
+								customDataModel.forEach(datamodel => {
+									if (datamodel.name !== this.name) {
+										options.push(h('Option', {
+											props: {
+												value: datamodel.name
+											}
+										}, datamodel.name));
+									}
+								});
                 return h('div', [
                   h('Select', {
                     attrs: {
@@ -81,29 +81,51 @@
                         this.rows[params.index]._expanded = false;
                         this.rows[params.index].children = [];
                         if (value === 'object') {
-                          this.rows[params.index].children.push({
-                            name: '',
-                            description: '',
-                            dataType: 'string',
-                            example: '',
-                            children: [],
-                            _expanded: false
-                          });
-                          setTimeout(() => {
-                            this.rows[params.index]._expanded = true;
-                          }, 100);
+//                          this.rows[params.index].children.push({
+//                            name: '',
+//                            description: '',
+//                            dataType: 'string',
+//                            example: '',
+//														required: false,
+//                            children: [],
+//                            _expanded: false
+//                          });
+//                          setTimeout(() => {
+//                            this.rows[params.index]._expanded = true;
+//                          }, 100);
+													this.rows[params.index].children.push({
+														name: '',
+														description: '',
+														dataType: 'string',
+														example: '',
+														children: [],
+														required: false,
+														_expanded: false
+													});
+													this.rows[params.index]._expanded = true;
                         } else if (value === 'array') {
-                          this.rows[params.index].children.push({
-                            name: '',
-                            description: '',
-                            dataType: 'string',
-                            example: '',
-                            children: [],
-                            _expanded: false
-                          });
-                          setTimeout(() => {
-                            this.rows[params.index]._expanded = true;
-                          }, 100);
+//                          this.rows[params.index].children.push({
+//                            name: '',
+//                            description: '',
+//                            dataType: 'string',
+//                            example: '',
+//														required: false,
+//                            children: [],
+//                            _expanded: false
+//                          });
+//                          setTimeout(() => {
+//                            this.rows[params.index]._expanded = true;
+//                          }, 100);
+													this.rows[params.index].children.push({
+														name: '',
+														description: '',
+														dataType: 'string',
+														example: '',
+														children: [],
+														required: false,
+														_expanded: false
+													});
+													this.rows[params.index]._expanded = true;
                         }
                         return value;
                       }

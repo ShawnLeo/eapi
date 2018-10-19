@@ -17,6 +17,7 @@ public class Properties {
   private static final Map<String, Function<String, ? extends Property>> typeFactory
       = ImmutableMap.<String, Function<String, ? extends Property>>builder()
       .put("int", newInstanceOf(IntegerProperty.class))
+      .put("integer", newInstanceOf(IntegerProperty.class))
       .put("long", newInstanceOf(LongProperty.class))
       .put("float", newInstanceOf(FloatProperty.class))
       .put("double", newInstanceOf(DoubleProperty.class))
@@ -97,10 +98,11 @@ public class Properties {
   public static Property mapProperty(DataModel source) {
 
     Property property = modelRefToProperty(source);
-        if (property instanceof ArrayProperty) {
-            ArrayProperty arrayProperty = (ArrayProperty) property;
+    if (property instanceof ArrayProperty && source.getChildren() != null && source.getChildren().size() > 0) {
+      ArrayProperty arrayProperty = (ArrayProperty) property;
+      arrayProperty.setItems(mapProperty(source.getChildren().get(0)));
 //            maybeAddAllowableValues(arrayProperty.getItems(), source.getA llowableValues());
-        }
+    }
 //        if (property instanceof AbstractNumericProperty) {
 //            AbstractNumericProperty numericProperty = (AbstractNumericProperty) property;
 //            AllowableValues allowableValues = source.getAllowableValues();

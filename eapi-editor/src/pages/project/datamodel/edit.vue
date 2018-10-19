@@ -19,7 +19,7 @@
         <array-table :rows="formItem.children" :name="formItem.name" :level="1" v-if="formItem.dataType === 'array'"></array-table>
         <enum-table :rows="formItem.children" :level="1" v-if="formItem.dataType === 'enum'"></enum-table>
         <string-table :rows="formItem.children" :level="1" v-if="formItem.dataType === 'string'"></string-table>
-        <number-table :rows="formItem.children" :level="1" v-if="formItem.dataType === 'number'"></number-table>
+        <number-table :rows="formItem.children" :level="1" v-if="formItem.dataType === 'integer'"></number-table>
         <boolean-table :rows="formItem.children" :level="1" v-if="formItem.dataType === 'boolean'"></boolean-table>
         <file-table :rows="formItem.children" :level="1" v-if="formItem.dataType === 'file'"></file-table>
         <!-- <div style="float:right;"><Button>取消</Button> <Button type="primary">保存</Button></div> -->
@@ -66,12 +66,14 @@ export default {
     };
     return {
       spinShow: false,
+      typeBak: '',
       systemDataModel: [],
       content: '',
       formItem: {
         name: '',
         dataType: 'object',
         description: '',
+				required: false,
         children: []
       },
       ruleValidate: {
@@ -98,17 +100,26 @@ export default {
       this.getDataModelList();
     },
     dataTypeChange(val) {
-      this.deleteDataModel(this.formItem.children, () => {
-        this.formItem.children = [];
-        this.formItem.children.push({
-          name: '',
-          description: '',
-          dataType: 'string',
-          example: '',
-          children: [],
-          _expanded: false
-        });
-      });
+			this.$Modal.confirm({
+				title: '确认切换？',
+				content: '<p>切换类型将导致现有数据丢失！</p><p>你确认要切换成“' + val + '”吗？</p>',
+				onOk: () => {
+					this.typeBak = this.formItem.dataType;
+					this.formItem.children = [];
+					this.formItem.children.push({
+						name: '',
+						description: '',
+						dataType: 'string',
+						example: '',
+						children: [],
+						required: false,
+						_expanded: false
+					});
+				},
+				onCancel: () => {
+					this.formItem.dataType = this.typeBak;
+				}
+			});
     },
     deleteDataModel(datas, callback) {
       let deleteDatas = [];
@@ -135,6 +146,7 @@ export default {
       }, (response) => {
         if (response.header.code === '0') {
           this.formItem = response.body;
+          this.typeBak = this.formItem.dataType;
           reverse(this.formItem.children); //
         } else {
           this.$Message.error(response.header.message);

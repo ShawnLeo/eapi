@@ -85,7 +85,7 @@ public class Swagger2Service {
 
     private Map<String,Path> mapApiListings(String projectId) {
         Map<String, Path> map = Maps.newTreeMap();
-        List<Interface> interfaces = interfaceRepository.findAllByProjectIdOrderByDisplayOrder(projectId);
+        List<Interface> interfaces = interfaceRepository.findAllByProjectIdOrderByPath(projectId);
         interfaces.forEach( _interface -> {
             map.put(_interface.getPath(), mapOperations(_interface, map));
 //            Tag newTag = new Tag().description(tag.getDescription()).name(tag.getName());
@@ -191,16 +191,22 @@ public class Swagger2Service {
     }
 
     Map<String, Model> modelMap (String projectId){
-        List<DataModel> dataModels =  dataModelRepository.findByTypeAndProjectIdOrderByDisplayOrder(CUSTOM_TYPE, projectId);
+        List<DataModel> dataModels =  dataModelRepository.findByTypeAndProjectIdOrderByName(CUSTOM_TYPE, projectId);
         Map<String, Model> map = Maps.newHashMap();
         dataModels.forEach(dataModel -> {
-            ModelImpl model = new ModelImpl().description(dataModel.getDescription())
-//                    .discriminator(dataModel.getDiscriminator())
-                    .example(dataModel.getExample())
-                    .name(dataModel.getName())
-                    .type(dataModel.getDataType());
-            Map<String, Property> modelProperties = mapProperties(dataModel.getChildren());
-            model.setProperties(modelProperties);
+            Model model;
+            if (dataModel.getDataType().equals("array")
+                    && dataModel.getChildren() != null && dataModel.getChildren().size() > 0) {
+                model = new ArrayModel().description(dataModel.getDescription())
+                        .items(Properties.mapProperty(dataModel.getChildren().get(0)));
+            } else {
+                model = new ModelImpl().description(dataModel.getDescription())
+                        .example(dataModel.getExample())
+                        .name(dataModel.getName())
+                        .type(dataModel.getDataType());
+                Map<String, Property> modelProperties = mapProperties(dataModel.getChildren());
+                model.setProperties(modelProperties);
+            }
             map.put(dataModel.getName(), model);
         });
 

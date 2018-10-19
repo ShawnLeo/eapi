@@ -24,7 +24,7 @@
           <array-table :rows="formItem.children" :name="formItem.name" :level="1" v-if="formItem.dataType === 'array'"></array-table>
           <enum-table :rows="formItem.children" :level="1" v-if="formItem.dataType === 'enum'"></enum-table>
           <string-table :rows="formItem.children" :level="1" v-if="formItem.dataType === 'string'"></string-table>
-          <number-table :rows="formItem.children" :level="1" v-if="formItem.dataType === 'number'"></number-table>
+          <number-table :rows="formItem.children" :level="1" v-if="formItem.dataType === 'integer'"></number-table>
           <boolean-table :rows="formItem.children" :level="1" v-if="formItem.dataType === 'boolean'"></boolean-table>
           <file-table :rows="formItem.children" :level="1" v-if="formItem.dataType === 'file'"></file-table>
         </FormItem>
@@ -71,6 +71,7 @@
 
       return {
         systemDataModel: [],
+				typeBak: 'object',
         formItem: {
           name: '',
           dataType: 'object',
@@ -81,6 +82,7 @@
             description: '',
             dataType: 'string',
             example: '',
+						required: false,
             children: [],
             _expanded: false
           }]
@@ -153,17 +155,28 @@
 //        this.content = JSON.stringify(content, null, 2);
       },
       dataTypeChange(val) {
-        this.deleteDataModel(this.formItem.children, () => {
-          this.formItem.children = [];
-          this.formItem.children.push({
-            name: '',
-            description: '',
-            dataType: 'string',
-            example: '',
-            children: [],
-            _expanded: false
-          });
-        });
+//        this.deleteDataModel(this.formItem.children, () => {
+				this.$Modal.confirm({
+					title: '确认切换？',
+					content: '<p>切换类型将导致现有数据丢失！</p><p>你确认要切换成“' + val + '”码？</p>',
+					onOk: () => {
+						this.typeBak = this.formItem.dataType;
+						this.formItem.children = [];
+						this.formItem.children.push({
+							name: '',
+							description: '',
+							dataType: 'string',
+							example: '',
+							required: false,
+							children: [],
+							_expanded: false
+						});
+					},
+					onCancel: () => {
+						this.formItem.dataType = this.typeBak;
+					}
+				});
+//        });
       },
       deleteDataModel(datas, callback) {
         let deleteDatas = [];
@@ -202,19 +215,21 @@
       },
       closeModal () {
         this.formItem = {
-          name: '',
+            name: '',
             dataType: 'object',
             projectId: this.state.projectId || getStore('projectId'),
             description: '',
             children: [{
-            name: '',
-            description: '',
-            dataType: 'string',
-            example: '',
-            children: [],
-            _expanded: false
+              name: '',
+              description: '',
+              dataType: 'string',
+              example: '',
+							required: false,
+              children: [],
+              _expanded: false
           }]
         };
+				this.typeBak = 'object';
         this.$emit('closeModal');
       }
     },

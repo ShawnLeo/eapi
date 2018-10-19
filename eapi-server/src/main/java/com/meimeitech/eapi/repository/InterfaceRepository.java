@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface InterfaceRepository extends JpaRepository<Interface, String>,JpaSpecificationExecutor<Interface> {
 
-    List<Interface> findAllByProjectIdOrderByDisplayOrder(String projectId);
+    List<Interface> findAllByProjectIdOrderByPath(String projectId);
 
 }

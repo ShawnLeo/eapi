@@ -59,6 +59,7 @@
                             description: '',
                             dataType: 'string',
                             example: '',
+														required: false,
                             children: [],
                             _expanded: false
                           });
@@ -139,10 +140,10 @@
                 return h('div', [
                   h('Button', {
                     props: {
-                      type: 'ghost',
+//                      type: 'ghost',
                       shape: 'circle',
                       size: 'small',
-                      icon: 'plus'
+                      icon: 'md-add'
                     },
                     style: {
                       //                    marginRight: '5px'
@@ -154,6 +155,7 @@
                           description: '',
                           dataType: 'string',
                           example: '',
+													required: false,
                           children: [],
                           _expanded: false
                         });
@@ -166,10 +168,10 @@
                 return h('div', [
                   h('Button', {
                     props: {
-                      type: 'ghost',
+//                      type: 'ghost',
                       shape: 'circle',
                       size: 'small',
-                      icon: 'minus-round'
+                      icon: 'md-remove'
                     },
                     style: {
                       marginRight: '5px'
