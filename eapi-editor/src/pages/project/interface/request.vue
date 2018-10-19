@@ -263,6 +263,26 @@
             }
           },
           {
+            title: '必需',
+            key: 'required',
+            render: (h, params) => {
+              return h('div', [
+                h('i-switch', {
+                  attrs: {
+                    id: 'edit-name-' + params.index,
+                    value: params.row.dataModel.required
+                  },
+                  on: {
+                    'on-change': (value) => {
+                      this.interfaceItem.querys[params.index].required = value;
+                      this.interfaceItem.querys[params.index].dataModel.required = value;
+                    }
+                  }
+                })
+              ]);
+            }
+          },
+          {
             title: '添加',
             key: 'action',
             width: 60,
@@ -596,13 +616,19 @@
           },
           {
             title: '必需',
-            key: 'address',
+            key: 'required',
             render: (h, params) => {
               return h('div', [
                 h('i-switch', {
                   attrs: {
-                    id: 'edit-name-' + params.index
-                    // value: params.row.dataModel.name
+                    id: 'edit-name-' + params.index,
+                    value: params.row.dataModel.required
+                  },
+                  on: {
+                    'on-change': (value) => {
+                      this.interfaceItem.querys[params.index].required = value;
+                      this.interfaceItem.querys[params.index].dataModel.required = value;
+                    }
                   }
                 })
               ]);
