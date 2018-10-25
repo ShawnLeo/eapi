@@ -72,33 +72,52 @@
         }, null, 2),
         requestType: this.interfaceItem.requestType || 'query',
         pathParamsColumns: [{
-            title: '名称',
-            render: (h, params) => {
-              return h('span', params.row.dataModel.name);
-            }
-          },
-          {
-            title: '描述',
-            render: (h, params) => {
-              return h('i-input', {
-                props: {
-                  placeholder: '请添加描述',
-                  value: params.row.dataModel.description
+          title: '名称',
+          render: (h, params) => {
+            return h('span', params.row.dataModel.name);
+          }
+        }, {
+          title: '类型',
+          key: 'dataType',
+          render: (h, params) => {
+            let options = [];
+            options.push(h('Option', { props: { value: 'string' } }, 'string'));
+            options.push(h('Option', { props: { value: 'boolean' } }, 'boolean'));
+            options.push(h('Option', { props: { value: 'integer' } }, 'integer'));
+            return h('div', [
+              h('Select', {
+                attrs: {
+                  value: params.row.dataModel.dataType
                 },
                 on: {
-                  'on-blur': (event) => {
-                    this.interfaceItem.pathParams[params.index].dataModel.description = event.target.value;
+                  'on-change': (value) => {
+                    this.interfaceItem.pathParams[params.index].dataModel.dataType = value;
+                    return value;
                   }
                 }
-              }, params.row.dataModel.description);
-            }
+              }, options)
+            ]);
           }
-        ],
+        }, {
+          title: '描述',
+          render: (h, params) => {
+            return h('i-input', {
+              props: {
+                placeholder: '请添加描述',
+                value: params.row.dataModel.description
+              },
+              on: {
+                'on-blur': (event) => {
+                  this.interfaceItem.pathParams[params.index].dataModel.description = event.target.value;
+                }
+              }
+            }, params.row.dataModel.description);
+          }
+        }],
         headersColumns: [{
           title: '名称',
-          // key: 'name',
+          key: 'name',
           render: (h, params) => {
-            let _this = this;
             return h('i-input', {
               props: {
                 placeholder: '请添加名称',
@@ -106,16 +125,37 @@
               },
               on: {
                 'on-blur': (event) => {
-                  _this.interfaceItem.headers[params.index].dataModel.name = event.target.value;
-                  // console.log(_this.interfaceItem.headers);
+                  this.interfaceItem.headers[params.index].dataModel.name = event.target.value;
+                  console.log(this.interfaceItem.headers);
                 }
               }
             });
           }
-        },
-          {
+        }, {
+          title: '类型',
+          key: 'dataType',
+          render: (h, params) => {
+            let options = [];
+            options.push(h('Option', { props: { value: 'string' } }, 'string'));
+            options.push(h('Option', { props: { value: 'boolean' } }, 'boolean'));
+            options.push(h('Option', { props: { value: 'integer' } }, 'integer'));
+            return h('div', [
+              h('Select', {
+                attrs: {
+                  value: params.row.dataModel.dataType
+                },
+                on: {
+                  'on-change': (value) => {
+                    this.interfaceItem.headers[params.index].dataModel.dataType = value;
+                    return value;
+                  }
+                }
+              }, options)
+            ]);
+          }
+        }, {
             title: '值',
-            // key: 'description',
+            key: 'value',
             render: (h, params) => {
               return h('i-input', {
                 props: {
@@ -132,7 +172,7 @@
           },
           {
             title: '描述',
-            // key: 'description',
+            key: 'description',
             render: (h, params) => {
               return h('i-input', {
                 props: {
@@ -215,20 +255,44 @@
           title: '名称',
           key: 'name',
           render: (h, params) => {
-            return h('i-input', {
-              props: {
-                placeholder: '请添加名称',
-                value: params.row.dataModel.name
-              },
-              on: {
-                'on-blur': (event) => {
-                  this.interfaceItem.querys[params.index].dataModel.name = event.target.value;
+            return h('div', [
+              h('i-input', {
+                attrs: {
+                  placeholder: '名称',
+                  value: params.row.dataModel.name
+                },
+                on: {
+                  'on-blur': (event) => {
+                    this.interfaceItem.querys[params.index].dataModel.name = event.target.value;
+                  }
                 }
-              }
-            });
+              })
+            ]);
           }
-        },
-          {
+        }, {
+          title: '类型',
+          key: 'dataType',
+          render: (h, params) => {
+            let options = [];
+            options.push(h('Option', { props: { value: 'string' } }, 'string'));
+            options.push(h('Option', { props: { value: 'boolean' } }, 'boolean'));
+            options.push(h('Option', { props: { value: 'integer' } }, 'integer'));
+            options.push(h('Option', { props: { value: 'file' } }, 'file'));
+            return h('div', [
+              h('Select', {
+                attrs: {
+                  value: params.row.dataModel.dataType
+                },
+                on: {
+                  'on-change': (value) => {
+                    this.interfaceItem.querys[params.index].dataModel.dataType = value;
+                    return value;
+                  }
+                }
+              }, options)
+            ]);
+          }
+        }, {
             title: '值',
             key: 'value',
             render: (h, params) => {
@@ -349,48 +413,46 @@
         ],
         formDatasColumns: [{
           title: '名称',
-          // key: 'name',
+          render: (h, params) => {
+            return h('div', [
+              h('i-input', {
+                attrs: {
+                  id: 'edit-form-data-name-' + params.index,
+                  placeholder: '名称',
+                  value: params.row.dataModel.name
+                },
+                on: {
+                  'on-blur': (event) => {
+                    this.interfaceItem.formDatas[params.index].dataModel.name = event.target.value;
+                  }
+                }
+              })
+            ]);
+          }
+        }, {
+          title: '类型',
           render: (h, params) => {
             let options = [];
             options.push(h('Option', { props: { value: 'string' } }, 'string'));
+            options.push(h('Option', { props: { value: 'boolean' } }, 'boolean'));
+            options.push(h('Option', { props: { value: 'integer' } }, 'integer'));
             options.push(h('Option', { props: { value: 'file' } }, 'file'));
-            return [ h('i-input', {
-              props: {
-                placeholder: '请添加名称',
-                value: params.row.dataModel.name
-              },
-              style: {
-                width: '60%'
-              },
-              on: {
-                'on-blur': (event) => {
-                  this.interfaceItem.formDatas[params.index].dataModel.name = event.target.value;
+            return h('div', [
+              h('Select', {
+                attrs: {
+                  id: 'edit-form-data-type-' + params.index,
+                  value: params.row.dataModel.dataType
+                },
+                on: {
+                  'on-change': (value) => {
+                    this.interfaceItem.formDatas[params.index].dataModel.dataType = value;
+                    return value;
+                  }
                 }
-              }
-            }), h('Select', {
-              attrs: {
-                id: 'edit-name-' + params.index,
-                value: params.row.dataModel.dataType
-              },
-              style: {
-                width: '40%'
-              },
-              on: {
-                'on-change': (value) => {
-//                  console.log(value);
-//                  this.interfaceItem.formDatas[params.index].dataType = value;
-//                  setTimeout(() => {
-//                    this.interfaceItem.formDatas[params.index].dataModel.dataType = value;
-//                  }, 100);
-//                  params.row.dataType = value;
-                  this.interfaceItem.formDatas[params.index].dataModel.dataType = value;
-                  return value;
-                }
-              }
-            }, options)];
+              }, options)
+            ]);
           }
-        },
-          {
+        }, {
             title: '值',
             key: 'value',
             render: (h, params) => {

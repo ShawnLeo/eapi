@@ -36,6 +36,7 @@
       "eslint:recommended"
     ],
     "rules": {
+      "no-console": "off",
       "arrow-parens": 0,
       "generator-star-spacing": 0,
       "semi": [
