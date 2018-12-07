@@ -127,13 +127,14 @@
                   },
                   on: {
                     click: () => {
-                      if (params.row.id) {
-                        this.deleteRequestInfo([params.row], () => {
-                          this.interfaceItem.responseHeader.splice(params.index, 1);
-                        });
-                      } else {
-                        this.interfaceItem.responseHeader.splice(params.index, 1);
-                      }
+											this.interfaceItem.responseHeader.splice(params.index, 1);
+//                      if (params.row.id) {
+//                        this.deleteRequestInfo([params.row], () => {
+//                          this.interfaceItem.responseHeader.splice(params.index, 1);
+//                        });
+//                      } else {
+//                        this.interfaceItem.responseHeader.splice(params.index, 1);
+//                      }
                     }
                   }
                 })
@@ -354,14 +355,16 @@
                         this.$Message.warning('请至少保留一条响应数据');
                         return;
                       }
-                      if (this.interfaceItem.responseBody[params.index].dataModel.id) {
-                        this.deleteRequestInfo([params.row], () => {
-                          this.interfaceItem.responseBody.splice(params.index, 1);
-                        });
-//                        this.deleteDataModel([params.row], params.index);
-                      } else {
-                        this.interfaceItem.responseBody.splice(params.index, 1);
-                      }
+
+											this.interfaceItem.responseBody.splice(params.index, 1);
+//                      if (this.interfaceItem.responseBody[params.index].dataModel.id) {
+//                        this.deleteRequestInfo([params.row], () => {
+//                          this.interfaceItem.responseBody.splice(params.index, 1);
+//                        });
+////                        this.deleteDataModel([params.row], params.index);
+//                      } else {
+//                        this.interfaceItem.responseBody.splice(params.index, 1);
+//                      }
                     }
                   }
                 })

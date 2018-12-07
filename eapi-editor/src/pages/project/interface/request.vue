@@ -237,13 +237,14 @@
                   },
                   on: {
                     click: () => {
-                      if (params.row.id) {
-                        this.deleteRequestInfo([params.row], () => {
-                          this.interfaceItem.headers.splice(params.index, 1);
-                        });
-                      } else {
-                        this.interfaceItem.headers.splice(params.index, 1);
-                      }
+											this.interfaceItem.headers.splice(params.index, 1);
+//                      if (params.row.id) {
+//                        this.deleteRequestInfo([params.row], () => {
+//                          this.interfaceItem.headers.splice(params.index, 1);
+//                        });
+//                      } else {
+//                        this.interfaceItem.headers.splice(params.index, 1);
+//                      }
                     }
                   }
                 })
@@ -397,13 +398,14 @@
                   },
                   on: {
                     click: () => {
-                      if (params.row.id) {
-                        this.deleteRequestInfo([params.row], () => {
-                          this.interfaceItem.querys.splice(params.index, 1);
-                        });
-                      } else {
-                        this.interfaceItem.querys.splice(params.index, 1);
-                      }
+											this.interfaceItem.querys.splice(params.index, 1);
+//                      if (params.row.id) {
+//                        this.deleteRequestInfo([params.row], () => {
+//                          this.interfaceItem.querys.splice(params.index, 1);
+//                        });
+//                      } else {
+//                        this.interfaceItem.querys.splice(params.index, 1);
+//                      }
                     }
                   }
                 })
@@ -537,13 +539,14 @@
                   },
                   on: {
                     click: () => {
-                      if (params.row.id) {
-                        this.deleteRequestInfo([params.row], () => {
-                          this.interfaceItem.formDatas.splice(params.index, 1);
-                        });
-                      } else {
-                        this.interfaceItem.formDatas.splice(params.index, 1);
-                      }
+											this.interfaceItem.formDatas.splice(params.index, 1);
+//                      if (params.row.id) {
+//                        this.deleteRequestInfo([params.row], () => {
+//                          this.interfaceItem.formDatas.splice(params.index, 1);
+//                        });
+//                      } else {
+//                        this.interfaceItem.formDatas.splice(params.index, 1);
+//                      }
                     }
                   }
                 })
@@ -767,14 +770,15 @@
                   },
                   on: {
                     click: () => {
-                      if (this.interfaceItem.body[params.index].dataModel.id) {
-                        this.deleteRequestInfo([params.row], () => {
-                          this.interfaceItem.body.splice(params.index, 1);
-                        });
-                        this.deleteDataModel([params.row], params.index);
-                      } else {
-                        this.interfaceItem.body.splice(params.index, 1);
-                      }
+											this.interfaceItem.body.splice(params.index, 1);
+//                      if (this.interfaceItem.body[params.index].dataModel.id) {
+//                        this.deleteRequestInfo([params.row], () => {
+//                          this.interfaceItem.body.splice(params.index, 1);
+//                        });
+//                        this.deleteDataModel([params.row], params.index);
+//                      } else {
+//                        this.interfaceItem.body.splice(params.index, 1);
+//                      }
                     }
                   }
                 })
@@ -848,9 +852,9 @@
             deleteParams.push(item);
           }
         });
-        if (deleteParams.length > 0) {
-          this.deleteRequestInfo(deleteParams);
-        }
+//        if (deleteParams.length > 0) {
+//          this.deleteRequestInfo(deleteParams);
+//        }
       }
     },
     mounted() {

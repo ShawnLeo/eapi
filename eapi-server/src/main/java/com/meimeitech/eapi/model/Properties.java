@@ -2,16 +2,20 @@ package com.meimeitech.eapi.model;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.meimeitech.eapi.entity.DataModel;
 import io.swagger.models.properties.*;
 import org.apache.commons.lang3.StringUtils;
 import springfox.documentation.schema.ModelReference;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.google.common.base.Functions.forMap;
 import static com.google.common.base.Strings.nullToEmpty;
+import static com.meimeitech.eapi.consts.DataModelType.UNIT_TYPE;
 
 public class Properties {
   private static final Map<String, Function<String, ? extends Property>> typeFactory
@@ -166,4 +170,86 @@ public class Properties {
     return responseProperty;
   }
 
+
+  public static void  mapProperties(Map<String, Property> properties, DataModel parent) {
+
+    if (properties == null) {
+      return;
+    }
+    List<DataModel> children = Lists.newArrayList();
+
+    for (Map.Entry<String, Property> _entry : properties.entrySet()) {
+      DataModel dataModel = new DataModel();
+      Property property = _entry.getValue();
+      dataModel.setName(_entry.getKey());
+      dataModel.setType(UNIT_TYPE);
+      dataModel.setParent(parent);
+      dataModel.setDescription(property.getDescription());
+      dataModel.setRequired(property.getRequired());
+
+      dataModel.setDataType(property.getType());
+
+      if (property.getExample() != null) {
+        dataModel.setExample(property.getExample().toString());
+      }
+
+      if( property instanceof RefProperty) {
+        RefProperty refProperty = (RefProperty) property;
+        dataModel.setDataType(refProperty.getSimpleRef());
+      }
+
+      if (property instanceof ObjectProperty) {
+        ObjectProperty objectProperty = (ObjectProperty) property;
+
+        Map<String, Property> mappedProperties =  objectProperty.getProperties();
+
+//                for (Map.Entry<String, Property> __entity : mappedProperties.entrySet()) {
+//                    Property property1 = __entity.getValue();
+//                }
+
+        mapProperties(mappedProperties, dataModel);
+
+//                for (Map.Entry<String, Property> __entity : mappedProperties.entrySet()) {
+//                    Property property1 = __entity.getValue();
+//                }
+
+//                Map<String, Property> mappedProperties = new LinkedHashMap<>();
+//
+//                source.getChildren().forEach(propertie -> { // 迭代
+//                    mappedProperties.put(propertie.getName(), mapProperty(propertie));
+//                });
+//
+//                objectProperty.setProperties(mappedProperties);
+      }
+
+      if (property instanceof ArrayProperty) {
+        ArrayProperty arrayProperty = (ArrayProperty) property;
+        mapPropertie(arrayProperty, dataModel);
+//                arrayProperty.getItems()
+//                arrayProperty.setItems(mapProperty(source.getChildren().get(0)));
+//            maybeAddAllowableValues(arrayProperty.getItems(), source.getA llowableValues());
+      }
+
+      if (dataModel.getParent() != null && dataModel.getParent().getType().equals("array")){
+        dataModel.setName(null);
+      }
+
+      children.add(dataModel);
+
+    }
+    parent.setChildren(children);
+  }
+
+  public static  void  mapPropertie(Property property, DataModel parent) {
+    if (property instanceof ArrayProperty) {
+      ArrayProperty arrayProperty = (ArrayProperty) property;
+      Map<String, Property> arrayPropertys = Maps.newHashMap();
+      arrayPropertys.put(arrayProperty.getItems().getName(), arrayProperty.getItems());
+      mapProperties(arrayPropertys, parent);
+    } else {
+      Map<String, Property> arrayPropertys = Maps.newHashMap();
+      arrayPropertys.put(property.getName(), property);
+      mapProperties(arrayPropertys, parent);
+    }
+  }
 }

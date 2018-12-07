@@ -1,5 +1,8 @@
 server:
   port: 7050
+logging:
+  level:
+    com.meimeitech.eapi: debug
 spring:
   jpa:
     hibernate:

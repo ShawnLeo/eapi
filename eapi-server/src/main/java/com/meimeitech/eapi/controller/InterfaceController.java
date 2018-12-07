@@ -6,6 +6,7 @@ import com.meimeitech.eapi.entity.RequestInfo;
 import com.meimeitech.eapi.entity.ResponseInfo;
 import com.meimeitech.eapi.entity.Tag;
 import com.meimeitech.eapi.model.InterfaceVo;
+import com.meimeitech.eapi.service.InfoService;
 import com.meimeitech.eapi.service.InterfaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,9 @@ public class InterfaceController {
 
     @Autowired
     private InterfaceService interfaceService;
+
+    @Autowired
+    private InfoService infoService;
 
     /**
      * 更新接口
@@ -93,7 +97,7 @@ public class InterfaceController {
      */
     @RequestMapping(value = "/request/batch", method = RequestMethod.DELETE)
     public Response delRequest(@RequestBody List<RequestInfo> requestInfos) {
-        return interfaceService.deleteRequestInfosInBatch(requestInfos);
+        return infoService.deleteRequestInfosInBatch(requestInfos);
     }
 
     /**
@@ -104,6 +108,6 @@ public class InterfaceController {
      */
     @RequestMapping(value = "/response/batch", method = RequestMethod.DELETE)
     public Response delResponse(@RequestBody List<ResponseInfo> responseInfos) {
-        return interfaceService.deleteResponsetInfosInBatch(responseInfos);
+        return infoService.deleteResponsetInfosInBatch(responseInfos);
     }
 }

@@ -20,7 +20,7 @@ public abstract class  AbstractInfo implements Serializable {
     @Column(name = "ID",length = 40,unique = true,nullable = false)
     protected String id;
 
-    @ManyToOne(cascade = CascadeType.REFRESH)
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "DATAMODEL_ID", nullable = false)
     private DataModel dataModel;
 

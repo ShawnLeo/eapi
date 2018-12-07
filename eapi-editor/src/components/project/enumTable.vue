@@ -178,11 +178,12 @@
                     },
                     on: {
                       click: () => {
-                        if (params.row.id) {
-                          this.deleteDataModel([params.row], params.index);
-                        } else {
-                          this.rows.splice(params.index, 1);
-                        }
+												this.rows.splice(params.index, 1);
+//                        if (params.row.id) {
+//                          this.deleteDataModel([params.row], params.index);
+//                        } else {
+//                          this.rows.splice(params.index, 1);
+//                        }
                       }
                     }
                   })

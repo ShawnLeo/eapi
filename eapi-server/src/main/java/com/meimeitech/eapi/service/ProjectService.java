@@ -72,7 +72,7 @@ public class ProjectService {
     }
 
     public Response findById(String id) {
-        return Response.success(projectRepository.findById(id));
+        return Response.success(projectRepository.findById(id).get());
     }
 
     @Transactional
@@ -84,7 +84,7 @@ public class ProjectService {
         // 删掉所有的标签
         tagService.deleteByProjectId(projectId);
         // 删除掉该项目
-        projectRepository.deleteById(projectId);
+//        projectRepository.deleteById(projectId);
         return Response.success("success");
     }
 
@@ -111,4 +111,14 @@ public class ProjectService {
         return Response.error("发布失败。");
 
     }
+
+    public void deleteContent(String projectId) {
+        // 删掉项目下所有接口
+        interfaceService.deleteByProjectId(projectId);
+        // 删掉项目下所有数据模型
+        dataModelService.deleteByProjectId(projectId);
+        // 删掉所有的标签
+        tagService.deleteByProjectId(projectId);
+    }
+
 }

@@ -118,7 +118,7 @@ public class DataModelService {
             if(dataModel.getChildren() != null && dataModel.getChildren().size() > 0){
                 deepDelete(dataModel.getChildren());
             }
-            dataModelRepository.delete(dataModel);
+            dataModelRepository.deleteById(dataModel.getId());
         });
     }
 
@@ -126,7 +126,7 @@ public class DataModelService {
         return Response.success(dataModelRepository.findById(id));
     }
 
-    public void deleteByProjectId(String projectId) {
+    public void  deleteByProjectId(String projectId) {
         deleteInBatch(dataModelRepository.findByTypeAndProjectIdOrderByName(CUSTOM_TYPE, projectId));
     }
 }

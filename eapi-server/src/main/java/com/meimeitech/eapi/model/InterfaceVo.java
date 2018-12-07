@@ -1,5 +1,8 @@
 package com.meimeitech.eapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.collect.Lists;
+import com.meimeitech.eapi.dialect.AbstractInfo;
 import com.meimeitech.eapi.entity.RequestInfo;
 import com.meimeitech.eapi.entity.ResponseInfo;
 
@@ -290,6 +293,25 @@ public class InterfaceVo  implements Serializable{
 
     public void setResponseBody(List<ResponseInfo> responseBody) {
         this.responseBody = responseBody;
+    }
+
+    @JsonIgnore
+    public List<AbstractInfo> getRequestInfos() {
+        List<AbstractInfo> requestInfos = Lists.newArrayList();
+        requestInfos.addAll(this.getBody());
+        requestInfos.addAll(this.getFormDatas());
+        requestInfos.addAll(this.getPathParams());
+        requestInfos.addAll(this.getHeaders());
+        requestInfos.addAll(this.getQuerys());
+        return requestInfos;
+    }
+
+    @JsonIgnore
+    public List<AbstractInfo> getResponseInfos() {
+        List<AbstractInfo> responseInfo = Lists.newArrayList();
+        responseInfo.addAll(this.getResponseBody());
+        responseInfo.addAll(this.getResponseHeader());
+        return responseInfo;
     }
 
     @Override
