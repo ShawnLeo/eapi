@@ -2,24 +2,14 @@ package com.meimeitech.eapi.service;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.meimeitech.eapi.consts.ResponseInConsts;
 import com.meimeitech.eapi.entity.*;
-import com.meimeitech.eapi.model.Parameters;
-import com.meimeitech.eapi.model.Properties;
-import com.meimeitech.eapi.repository.*;
 import com.meimeitech.eapi.util.Swagger2Eapi;
 import com.meimeitech.eapi.util.Eapi2Swagger;
 import io.swagger.models.*;
 import io.swagger.models.Tag;
 import io.swagger.models.auth.SecuritySchemeDefinition;
-import io.swagger.models.parameters.Parameter;
-import io.swagger.models.properties.ArrayProperty;
-import io.swagger.models.properties.ObjectProperty;
-import io.swagger.models.properties.Property;
-import io.swagger.models.properties.RefProperty;
 import io.swagger.parser.SwaggerParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -90,17 +80,27 @@ public class Swagger2Service {
 
     }
 
-    /**
-     *
-     * 导如项目swagger.json文件
-     *
-     * @param swaggerJson 文件内容
-     * @return
-     */
     @Transactional
-    public String importSwagger(String swaggerJson, String projectId){
+    public void importSwaggerFromUrl(String swaggerUrl, String projectId){
+
+        Swagger output = new SwaggerParser().read(swaggerUrl);
+        this.importSwagger(output, projectId);
+    }
+
+    @Transactional
+    public void importSwaggerFromFile(String swaggerJson, String projectId){
         Swagger output  = new SwaggerParser().parse(swaggerJson);
-//        Swagger output = new SwaggerParser().read("http://10.133.255.201:7050/v2/api-docs/8a808383670c3b64016776edc8540000");
+        this.importSwagger(output, projectId);
+    }
+
+    /**
+     *  导如项目swagger.json文件
+     *
+     * @param output
+     * @param projectId
+     */
+
+    public void importSwagger(Swagger output, String projectId){
 
         // 删掉原来项目
         projectService.deleteContent(projectId);
@@ -114,7 +114,6 @@ public class Swagger2Service {
         // 添加接口
         swagger2Eapi.mapInterfaceListings(output.getPaths(), projectId, null);
 
-        return projectId;
     }
 
 

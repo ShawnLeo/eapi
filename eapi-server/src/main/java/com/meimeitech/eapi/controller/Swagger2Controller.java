@@ -27,8 +27,9 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 public class Swagger2Controller {
 
     public static final String DEFAULT_URL = "/v2/api-docs/{projectId}";
-    public static final String EXPORT_URL = "/v2/api-export/{projectId}";
-    public static final String IMPORT_URL = "/v2/api-import/{projectId}";
+    public static final String EXPORT_URL = "/swagger/export/{projectId}";
+    public static final String IMPORT_URL = "/swagger/import/url/{projectId}";
+    public static final String IMPORT_FILE_URL = "/swagger/import/file/{projectId}";
     private static final String HAL_MEDIA_TYPE = "application/hal+json";
 
     @Autowired
@@ -79,19 +80,32 @@ public class Swagger2Controller {
 
 
     /**
-     * 导入swagger.json文档
+     * 文件导入swagger.json文档
      *
      * @param projectId
      * @param file
-     * @param response
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
+    @RequestMapping(value = IMPORT_FILE_URL,method = RequestMethod.POST)
+    public Response importSwagger(@PathVariable("projectId") String projectId, @RequestParam("file") MultipartFile file) throws IOException {
+        swagger2Service.importSwaggerFromFile(new String(file.getBytes()), projectId);
+        return Response.success("success");
+    }
+
+    /**
+     * url导入swagger.json文档
+     *
+     * @param projectId
+     * @param swaggerUrl
      * @return
      * @throws IOException
      */
     @ResponseBody
     @RequestMapping(value = IMPORT_URL,method = RequestMethod.POST)
-    public Response importSwagger(@PathVariable("projectId") String projectId, @RequestParam("file") MultipartFile file , HttpServletResponse response)
-            throws IOException {
-        swagger2Service.importSwagger(new String(file.getBytes()), projectId);
+    public Response importSwagger(@PathVariable("projectId") String projectId, @RequestParam("swaggerUrl") String swaggerUrl) {
+        swagger2Service.importSwaggerFromUrl(swaggerUrl, projectId);
         return Response.success("success");
     }
 
