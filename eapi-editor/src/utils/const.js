@@ -22,8 +22,13 @@ export const checkProjectExists = (data, callback) => fetch(PROJECT + '/check', 
 export const updateProject = (data, callback) => fetch(PROJECT + '/update', {callback, reqBody: data}, 'POST');
 // 删除项目
 export const deleteProjectById = (data, callback) => fetch(PROJECT + '/' + data.id, {callback}, 'DELETE');
-// 删除项目
+// 发布项目
 export const publishProject = (data, callback) => fetch(PROJECT + '/publish', {callback, reqBody: data}, 'POST');
+// url导入Swagger项目
+export const importFromSwaggerUrl = (data, callback) => fetch('/swagger/import/url/' + data.projectId, {callback, reqParams: {
+	swaggerUrl: data.swaggerUrl
+}}, 'POST');
+
 /** ******* 项目-start ******** **/
 
 /** ******* 接口-start ******** **/

@@ -6,9 +6,9 @@
           <Spin size="large" fix v-if="loading"></Spin>
           <div style="display: flex">
             <Card style="width:240px;margin: 15px;" v-for="(project, index) in projects" :key="index">
-              <a href="#" slot="extra">
-                <Icon type="ios-trash-outline" @click.native="handleRemove(project.id)"></Icon>
-              </a>
+              <!--<a href="#" slot="extra">-->
+                <!--<Icon type="ios-trash-outline" @click.native="handleRemove(project.id)"></Icon>-->
+              <!--</a>-->
               <div style="text-align:center" @click="goInterface(project.id)">
                 <img width="80" height="80" style="border-radius:  50%;" src="../../assets/logo.png">
                 <h3>{{project.title}}</h3>
@@ -122,27 +122,27 @@
       },
       newProject() {
         this.addProjectModal = true;
-      },
-      handleRemove(id) {
-        this.$Modal.confirm({
-          title: '删除项目',
-          content: '<p>将删除项目下所有内容且不可恢复！</p><p>你确认要删除码？</p>',
-          onOk: () => {
-            deleteProjectById({id: id}, (response) => {
-              if (response.header.code === '0') {
-                this.$Message.success('删除成功！');
-                this.showEditMenus = false;
-                this.init();
-              } else {
-                this.$Message.error(response.header.message);
-              }
-            });
-          },
-          onCancel: () => {
-            this.$Message.info('取消删除！');
-          }
-        });
       }
+//      handleRemove(id) {
+//        this.$Modal.confirm({
+//          title: '删除项目',
+//          content: '<p>将删除项目下所有内容且不可恢复！</p><p>你确认要删除码？</p>',
+//          onOk: () => {
+//            deleteProjectById({id: id}, (response) => {
+//              if (response.header.code === '0') {
+//                this.$Message.success('删除成功！');
+//                this.showEditMenus = false;
+//                this.init();
+//              } else {
+//                this.$Message.error(response.header.message);
+//              }
+//            });
+//          },
+//          onCancel: () => {
+//            this.$Message.info('取消删除！');
+//          }
+//        });
+//      }
     },
     mounted() {
       this.init();

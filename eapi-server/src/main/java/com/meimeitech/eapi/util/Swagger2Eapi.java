@@ -109,6 +109,7 @@ public class Swagger2Eapi {
 
             if (model instanceof ArrayModel) {
                 ArrayModel  arrayModel = (ArrayModel) model;
+                dataModel.setDataType(arrayModel.getType());
                 Properties.mapPropertie(arrayModel.getItems(), dataModel);
             }
 //            dataModel.setType(data);

@@ -8,6 +8,7 @@ import com.meimeitech.eapi.entity.RequestInfo;
 import io.swagger.models.ArrayModel;
 import io.swagger.models.Model;
 import io.swagger.models.ModelImpl;
+import io.swagger.models.RefModel;
 import io.swagger.models.parameters.*;
 import io.swagger.models.properties.ObjectProperty;
 import io.swagger.models.properties.Property;
@@ -87,6 +88,11 @@ public class Parameters {
 
                 Property propertie = arrayModel.getItems();
                 Properties.mapPropertie(propertie, dataModel);
+            }
+
+            if(model instanceof RefModel) {
+                RefModel refModel = (RefModel) model;
+                dataModel.setDataType(refModel.getSimpleRef());
             }
 
             Map<String, Property> properties = model.getProperties();
