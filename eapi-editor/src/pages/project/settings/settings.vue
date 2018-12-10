@@ -113,8 +113,8 @@
 				</TabPane>
 				<TabPane label="URL导入" name="name2">
 					<Form :label-width="80" style="margin-top: 20px">
-						<FormItem label="url地址">
-							<Input v-model="swaggerUrl" placeholder="能直接访问的Swagger Json的url地址"/>
+						<FormItem label="URL地址">
+							<Input v-model="swaggerUrl" placeholder="能直接访问的Swagger Json的URL地址"/>
 						</FormItem>
 					</Form>
 				</TabPane>

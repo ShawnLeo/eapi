@@ -129,13 +129,16 @@
   };
 </script>
 
-<style scoped lang="less">
+<style lang="less">
   .project-box{
     display: flex;
     display: -webkit-flex;
     flex-wrap:wrap;
   }
-
+  .ivu-tabs-nav {
+    height: 60px;
+    line-height: 40px;
+  }
   .project-avatar {
     width: 80px;
     height: 80px;
