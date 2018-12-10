@@ -4,20 +4,19 @@
       <Tabs value="name1">
         <TabPane label="项目管理" name="name1">
           <Spin size="large" fix v-if="loading"></Spin>
-          <div style="display: flex">
+          <div class="project-box">
             <Card style="width:240px;margin: 15px;" v-for="(project, index) in projects" :key="index">
-              <!--<a href="#" slot="extra">-->
-                <!--<Icon type="ios-trash-outline" @click.native="handleRemove(project.id)"></Icon>-->
-              <!--</a>-->
               <div style="text-align:center" @click="goInterface(project.id)">
-                <img width="80" height="80" style="border-radius:  50%;" src="../../assets/logo.png">
+                <Avatar class="project-avatar" size="large" >{{project.title.substring(0, 1)}}</Avatar>
+                <!--<img width="80" height="80" style="border-radius:  50%;" src="../../assets/logo.png">-->
+                <br>
+                <br>
                 <h3>{{project.title}}</h3>
               </div>
             </Card>
             <Card style="width:240px;margin: 15px;text-align: center">
               <div style="text-align:center" @click="newProject">
-                <!--<Icon type="ios-plus-empty" size="100"></Icon>-->
-                <Icon type="md-add" size="100" />
+                <Icon type="md-add" size="100"></Icon>
               </div>
             </Card>
           </div>
@@ -52,7 +51,7 @@
         checkProjectExists(this.formItem, (response) => {
           if (response.header.code === '0') {
             if (response.body) {
-              callback(new Error('标签已存在'));
+              callback(new Error('项目已存在！'));
             } else {
               callback();
             }
@@ -123,26 +122,6 @@
       newProject() {
         this.addProjectModal = true;
       }
-//      handleRemove(id) {
-//        this.$Modal.confirm({
-//          title: '删除项目',
-//          content: '<p>将删除项目下所有内容且不可恢复！</p><p>你确认要删除码？</p>',
-//          onOk: () => {
-//            deleteProjectById({id: id}, (response) => {
-//              if (response.header.code === '0') {
-//                this.$Message.success('删除成功！');
-//                this.showEditMenus = false;
-//                this.init();
-//              } else {
-//                this.$Message.error(response.header.message);
-//              }
-//            });
-//          },
-//          onCancel: () => {
-//            this.$Message.info('取消删除！');
-//          }
-//        });
-//      }
     },
     mounted() {
       this.init();
@@ -150,5 +129,18 @@
   };
 </script>
 
-<style>
+<style scoped lang="less">
+  .project-box{
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap:wrap;
+  }
+
+  .project-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    font-size: 28px;
+    padding: 20px;
+  }
 </style>

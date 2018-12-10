@@ -4,7 +4,7 @@
 			<Spin size="large" fix v-if="spinShow"></Spin>
 			<i-col span="24">
 				<div class="wrapper-content">
-					<h2>项目信息</h2>
+					<h2 class="title-border">项目信息</h2>
 				</div>
 				<div class="wrapper-content box">
 					<FormItem label="项目名称" prop="title">
@@ -50,7 +50,7 @@
 
 			<i-col span="24">
 				<div class="wrapper-content">
-					<h2>导入/导出</h2>
+					<h2 class="title-border">导入/导出</h2>
 				</div>
 
 				<div class="wrapper-content box clearfix">
@@ -75,7 +75,7 @@
 
 			<i-col span="24">
 				<div class="wrapper-content">
-					<h2>删除此项目</h2>
+					<h2 class="title-border">删除此项目</h2>
 				</div>
 
 				<div class="wrapper-content box">
@@ -275,7 +275,7 @@
 
 <style>
 	.wrapper-content {
-		padding: 20px 25px;
+		padding: 20px 0px;
 		position: relative;
 	}
 	.ivu-upload-list{
@@ -288,5 +288,9 @@
 		border: 1px solid #d1d5da;
 		border-radius: 3px;
 		padding: 40px 60px 30px 20px;
+	}
+	.title-border {
+		border-left: 4px solid #2d8cf0;
+		padding-left: 20px;
 	}
 </style>
