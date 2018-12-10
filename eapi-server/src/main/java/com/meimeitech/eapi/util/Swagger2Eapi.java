@@ -30,6 +30,9 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static com.meimeitech.eapi.consts.DataModelType.CUSTOM_TYPE;
 import static com.meimeitech.eapi.consts.DataModelType.UNIT_TYPE;
+import static com.meimeitech.eapi.util.JpaSpecUtils.eq;
+import static com.meimeitech.eapi.util.JpaSpecUtils.in;
+import static com.meimeitech.eapi.util.JpaSpecUtils.merge;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
 @Component
@@ -153,13 +156,9 @@ public class Swagger2Eapi {
 //                _interface.setRequestType();
                 _interface.setStatus((short)100);
 
-                List<com.meimeitech.eapi.entity.Tag> tags = tagRepository.findAll((Specification<com.meimeitech.eapi.entity.Tag>) (root, query, cb) -> {
-                    javax.persistence.criteria.Path<Long> tagPath = null;
-                    if (!isEmpty(operation.getTags())) {
-                        tagPath = root.get("name");
-                    }
-                    return cb.isTrue(tagPath.in(operation.getTags()));
-                });
+                List<com.meimeitech.eapi.entity.Tag> tags = tagRepository.findAll((Specification<com.meimeitech.eapi.entity.Tag>) (root, query, cb) -> cb.and(merge(
+                        eq(cb, root.get("projectId"), projectId),
+                        in(cb, root.get("name"), operation.getTags()))));
                 _interface.setTags(new HashSet<>(tags));
 //                interfaces.add(_interface);
                 interfaceRepository.save(_interface);
