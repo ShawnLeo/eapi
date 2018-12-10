@@ -1,7 +1,6 @@
 package com.meimeitech.eapi.controller;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.meimeitech.common.BizException;
 import com.meimeitech.common.vo.Response;
 import com.meimeitech.eapi.service.Swagger2Service;
 import io.swagger.models.Swagger;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
@@ -89,7 +87,7 @@ public class Swagger2Controller {
      */
     @ResponseBody
     @RequestMapping(value = IMPORT_FILE_URL,method = RequestMethod.POST)
-    public Response importSwagger(@PathVariable("projectId") String projectId, @RequestParam("file") MultipartFile file) throws IOException {
+    public Response importSwagger(@PathVariable("projectId") String projectId, @RequestParam("file") MultipartFile file) throws IOException, BizException {
         swagger2Service.importSwaggerFromFile(new String(file.getBytes()), projectId);
         return Response.success("success");
     }
@@ -104,7 +102,7 @@ public class Swagger2Controller {
      */
     @ResponseBody
     @RequestMapping(value = IMPORT_URL,method = RequestMethod.POST)
-    public Response importSwagger(@PathVariable("projectId") String projectId, @RequestParam("swaggerUrl") String swaggerUrl) {
+    public Response importSwagger(@PathVariable("projectId") String projectId, @RequestParam("swaggerUrl") String swaggerUrl) throws BizException {
         swagger2Service.importSwaggerFromUrl(swaggerUrl, projectId);
         return Response.success("success");
     }

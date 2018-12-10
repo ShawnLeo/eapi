@@ -2,6 +2,7 @@ package com.meimeitech.eapi.service;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.meimeitech.common.BizException;
 import com.meimeitech.eapi.entity.*;
 import com.meimeitech.eapi.util.Swagger2Eapi;
 import com.meimeitech.eapi.util.Eapi2Swagger;
@@ -81,15 +82,25 @@ public class Swagger2Service {
     }
 
     @Transactional
-    public void importSwaggerFromUrl(String swaggerUrl, String projectId){
+    public void importSwaggerFromUrl(String swaggerUrl, String projectId) throws BizException {
 
         Swagger output = new SwaggerParser().read(swaggerUrl);
+
+        if (output == null) {
+            throw new BizException("Unavailable URL");
+        }
+
         this.importSwagger(output, projectId);
     }
 
     @Transactional
-    public void importSwaggerFromFile(String swaggerJson, String projectId){
+    public void importSwaggerFromFile(String swaggerJson, String projectId) throws BizException {
         Swagger output  = new SwaggerParser().parse(swaggerJson);
+
+        if (output == null) {
+            throw new BizException("Unavailable Swagger Json File");
+        }
+
         this.importSwagger(output, projectId);
     }
 
