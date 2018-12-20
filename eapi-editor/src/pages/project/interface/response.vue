@@ -12,7 +12,7 @@
 
 <script type="text/ecmascript-6">
   import hashTable from '../../../components/project/hashTable.vue';
-  import { deleteResponseInBatch } from '../../../utils/const';
+  import { deleteResponseInBatch } from '../../../utils/interface';
   import {getStore} from '../../../utils/storage';
   export default {
     name: 'response',

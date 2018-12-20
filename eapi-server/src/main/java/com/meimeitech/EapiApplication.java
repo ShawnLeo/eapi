@@ -1,12 +1,12 @@
-package com.meimeitech.eapi;
+package com.meimeitech;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SwaggerApplication {
+public class EapiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SwaggerApplication.class, args);
+		SpringApplication.run(EapiApplication.class, args);
 	}
 }

@@ -66,7 +66,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { createInterface, getInterfaceList, getTagList, deleteInterfaceInBatch, checkInterfaceExists } from '../../../utils/const';
+import { createInterface, getInterfaceList, getTagList, deleteInterfaceInBatch, checkInterfaceExists } from '../../../utils/interface';
 import {getStore} from '../../../utils/storage';
 export default {
   data () {

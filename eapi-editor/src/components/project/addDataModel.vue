@@ -50,7 +50,7 @@
   import fileTable from './fileTable.vue';
   import {
     getDataModelList, createDataModel, deleteDataModelInBatch, checkExists
-  } from '../../utils/const';
+  } from '../../utils/interface';
   import {getStore} from '../../utils/storage';
   export default {
     name: 'add-data-model',

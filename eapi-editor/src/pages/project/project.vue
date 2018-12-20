@@ -49,7 +49,7 @@
 
 <script type="text/ecmascript-6">
   import {getStore} from '../../utils/storage';
-  import { publishProject } from '../../utils/const';
+  import { publishProject } from '../../utils/interface';
 export default {
   data () {
     return {

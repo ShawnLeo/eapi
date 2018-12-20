@@ -10,7 +10,7 @@
     </div>
 </template>
 <script>
-  import { deleteDataModelInBatch } from '../../utils/const';
+  import { deleteDataModelInBatch } from '../../utils/interface';
   export default {
       props: {
           rows: Array,

@@ -1,4 +1,6 @@
 import {setStore} from '../utils/storage';
+import {USER_INFO} from '../utils/const';
+
 const app = {
   state: {
     lang: '',
@@ -11,6 +13,7 @@ const app = {
     },
     USER_INIT (state, user) {
       state.user = user;
+			setStore(USER_INFO, user);
     },
     PROJECT_ID (state, projectId) {
       state.projectId = projectId;

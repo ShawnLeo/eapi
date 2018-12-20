@@ -1,6 +1,6 @@
 <template>
 	<Row class="settings">
-		<Form ref="projectItem" :model="project" :label-width=120 style="margin-top: 15px;" :rules="ruleValidate">
+		<Form ref="projectItem" :model="project" :label-width=90 style="margin-top: 15px;" :rules="ruleValidate">
 			<Spin size="large" fix v-if="spinShow"></Spin>
 			<i-col span="24">
 				<div class="wrapper-content">
@@ -124,7 +124,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-	import {getProjectById, updateProject, checkProjectExists, deleteProjectById, importFromSwaggerUrl} from '../../../utils/const';
+	import {getProjectById, updateProject, checkProjectExists, deleteProjectById, importFromSwaggerUrl} from '../../../utils/interface';
 	import {getStore} from '../../../utils/storage';
 	import {baseUrl} from '../../../utils/env';
 

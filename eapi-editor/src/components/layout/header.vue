@@ -23,24 +23,25 @@
           </dl>
         </div>
 
-        <!--<div class="head-user fr">-->
-          <!--<li class="head-user" v-if="state.user.phone">-->
-            <!--<span class="title" growing-ignore="true">{{state.user.phone}} <Icon type="arrow-down-b"></Icon></span>-->
-            <!--<ul class="head-user-list">-->
-              <!--<li><a href="javascript:void(0);" @click="logout" class="btn_logout"><Icon type="log-out"></Icon>退出登录</a></li>-->
-            <!--</ul>-->
-          <!--</li>-->
-          <!--<li class="head-user" v-else>-->
-            <!--<span class="title" growing-ignore="true" @click="goLogin">登录</span>-->
-          <!--</li>-->
-        <!--</div>-->
+        <div class="head-user fr">
+          <li class="head-user" v-if="state.user.authId">
+            <span class="title" growing-ignore="true">{{state.user.authId}} <Icon type="arrow-down-b"></Icon></span>
+            <ul class="head-user-list">
+              <li><a href="javascript:void(0);" @click="logout" class="btn_logout"><Icon type="log-out"></Icon>退出登录</a></li>
+            </ul>
+          </li>
+          <li class="head-user" v-else>
+            <span class="title" growing-ignore="true" @click="goLogin">登录</span>
+          </li>
+        </div>
       </div>
     </Header>
   </div>
 </template>
 
 <script>
-//  import {logout} from '../../utils/const';
+  import {ACCESS_TOKEN} from '../../utils/const';
+  import {removeStore} from '../../utils/storage';
   export default {
     name: 't-header',
     data() {
@@ -64,8 +65,9 @@
       logout: async function () {
 //        await logout((response) => {
 //          if (response.header.code === '0') {
-//            this.$store.dispatch('userInit', '');
-//            this.$router.push('/');
+            this.$store.dispatch('userInit', '');
+            removeStore(ACCESS_TOKEN)
+            this.$router.push('/');
 //          }
 //        });
       }
@@ -88,6 +90,12 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
   .header{
+    .ivu-layout-header {
+      background: #292E4E;
+      .ivu-menu-dark{
+        background: #292E4E;
+      }
+    }
     .select_lang {
       font-size: 14px;
       position: relative;

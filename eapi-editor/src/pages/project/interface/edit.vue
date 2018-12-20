@@ -61,7 +61,7 @@
   import request from './request.vue';
   import response from './response.vue';
   import {reverse} from '../../../utils/utils';
-  import {getTagList, getInterfaceById, updateInterface, checkInterfaceExists} from '../../../utils/const';
+  import {getTagList, getInterfaceById, updateInterface, checkInterfaceExists} from '../../../utils/interface';
   import {getStore} from '../../../utils/storage';
 
   export default {

@@ -10,7 +10,7 @@
     </div>
 </template>
 <script>
-  import { deleteDataModelInBatch } from '../../utils/const';
+  import { deleteDataModelInBatch } from '../../utils/interface';
   import expandRow from './hashTable.vue';
   import {getStore} from '../../utils/storage';
   export default {

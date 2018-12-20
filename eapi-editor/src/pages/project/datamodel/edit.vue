@@ -44,7 +44,7 @@ import booleanTable from '../../../components/project/booleanTable.vue';
 import fileTable from '../../../components/project/fileTable.vue';
 import {
   getDataModelList, updateDataModel, getDataModelById, deleteDataModelInBatch, checkExists
-} from '../../../utils/const';
+} from '../../../utils/interface';
 import { reverse } from '../../../utils/utils';
 import aceEditor from 'vue2-ace-editor';
 import 'brace/theme/chrome';

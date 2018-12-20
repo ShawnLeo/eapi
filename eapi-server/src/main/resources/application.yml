@@ -2,7 +2,7 @@ server:
   port: 7050
 logging:
   level:
-    com.meimeitech.eapi: debug
+    com.meimeitech: debug
 spring:
   jpa:
     hibernate:
@@ -14,9 +14,12 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:file:~/.h2/swagger;AUTO_SERVER=TRUE
+#    url: jdbc:h2:file:~/.h2/swagger;AUTO_SERVER=TRUE
+    url: jdbc:h2:tcp://192.168.1.104:9092/~/.h2/swagger
+#    url: jdbc:h2:tcp://192.168.31.184:9092/~/.h2/swagger
     username: sa
     password: sa
+    data: classpath:sql/data.sql
   h2:
     console:
       enabled: true

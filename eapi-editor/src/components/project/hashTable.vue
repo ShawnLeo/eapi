@@ -11,7 +11,7 @@
 </template>
 <script>
   import expandRow from './hashTable.vue';
-  import { deleteDataModelInBatch } from '../../utils/const';
+  import { deleteDataModelInBatch } from '../../utils/interface';
   import {getStore} from '../../utils/storage';
   export default {
       props: {

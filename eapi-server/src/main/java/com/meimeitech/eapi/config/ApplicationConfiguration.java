@@ -12,15 +12,15 @@ import java.util.List;
 @Configuration
 public class ApplicationConfiguration {
 
-    @Bean
-    public FilterRegistrationBean testFilterRegistration() {
-        FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(new ApiOriginFilter());
-        registration.addUrlPatterns("/*");
-        registration.setName("corsFilter");
-        registration.setOrder(1);
-        return registration;
-    }
+//    @Bean
+//    public FilterRegistrationBean testFilterRegistration() {
+//        FilterRegistrationBean registration = new FilterRegistrationBean();
+//        registration.setFilter(new ApiOriginFilter());
+//        registration.addUrlPatterns("/*");
+//        registration.setName("corsFilter");
+//        registration.setOrder(1);
+//        return registration;
+//    }
     @Bean
     public JacksonModuleRegistrar swagger2Module() {
         return new Swagger2JacksonModule();

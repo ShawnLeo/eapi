@@ -40,7 +40,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getTagList, createTag, deleteTagInBatch, checkTagExists } from '../../../utils/const';
+import { getTagList, createTag, deleteTagInBatch, checkTagExists } from '../../../utils/interface';
 import {getStore} from '../../../utils/storage';
 export default {
   data () {

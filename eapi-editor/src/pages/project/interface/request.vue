@@ -38,7 +38,7 @@
 
 <script type="text/ecmascript-6">
   import hashTable from '../../../components/project/hashTable.vue';
-  import { deleteRequestInBatch } from '../../../utils/const';
+  import { deleteRequestInBatch } from '../../../utils/interface';
   import { pathParam } from '../../../utils/utils';
   import aceEditor from 'vue2-ace-editor';
   import {getStore} from '../../../utils/storage';

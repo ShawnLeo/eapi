@@ -20,7 +20,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { getProjectList } from '../../utils/const';
+  import { getProjectList } from '../../utils/interface';
   export default {
     data () {
       return {

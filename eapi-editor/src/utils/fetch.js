@@ -1,7 +1,10 @@
 import axios from 'axios';
 import i18n from '../locale';
+import router from '../router';
 import { baseUrl } from './env';
 import {Message} from 'iview';
+import {removeStore, getStore} from './storage';
+import {ACCESS_TOKEN} from './const';
 
 export const responseHandler = function (response, options) { // 公共响应码集中处理
   let code = response.header.code;
@@ -12,10 +15,8 @@ export const responseHandler = function (response, options) { // 公共响应码
   }
   switch (code) {
     case -101: // 请登录
-      // removeStore('user');
-      // if (!options.noLogin) {
-      //   router.push({path: '/user/login'});
-      // }
+      removeStore('user');
+      router.push({path: '/user/login'});
       break;
     default:
       if (options && options.doNotToast) { // 不要弹Toast，错误代码自己处理
@@ -32,7 +33,7 @@ export const fetch = async (url = '', options = {}, type = 'GET') => {
     url: url,
     baseURL: baseUrl,
     method: type.toLowerCase(),
-    headers: {'Accept': 'application/json'},
+    headers: {'Authorization': 'Bearer ' + getStore(ACCESS_TOKEN)},
     params: options.reqParams || {}, // 业务params 请求参数
     data: options.reqBody || {}
   }).then((response) => {
@@ -52,6 +53,9 @@ export const fetch = async (url = '', options = {}, type = 'GET') => {
       switch (e.header.code) { // 异常情况
         case 400:
           e.header.message = i18n.t('responseError.code400');
+          break;
+        case 401:
+          e.header.message = i18n.t('responseError.code401');
           break;
         case 404:
           e.header.message = i18n.t('responseError.code404');

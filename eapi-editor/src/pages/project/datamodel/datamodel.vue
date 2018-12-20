@@ -26,7 +26,7 @@
     getDataModelList,
     deleteDataModelInBatch,
     getCustomDataModelList
-  } from '../../../utils/const';
+  } from '../../../utils/interface';
   import {setStore, getStore} from '../../../utils/storage';
   export default {
     name: 'datamodel',

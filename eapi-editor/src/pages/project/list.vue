@@ -44,7 +44,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { getProjectList, checkProjectExists, createProject, deleteProjectById } from '../../utils/const';
+  import { getProjectList, checkProjectExists, createProject, deleteProjectById } from '../../utils/interface';
   export default {
     data () {
       const validateTitleExists = (rule, value, callback) => {
