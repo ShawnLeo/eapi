@@ -31,7 +31,7 @@ export const publishProject = (data, callback) => fetch(PROJECT + '/publish', {c
 export const importFromSwaggerUrl = (data, callback) => fetch('/swagger/import/url/' + data.projectId, {callback, reqParams: {
 	swaggerUrl: data.swaggerUrl
 }}, 'POST');
-
+export const exportSwaggerJson = (data, callback) => fetch('/swagger/export/' + data.projectId, {callback}, 'GET', 'blob');
 /** ******* 项目-start ******** **/
 
 /** ******* 接口-start ******** **/

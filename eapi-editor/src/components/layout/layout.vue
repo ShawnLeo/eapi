@@ -16,6 +16,8 @@
 	import tHeader from './header.vue';
 	import tFooter from './footer.vue';
 	import {getLoginUser} from '../../utils/interface';
+	import {getStore} from '../../utils/storage';
+	import {ACCESS_TOKEN} from '../../utils/const';
 
 	export default {
 		name: 'layout',
@@ -30,6 +32,9 @@
 		},
 		methods: {
 			getUserInfo() {
+				if (!getStore(ACCESS_TOKEN)) {
+					return;
+				}
 				getLoginUser((resp) => {
 					this.$store.dispatch('userInit', resp.body);
 					this.$router.push('/');

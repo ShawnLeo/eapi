@@ -104,7 +104,8 @@
 							:on-success="handleSuccess"
 							:on-error="handleError"
 							type="drag"
-							:action="uploadUrl">
+							:action="uploadUrl"
+							:headers="headers">
 						<div style="padding: 20px 0">
 							<Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
 							<p>点击或拖拽上传</p>
@@ -124,8 +125,10 @@
 </template>
 
 <script type="text/ecmascript-6">
-	import {getProjectById, updateProject, checkProjectExists, deleteProjectById, importFromSwaggerUrl} from '../../../utils/interface';
+	import {getProjectById, updateProject, checkProjectExists, deleteProjectById, importFromSwaggerUrl, exportSwaggerJson} from '../../../utils/interface';
 	import {getStore} from '../../../utils/storage';
+	import {ACCESS_TOKEN} from '../../../utils/const';
+	import {responseHandler} from '../../../utils/fetch';
 	import {baseUrl} from '../../../utils/env';
 
 	export default {
@@ -150,6 +153,7 @@
 				project: {},
 				title: '',
 				uploadUrl: '',
+				headers: {'Authorization': 'Bearer ' + getStore(ACCESS_TOKEN)},
 				swaggerUrl: '',
 				showImportModal: false,
 				ruleValidate: {
@@ -181,10 +185,10 @@
 			},
 			getProjectById() {
 				let projectId = this.state.projectId || getStore('projectId');
+				this.uploadUrl = baseUrl + '/swagger/import/file/' + projectId;
 				getProjectById({id: projectId}, (response) => {
 					if (response.header.code === '0') {
 						this.project = response.body;
-						this.uploadUrl = baseUrl + '/swagger/import/file/' + this.project.id;
 					} else {
 						this.$Message.error(response.header.message);
 					}
@@ -207,7 +211,24 @@
 				});
 			},
 			exportSwagger() {
-				window.open(baseUrl + "/swagger/export/" + this.project.id);
+				exportSwaggerJson({
+					projectId: this.project.id
+				}, (response) => {
+					this.download(response);
+				});
+			},
+			// 下载文件
+			download (data) {
+				if (!data) {
+					return;
+				}
+				let url = window.URL.createObjectURL(new Blob([data]));
+				let link = document.createElement('a');
+				link.style.display = 'none';
+				link.href = url;
+				link.setAttribute('download', 'swagger.json');
+				document.body.appendChild(link);
+				link.click();
 			},
 			importSwagger() {
 				this.$Modal.confirm({
@@ -221,8 +242,11 @@
 				});
 			},
 			handleSuccess(res, file) {
-				this.$Message.success('数据导入成功！');
-				this.showImportModal = false;
+				let _this = this;
+				responseHandler(res, {callback: () => {
+					_this.$Message.success('数据导入成功！');
+					_this.showImportModal = false;
+				}});
 			},
 			handleError(error, file) {
 				this.$Message.error(error.message);
