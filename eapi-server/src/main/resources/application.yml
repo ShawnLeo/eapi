@@ -26,3 +26,18 @@ spring:
       path: /h2-console
       settings:
         web-allow-others: true
+
+  mail:
+    host: smtp.163.com
+    username: easyapi@163.com
+    password: li16200
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+  freemarker:
+    template-loader-path: classpath:/freemarker
+    suffix: .ftl

@@ -95,18 +95,50 @@ const router = new Router({
 			path: '/user/login',
 			name: 'login',
 			component: () => import('../pages/user/login.vue')
-		// }, {
-		// 	path: '/user/register',
-		// 	name: 'login',
-		// 	component: () => import('../pages/user/register.vue')
-		// }, {
-		// 	path: '/user/forget',
-		// 	name: 'enterEmail',
-		// 	meta: {
-		// 		menuActive: '/otc/floor', // 一级菜单激活 路由名称
-		// 		subMenuActive: '/accountCenter/account' // 二级级菜单激活 路由名称
-		// 	},
-		// 	component: () => import('../pages/user/forget.vue')
+		}, {
+			path: '/user/register',
+			name: 'login',
+			component: () => import('../pages/user/register.vue')
+		}, {
+			path: '/user/active',
+			name: 'active',
+			meta: {
+				menuActive: '/project/index' // 一级菜单激活 路由名称
+				// subMenuActive: '/accountCenter/account' // 二级级菜单激活 路由名称
+			},
+			component: () => import('../pages/user/active.vue')
+		}, {
+			path: '/user/active/send',
+			name: 'activeSend',
+			meta: {
+				// menuActive: '/otc/floor' // 一级菜单激活 路由名称
+				// subMenuActive: '/accountCenter/account' // 二级级菜单激活 路由名称
+			},
+			component: () => import('../pages/user/send.vue')
+		}, {
+			path: '/user/forget',
+			name: 'forget',
+			meta: {
+				// menuActive: '/otc/floor', // 一级菜单激活 路由名称
+				// subMenuActive: '/accountCenter/account' // 二级级菜单激活 路由名称
+			},
+			component: () => import('../pages/user/forget.vue')
+		}, {
+			path: '/user/reset',
+			name: 'reset',
+			meta: {
+				// menuActive: '/otc/floor', // 一级菜单激活 路由名称
+				// subMenuActive: '/accountCenter/account' // 二级级菜单激活 路由名称
+			},
+			component: () => import('../pages/user/reset.vue')
+		}, {
+			path: '/user/reset/email',
+			name: 'reset',
+			meta: {
+				// menuActive: '/otc/floor', // 一级菜单激活 路由名称
+				// subMenuActive: '/accountCenter/account' // 二级级菜单激活 路由名称
+			},
+			component: () => import('../pages/user/resetSend.vue')
 		}]
   }, {
     path: '/swagger',

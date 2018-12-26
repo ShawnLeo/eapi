@@ -69,6 +69,51 @@ export default {
 			enterEmail: '请输入您注册时的邮箱号',
 			btnName: '下一步',
 			btnLoading: '发送邮件中...'
+		},
+		registerValidEmail: {
+			title: '邮箱验证',
+			contentBefore: '已向您的注册邮箱',
+			contentAfter: '发送了一封验证邮件，请按照邮件中的提示完成您的注册。',
+			resendEmail: '重新发送邮件',
+			tipsTit: '如果您未收到邮件，请进行以下操作：',
+			tips01: '1、确保邮件地址是否正确',
+			tips02: '2、请尝试在垃圾邮件或其他文件夹中查找',
+			tips03: '3、设置邮件地址白名单',
+			tips04: '4、检查邮件客户端是否收发正常',
+			btnName: '查看邮件'
+		},
+		activeSuccess: {
+			title: '账号激活成功',
+			failTitle: '账号激活失败',
+			content: '您的账户已经激活，请登录开始您的交易。',
+			contentFail: '您的账户激活失败！',
+			loginNow: '立即登录'
+		},
+		resetPassEmail: {
+			title: '重置登录密码',
+			contentBefore: '已向您的注册邮箱',
+			contentAfter: '发送了一封验证邮件，请按照邮件中的提示完成您的注册。',
+			resendEmail: '重新发送邮件',
+			resendEmailSuccess: '重新发送成功!',
+			tipsTit: '如果您未收到邮件，请进行以下操作：',
+			tips01: '1、确保邮件地址是否正确',
+			tips02: '2、请尝试在垃圾邮件或其他文件夹中查找',
+			tips03: '3、设置邮件地址白名单',
+			tips04: '4、检查邮件客户端是否收发正常',
+			btnName: '查看邮件'
+		},
+		resetPass: {
+			title: '重置密码',
+			newPass: '新密码',
+			originPass: '原密码',
+			enterNewPass: '请输入新密码',
+			enterOriginPass: '请输入原密码',
+			rePassword: '确认密码',
+			enterPassword: '请再次输入密码',
+			btnName: '重置',
+			btnLoading: '重置中...',
+			psdEL: '两次输入密码不一致',
+			resetSuccess: '重置密码成功'
 		}
   },
   'zh-TW': {

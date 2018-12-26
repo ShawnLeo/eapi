@@ -89,4 +89,14 @@ export const checkTagExists = (data, callback) => fetch(TAG + '/check', {callbac
 export const login = (data, callback) => fetch('/login', {callback, reqParams: data}, 'GET');
 // 创建标签
 export const getLoginUser = (callback) => fetch(USER + '/info', {callback}, 'GET');
-/** ******* 标签-end ******** **/
+// 注册
+export const register = (data, callback) => fetch(USER + '/register', {callback, reqBody: data}, 'POST');
+// 激活邮件
+export const emailActivate = (data, callback) => fetch(USER + '/email/activate', {callback, reqBody: data, doNotToast: true}, 'POST');
+// 发送激活邮件
+export const emailActivateSend = (data, callback) => fetch(USER + '/email/activate/send', {callback, reqBody: data}, 'POST');
+// 发送重置邮件
+export const emailResetSend = (data, callback) => fetch(USER + '/email/reset/send', {callback, reqBody: data}, 'POST');
+// 重置密码
+export const emailReset = (data, callback) => fetch(USER + '/email/reset', {callback, reqBody: data}, 'POST');
+/** ******* 用户-end ******** **/

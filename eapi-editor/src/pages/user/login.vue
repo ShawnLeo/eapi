@@ -29,11 +29,11 @@
 								<span v-else>{{$t("login.btnLoading")}}</span>
 							</Button>
 
-							<!--<div class="invest">-->
-								<!--<a @click="goRestPass" class="left">{{$t("login.forgetPass")}}</a>-->
-								<!--<span>{{$t("login.noAccount")}}</span>-->
-								<!--<router-link to="/user/register">{{$t("login.registerNow")}}</router-link>-->
-							<!--</div>-->
+							<div class="invest">
+								<a @click="goRestPass" class="left">{{$t("login.forgetPass")}}</a>
+								<span>{{$t("login.noAccount")}}</span>
+								<router-link to="/user/register">{{$t("login.registerNow")}}</router-link>
+							</div>
 						</Form>
 					</div>
 				</div>
@@ -41,6 +41,7 @@
 		</div>
 	</div>
 </template>
+
 <script>
 	import { login, getLoginUser } from '../../utils/interface';
 	import {ACCESS_TOKEN} from '../../utils/const';

@@ -24,6 +24,17 @@ public abstract class Schema {
 		 * 用户
 		 */
 		String USER = NS + "USER";
+
+		/**
+		 * 用户注册临时表
+		 */
+		String REG_USER = NS + "REG_USER";
+
+		/**
+		 * 重置密码临时表
+		 */
+		String RESET_USER = NS + "RESET_USER";
+
 		/**
 		 * 角色
 		 */

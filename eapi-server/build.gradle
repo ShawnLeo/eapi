@@ -2,6 +2,8 @@ project.ext {
 	httpclientVersion = '4.5.3'
 	fastjsonVersion = '1.2.0'
 	springfoxVersion = '2.7.0'
+	javaxMailVersion = '1.4.7'
+	freemarkerVersion = '2.3.28'
 }
 buildscript {
 	ext {
@@ -40,10 +42,14 @@ dependencies {
 	compile "io.springfox:springfox-swagger2:$springfoxVersion"
 	compile 'io.swagger:swagger-parser:1.0.33'
 
+	compile "javax.mail:mail:$javaxMailVersion"
+
 	compile "org.apache.httpcomponents:httpclient:$httpclientVersion"
 	compile "org.apache.commons:commons-lang3:3.6"
 
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-freemarker')
+	compile('org.springframework.boot:spring-boot-starter-mail')
     compile("org.springframework.boot:spring-boot-starter-security")
 	compile('org.springframework.boot:spring-boot-starter-web')
 

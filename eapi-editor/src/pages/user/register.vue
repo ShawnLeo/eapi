@@ -21,7 +21,7 @@
                 <!--<input v-model="formValidate.mobile" type="hidden"/>-->
               <!--</Form-item>-->
             <!--</div>-->
-            <div class="user" v-if="tabType === 'email'">
+            <div class="user">
               <Form-item prop="email" :label='$t("register.email")' class="email-reg">
                 <Input type="text" v-model="formValidate.email" :placeholder='$t("register.enterEmail")'
                        @on-enter="handleSubmit('formValidate')"/>
@@ -63,37 +63,12 @@
 
       </div>
     </div>
-    <Modal v-model="smsModal"
-           :title="$t('register.smsTxt')"
-           width="720px">
-      <div class="modal-form">
-        <Form class="valid-form" ref="smsValidate" :rules="smsRule" :model="smsValidate" label-position="top">
-          <div class="user" prop="smsCode">
-            <Form-item prop="smsCode" :label="$t('validModal.smsCode')">
-              <Row>
-                <i-col span="15">
-                  <Input type="text" v-model="smsValidate.smsCode" :placeholder="$t('validModal.enterSmsCode')"/>
-                </i-col>
-                <i-col span="8" offset="1">
-                  <Button type="primary" @click="getNoteCode" class="note-code" :disabled="getPhoneCodeDisabled">{{getPhoneCode}}</Button>
-                </i-col>
-              </Row>
-            </Form-item>
-          </div>
-        </Form>
-      </div>
-      <div slot="footer" class="onlySure">
-        <Button type="primary" long @click="submitCode('smsValidate')" :loading="login_loading">{{ $t('validModal.sure')}}</Button>
-      </div>
-    </Modal>
   </div>
 </template>
 
 <script>
-  /* eslint-disable no-undef,new-cap */
-  import {register, validToken, smsSend} from '../../utils/const';
-  import { appkey } from '../../utils/env';
-  import { countdown } from '@/utils/utils';
+  import {register} from '../../utils/interface';
+
   export default {
     name: 'register',
     data() {
@@ -114,48 +89,13 @@
           callback();
         }
       };
-      const checkPhone = (rule, val, callback) => {
-        if (val) {
-          if (val && !Number.isInteger(+val)) {
-            callback(new Error(this.$t('safeValid.numberEL')));
-          }
-          if (val.length !== 14) {
-            callback(new Error(this.$t('safeValid.phoneLenEL')));
-          }
-          if (!/^[1][3,4,5,7,8][0-9]{9}$/.test(val.substr(3, 14))) {
-            callback(new Error(this.$t('safeValid.phoneLenEL2')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
-      const checkNum = (rule, val, callback) => {
-        if (val && !Number.isInteger(+val)) {
-          callback(new Error(this.$t('safeValid.numberEL')));
-        } else {
-          callback();
-        }
-      };
-      const formValidate = {
-        email: '',
-        password: '',
-        rePassword: '',
-        kaptchaCodeId: '',
-        kaptchaValidToken: '',
-        interest: [true],
-        mobile: '',
-        smsCode: ''
-      };
       return {
-//        formValidate: {
-//          email: '',
-//          password: '',
-//          rePassword: '',
-//          interest: []
-//        },
-        formValidate: formValidate,
+        formValidate: {
+					email: '',
+					password: '',
+					rePassword: '',
+					interest: [true]
+				},
         ruleValidate: {
           email: [
             {required: true, message: this.$t('register.enterEmail'), trigger: 'blur'},
@@ -173,43 +113,7 @@
           ],
           interest: [
             { required: true, type: 'array', min: 1, message: this.$t('register.readError'), trigger: 'change' }
-          ],
-          mobile: [
-            {type: 'string', required: true, message: this.$t('safeValid.phoneL'), trigger: 'blur'},
-            {validator: checkPhone, trigger: 'blur'}
           ]
-        },
-        nc_token: [appkey, (new Date()).getTime(), Math.random()].join(':'),
-        NC_Opt: {
-          renderTo: '#your-dom-id',
-          appkey: appkey,
-          scene: 'nc_register',
-          token: this.nc_token,
-          customWidth: 300,
-          trans: {'key1': 'code0'},
-          elementID: ['usernameID'],
-          is_Opt: 0,
-          language: 'cn',
-          isEnabled: true,
-          timeout: 3000,
-          times: 5,
-          apimap: {
-            // 'analyze': '//a.com/nocaptcha/analyze.jsonp',
-            // 'get_captcha': '//b.com/get_captcha/ver3',
-            // 'get_captcha': '//pin3.aliyun.com/get_captcha/ver3'
-            // 'get_img': '//c.com/get_img',
-            // 'checkcode': '//d.com/captcha/checkcode.jsonp',
-            // 'umid_Url': '//e.com/security/umscript/3.2.1/um.js',
-            // 'uab_Url': '//aeu.alicdn.com/js/uac/909.js',
-            // 'umid_serUrl': 'https://g.com/service/um.json'
-          },
-          callback: function (data) {
-//            window.console && console.log('nc_token=', data.token);
-//            window.console && console.log('csessionid=', data.csessionid);
-//            window.console && console.log('sig=', data.sig);
-//            window.console && console.log('nc_scene=', this.opt.scene);
-            formValidate.kaptchaCodeId = data.csessionid + ',' + data.sig + ',' + data.token + ',pc_' + this.opt.scene;
-          }
         },
         login_loading: false,
         tabType: 'email',
@@ -220,17 +124,7 @@
         ],
         smsModal: false,
         getPhoneCodeDisabled: false,
-        getPhoneCode: this.$t('safeValid.noteActionLabel'),
-        smsValidate: {
-          smsCode: ''
-        },
-        smsRule: {
-          smsCode: [
-            {type: 'string', required: true, message: this.$t('safeValid.smsCodeL1'), trigger: 'blur'},
-            {validator: checkNum, trigger: 'blur'},
-            {min: 6, max: 6, message: this.$t('safeValid.codeLenEL'), trigger: 'blur'}
-          ]
-        }
+        getPhoneCode: this.$t('safeValid.noteActionLabel')
       };
     },
     methods: {
@@ -238,77 +132,22 @@
         this.$refs[name].validate(async (valid) => {
           // 注册
           if (valid) {
-            if (!this.formValidate.kaptchaCodeId) {
-              this.$Message.error(this.$t('login.kaptEr4'));
-              return;
-            }
+//            if (!this.formValidate.kaptchaCodeId) {
+//              this.$Message.error(this.$t('login.kaptEr4'));
+//              return;
+//            }
             this.login_loading = true;
-            if (this.tabType === 'email') {
-              await register({
-                email: this.formValidate.email,
-                password: this.formValidate.password,
-                kaptchaCodeId: this.formValidate.kaptchaCodeId
-              }, (response) => {
-                if (response.header.code === '0') {
-                  this.$Message.success(this.$t('register.regSuccess'));
-                  this.$router.push({path: '/user/registerValidEmail', query: { email: this.formValidate.email }});
-                } else {
-                  this.$Message.error(response.header.message);
-                }
-              });
-            } else if (this.tabType === 'phone') {
-              await validToken({
-                email: this.formValidate.mobile,
-                kaptchaCodeId: this.formValidate.kaptchaCodeId,
-                type: 1
-              }, (response) => {
-                if (response.header.code === '0') {
-                  this.formValidate.kaptchaValidToken = response.body.kaptchaValidToken;
-                  this.smsModal = true;
-                } else {
-                  this.captcha();
-                  this.formValidate.kaptchaCodeId = '';
-                  this.$Message.error(response.header.message);
-                }
-              });
-            }
-          }
-          this.captcha();
-          this.login_loading = false;
-        });
-      },
-      captcha: async function () {
-        let nc = new noCaptcha(this.NC_Opt);
-        nc.upLang('cn', {
-          _startTEXT: '请按住滑块，拖动到最右边',
-          _yesTEXT: '验证通过',
-          _error300: '哎呀，出错了，点击<a href=\'javascript:__nc.reset()\'>刷新</a>再来一次',
-          _errorNetwork: '网络不给力，请<a href=\'javascript:__nc.reset()\'>点击刷新</a>'
-        });
-      },
-      toTab (val) {
-        this.tabType = val;
-      },
-      getNoteCode: async function (e) {
-        let _this = this;
-        let params = {
-          mobile: this.formValidate.mobile,
-          token: this.formValidate.kaptchaValidToken,
-          type: 4
-        };
-        await smsSend(params, (response) => {
-          if (response.header.code === '0') {
-            this.getPhoneCodeDisabled = true;
-            countdown((count) => {
-              _this.getPhoneCode = `${this.$t('validModal.sendL') + count + this.$t('validModal.sendL2')}`;
-            }, () => {
-              _this.getPhoneCode = this.$t('validModal.sendL3');
-              _this.getPhoneCodeDisabled = false;
+            await register({
+              email: this.formValidate.email,
+              password: this.formValidate.password
+            }, (response) => {
+                this.$Message.success(this.$t('register.regSuccess'));
+                this.$router.push({path: '/user/active/send', query: { email: this.formValidate.email }});
             });
-          } else {
-            this.$Message.error(response.header.message);
-            _this.getPhoneCodeDisabled = false;
+
           }
+//          this.captcha();
+          this.login_loading = false;
         });
       },
       submitCode (name) {
@@ -316,9 +155,7 @@
           if (valid) {
             let params = {
               invitedCode: '',
-              kaptchaValidToken: this.formValidate.kaptchaValidToken,
               mobile: this.formValidate.mobile,
-              smsCode: this.smsValidate.smsCode,
               password: this.formValidate.password,
               type: 2
             };
@@ -335,7 +172,7 @@
       }
     },
     mounted() {
-      this.captcha();
+//      this.captcha();
     },
     watch: {
       'phoneAppend': function (val) {

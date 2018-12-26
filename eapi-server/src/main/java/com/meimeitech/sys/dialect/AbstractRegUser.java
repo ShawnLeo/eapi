@@ -4,10 +4,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @MappedSuperclass
-public abstract class AbstractUser implements Serializable {
+public abstract class AbstractRegUser implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private static final String SEQUENCE = Schema.Tables.USER + Schema.SEQ_SUFFIX;
+//	private static final String SEQUENCE = Schema.Tables.REG_USER + Schema.SEQ_SUFFIX;
 
 //	@SequenceGenerator(name = SEQUENCE, sequenceName = SEQUENCE)
 //	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE)

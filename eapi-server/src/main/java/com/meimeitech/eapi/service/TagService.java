@@ -54,9 +54,11 @@ public class TagService {
         for (int i = 0; i < tags.size(); i++ ) {
             Tag tag = tags.get(i);
             long interfaces = interfaceRepository.count((Specification<Interface>) (root, query, criteriaBuilder) -> {
+                List<Predicate> predicates = new ArrayList<>();
                 SetJoin<Interface, Tag> join= root.join(root.getModel().getSet("tags", Tag.class), JoinType.LEFT);
-                Predicate predicate = criteriaBuilder.equal(join.get("id"), tag.getId());
-                return criteriaBuilder.and(predicate);
+                predicates.add( criteriaBuilder.equal(join.get("id"), tag.getId()));
+                predicates.add( criteriaBuilder.equal(root.get("projectId"), tag.getProjectId()));
+                return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             });
             if (interfaces > 0) {
                 return Response.error("[" + tag.getName() + "]标签下存在接口,无法删除");
