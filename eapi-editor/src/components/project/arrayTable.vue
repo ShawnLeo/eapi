@@ -218,6 +218,9 @@
     .ivu-icon-ios-arrow-right:before{
       content: '';
     }
+    .ivu-icon-ios-arrow-forward:before{
+      content: '';
+    }
     .ivu-table-wrapper, .ivu-page{
       margin-top: -20px;
     }
