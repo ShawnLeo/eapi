@@ -17,11 +17,11 @@ import com.meimeitech.sys.service.MailService;
 import com.meimeitech.sys.swagger.model.*;
 import com.meimeitech.sys.swagger.service.UserService;
 import org.apache.commons.lang3.StringUtils;
-import org.h2.mvstore.DataUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +34,15 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
 
     private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
+    @Value("${mail.register:/#/user/active}")
+    private String registerUrl;
+
+    @Value("${mail.forget:/#/user/reset}")
+    private String forgetUrl;
+
+    @Value("${host.server: http://localhost:8080}")
+    private String serverUrl;
 
     @Autowired
     private UserRepository userRepository;
@@ -310,15 +319,14 @@ public class UserServiceImpl implements UserService {
 
     private void sendRegisterEmail(String email, String activateCode) {
         Map<String, Object> context = Maps.newHashMap();
-//        vars.getActivateLink()
-        context.put("activate_link", "http://localhost:8080/#/user/active?activateCode=" + activateCode);
+        context.put("activate_link", serverUrl + registerUrl + "?activateCode=" + activateCode);
         Locale local = new Locale("zh_CN");
         mailService.send(new String[] {email}, "激活账号", "activate_account", local, context);
     }
 
     private void sendResetEmail(String email, String activateCode) {
         Map<String, Object> context = Maps.newHashMap();
-        context.put("resetpwd_link", "http://localhost:8080/#/user/reset?activateCode=" + activateCode);
+        context.put("resetpwd_link", serverUrl + forgetUrl + "?activateCode=" + activateCode);
         Locale local = new Locale("zh_CN");
         mailService.send(new String[] {email}, "重置密码", "reset_password", local, context);
     }

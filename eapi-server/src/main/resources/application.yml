@@ -15,7 +15,7 @@ spring:
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:file:~/.h2/swagger;AUTO_SERVER=TRUE
-#    url: jdbc:h2:tcp://192.168.1.104:9092/~/.h2/swagger
+#    url: jdbc:h2:tcp://192.168.1.103:9092/~/.h2/swagger
 #    url: jdbc:h2:tcp://192.168.31.184:9092/~/.h2/swagger
     username: sa
     password: sa
@@ -26,7 +26,6 @@ spring:
       path: /h2-console
       settings:
         web-allow-others: true
-
   mail:
     host: smtp.163.com
     username: easyapi@163.com
@@ -41,3 +40,8 @@ spring:
   freemarker:
     template-loader-path: classpath:/freemarker
     suffix: .ftl
+host:
+  server: http://10.133.255.201:5001/pc/swagger-editor/index.html
+mail:
+  register: "#/user/active"
+  forget: "#/user/reset"
