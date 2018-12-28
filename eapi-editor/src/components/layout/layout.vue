@@ -37,7 +37,6 @@
 				}
 				getLoginUser((resp) => {
 					this.$store.dispatch('userInit', resp.body);
-					this.$router.push('/');
 				});
 			}
 		},
