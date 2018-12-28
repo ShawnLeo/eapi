@@ -147,4 +147,20 @@ public class InterfaceService {
     public void deleteByProjectId(String projectId) {
         deleteInBatch(interfaceRepository.findAllByProjectIdOrderByPath(projectId));
     }
+
+    /**
+     * 修改状态
+     *
+     * @param interfaceVos
+     * @return
+     */
+    @Transactional
+    public Response changeStatus(List<InterfaceVo> interfaceVos) {
+
+        interfaceVos.forEach(interfaceVo -> {
+            interfaceRepository.changeStatus(interfaceVo.getId(), interfaceVo.getStatus());
+        });
+
+        return Response.success("");
+    }
 }

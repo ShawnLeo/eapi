@@ -110,4 +110,15 @@ public class InterfaceController {
     public Response delResponse(@RequestBody List<ResponseInfo> responseInfos) {
         return infoService.deleteResponsetInfosInBatch(responseInfos);
     }
+
+    /**
+     * 修改状态
+     *
+     * @param interfaceVos
+     * @return
+     */
+    @RequestMapping(value = "/status/change", method = RequestMethod.POST)
+    public Response changeStatus(@RequestBody List<InterfaceVo> interfaceVos) {
+        return interfaceService.changeStatus(interfaceVos);
+    }
 }

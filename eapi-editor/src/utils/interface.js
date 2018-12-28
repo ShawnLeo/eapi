@@ -37,6 +37,8 @@ export const exportSwaggerJson = (data, callback) => fetch('/swagger/export/' + 
 /** ******* 接口-start ******** **/
 // 更新接口
 export const updateInterface = (data, callback) => fetch(INTERFACE + '/update', {callback, reqBody: data}, 'POST');
+// 修改接口状态
+export const changeStatus = (data, callback) => fetch(INTERFACE + '/status/change', {callback, reqBody: data}, 'POST');
 // 根据ID获取接口
 export const getInterfaceById = (data, callback) => fetch(INTERFACE + '/' + data.id, {callback}, 'GET');
 // 根据ID删除接口
