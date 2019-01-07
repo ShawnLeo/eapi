@@ -13,22 +13,57 @@
       <i-input v-model="interfaceItem.path" @keyup.native="setPathParams" placeholder="例如：/api/get/{id}"></i-input>
     </FormItem>
     <div class="clearfix"></div>
-    <FormItem label="路径参数">
+    <FormItem>
+      <span slot="label">
+        Path参数
+        <Tooltip content="定义在方法路径中。例如：/user/{id}" placement="right">
+            <Icon type="ios-help-circle-outline" />
+        </Tooltip>
+      </span>
       <Table :columns="pathParamsColumns" :data="interfaceItem.pathParams"></Table>
     </FormItem>
-    <FormItem label="请求头">
+    <FormItem label="Header参数">
       <Table :columns="headersColumns" :data="interfaceItem.headers"></Table>
     </FormItem>
-    <FormItem label="请求数据">
+    <FormItem>
+      <span slot="label">
+        Query参数
+        <Tooltip content="Key-Value格式提交。例如：a=1&b=2" placement="right">
+            <Icon type="ios-help-circle-outline" />
+        </Tooltip>
+      </span>
+      <Table :columns="querysColumns" :data="interfaceItem.querys"></Table>
+    </FormItem>
+    <FormItem v-if="showRequsts">
+      <span slot="label">
+        请求数据
+        <Tooltip content="body和formData不可同时选择" placement="right">
+            <Icon type="ios-help-circle-outline" />
+        </Tooltip>
+      </span>
       <RadioGroup v-model="interfaceItem.requestType" @on-change="requestTypeChange">
-        <Radio label="query"><span>query</span></Radio>
-        <Radio label="body" v-if="interfaceItem.method !== 'get'"><span>body</span></Radio>
-        <Radio label="formData" v-if="interfaceItem.method !== 'get'"><span>formData</span></Radio>
+        <Radio label="body">
+          <span>
+            body
+            <Tooltip content="body不可添加文件类型数据" placement="bottom">
+                <Icon type="ios-help-circle-outline" />
+            </Tooltip>
+          </span>
+        </Radio>
+        <Radio label="formData">
+          <span>
+            formData
+            <Tooltip content="formData(表单提交)可以添加文件类型数据" placement="bottom">
+                <Icon type="ios-help-circle-outline" />
+            </Tooltip>
+          </span>
+        </Radio>
       </RadioGroup>
-      <Table :columns="querysColumns" :data="interfaceItem.querys" v-if="interfaceItem.requestType === 'query'"></Table>
+
+      <Table :columns="bodyColumns" :data="interfaceItem.body" v-if="interfaceItem.requestType === 'body'"></Table>
       <Table :columns="formDatasColumns" :data="interfaceItem.formDatas" v-if="interfaceItem.requestType === 'formData'"></Table>
       <!--<hash-table v-if="interfaceItem.requestType === 'body'"></hash-table>-->
-      <Table :columns="bodyColumns" :data="interfaceItem.body" v-if="interfaceItem.requestType === 'body'"></Table>
+
     </FormItem>
     <!--<FormItem label="样例数据" v-if="requestType === 'body'">-->
       <!--<aceEditor v-model="content" lang="json" height="400" width="100%"></aceEditor>-->
@@ -70,7 +105,8 @@
             }
           }
         }, null, 2),
-        requestType: this.interfaceItem.requestType || 'query',
+        requestType: '',
+        showRequsts: false,
         pathParamsColumns: [{
           title: '名称',
           render: (h, params) => {
@@ -795,24 +831,43 @@
     methods: {
       init() {
         setTimeout(() => {
+					this.requestType = this.interfaceItem.requestType;
           if (this.interfaceItem.pathParams.length === 0) {
             this.setPathParams();
           }
         }, 500);
       },
+//			changeMethod(value) {
+//				this.$Modal.confirm({
+//					title: '切换确认',
+//					content: '<p>您确定要切换吗？</p><p>切换请求数据类型将会导致现有数据丢失！，确定切换成 “' + value + '” 类型吗？</p>',
+//					onOk: () => {
+////						this.requestType = this.interfaceItem.requestType;
+//						this.$Message.info('Clicked ok');
+//					},
+//					onCancel: () => {
+////						this.interfaceItem.requestType = this.requestType;
+//						this.$Message.info('Clicked cancel');
+//					}
+//				});
+//      	// 请求数据是否展示
+//      },
       requestTypeChange(value) {
-//      console.log(value, this.requestType);
-//      this.$Modal.confirm({
-//        title: '切换确认',
-//        content: '<p>您确定要切换吗？</p><p>未保存数据将不会为您保存</p>',
-//        onOk: () => {
-//          this.$Message.info('Clicked ok');
-//        },
-//        onCancel: () => {
-//          this.$Message.info('Clicked cancel');
-//        }
-//      });
-//      this.requestType = 'query';
+        this.$Modal.confirm({
+          title: '切换确认',
+          content: '<p>您确定要切换吗？</p><p>切换请求数据类型将会导致现有数据丢失！，确定切换成 “' + value + '” 类型吗？</p>',
+          onOk: () => {
+						if (value === 'body') {
+							this.interfaceItem.formDatas = [];
+            } else if (value === 'formData') {
+							this.interfaceItem.body = [];
+            }
+						this.requestType = this.interfaceItem.requestType;
+          },
+          onCancel: () => {
+						this.interfaceItem.requestType = this.requestType;
+          }
+        });
       },
       deleteRequestInfo(row, callback) {
         deleteRequestInBatch(row, (response) => {
@@ -859,14 +914,18 @@
     },
     mounted() {
       this.init();
+    },
+    watch: {
+      'interfaceItem.method'(val, oldVal) {
+				if (val.toLowerCase() === 'get') {
+					this.interfaceItem.formDatas = [];
+					this.interfaceItem.body = [];
+					this.showRequsts = false;
+				} else {
+					this.showRequsts = true;
+				}
+      }
     }
-//    watch: {
-//      'interfaceItem.path'(val, oldVal) {
-//        if (val) {
-//        }
-//        this.setPathParams();
-//      }
-//    }
   };
 </script>
 
@@ -878,7 +937,8 @@
         overflow-x: inherit;
       }
       td.ivu-table-expanded-cell{
-        padding: 10px
+        padding: 10px;
+        background: none;
       }
       .ivu-icon-ios-arrow-right:before{
         content: '';
@@ -887,7 +947,7 @@
         content: '';
       }
       .ivu-table-wrapper, .ivu-page{
-        margin-top: -20px;
+        margin-top: -32px;
       }
       .expand-row{
         margin: 5px;

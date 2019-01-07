@@ -20,7 +20,7 @@
           </RadioGroup>
         </FormItem>
         <FormItem label="属性">
-          <hash-table :rows="formItem.children" :name="formItem.name" :level="1" v-if="formItem.dataType === 'object'"></hash-table>
+          <hash-table :rows="formItem.children" v-on:childrenChange="childrenChange" :name="formItem.name" :level="1" v-if="formItem.dataType === 'object'"></hash-table>
           <array-table :rows="formItem.children" :name="formItem.name" :level="1" v-if="formItem.dataType === 'array'"></array-table>
           <enum-table :rows="formItem.children" :level="1" v-if="formItem.dataType === 'enum'"></enum-table>
           <string-table :rows="formItem.children" :level="1" v-if="formItem.dataType === 'string'"></string-table>
@@ -51,6 +51,7 @@
   import {
     getDataModelList, createDataModel, deleteDataModelInBatch, checkExists
   } from '../../utils/interface';
+
   import {getStore} from '../../utils/storage';
   export default {
     name: 'add-data-model',
@@ -176,7 +177,6 @@
 						this.formItem.dataType = this.typeBak;
 					}
 				});
-//        });
       },
       deleteDataModel(datas, callback) {
         let deleteDatas = [];

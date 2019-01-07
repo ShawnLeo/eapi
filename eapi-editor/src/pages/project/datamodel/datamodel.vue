@@ -3,7 +3,7 @@
     <Form ref="formInline" inline class="project-datamodel-form">
       <FormItem>
         <!--<Button type="primary" @click="handleSubmit('formInline')">Signin</Button>-->
-        <Button type="primary" icon="ios-add" @click="newDatamodel">新建模型</Button>
+        <Button type="primary" icon="md-add" @click="newDatamodel">新建模型</Button>
       </FormItem>
       <FormItem prop="search">
         <Input type="text" placeholder="搜索"/>
@@ -11,7 +11,7 @@
     </Form>
     <div class="clearfix"></div>
     <Form ref="formInline" inline class="project-datamodel-form form-in-table" v-show="showEditMenus">
-      <Button @click="deleteDataModel">删除</Button>
+      <Button size="small" @click="deleteDataModel">删除</Button>
       <!--<Button>设置状态</Button>-->
       <!--<Button>设置标签</Button>-->
     </Form>
@@ -173,6 +173,9 @@
       line-height: 35px;
       left: 60px;
       top: 127px;
+    }
+    .ivu-table-wrapper,.ivu-page{
+      margin-top: 15px;
     }
   }
 </style>

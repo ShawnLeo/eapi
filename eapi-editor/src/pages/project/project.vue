@@ -42,7 +42,7 @@
           <!--&lt;!&ndash; <TabPane label="规则函数" name="/project/regular"></TabPane> &ndash;&gt;-->
           <!--<TabPane label="设置" name="/project/settings"></TabPane>-->
       <!--</Tabs>-->
-      <router-view/>
+        <router-view></router-view>
     </Card>
   </div>
 </template>

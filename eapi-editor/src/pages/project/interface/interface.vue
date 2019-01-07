@@ -16,6 +16,7 @@
 			<!--<Button size="small">设置标签</Button>-->
 		</Form>
 		<Table stripe ref="selection" :columns="columns" :loading="loading" :data="data" @on-selection-change="onCelectionChange"></Table>
+
 		<Modal v-model="addInterfaceModal" title="新建接口" width="700">
 			<Form ref="interfaceItem" :model="interfaceItem" :label-width=80 :rules="ruleValidate">
 				<FormItem label="接口名称" prop="name">
@@ -48,13 +49,13 @@
 				<FormItem label="描述" prop="description">
 					<i-input v-model="interfaceItem.description" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="描述"></i-input>
 				</FormItem>
-				<FormItem label="接口状态" prop="deprecated">
-					<i-switch v-model="interfaceItem.deprecated" size="large">
-						<span slot="open">On</span>
-						<span slot="close">Off</span>
-					</i-switch>
-					<span style="color:#FF0000">*关闭表示接口已废弃</span>
-				</FormItem>
+				<!--<FormItem label="接口状态" prop="deprecated">-->
+					<!--<i-switch v-model="interfaceItem.deprecated" size="large">-->
+						<!--<span slot="open">On</span>-->
+						<!--<span slot="close">Off</span>-->
+					<!--</i-switch>-->
+					<!--<span style="color:#FF0000">*关闭表示接口已废弃</span>-->
+				<!--</FormItem>-->
 			</Form>
 			<div slot="footer">
 				<Button type="text" size="large" @click="reset">重置</Button>
@@ -62,8 +63,7 @@
 			</div>
 		</Modal>
 
-		<Modal
-				v-model="editStatus"
+		<Modal v-model="editStatus"
 				title="设置状态"
 				@on-ok="okEditStatus">
 			<Form  class="project-interface-form form-in-table" :label-width=100>
@@ -117,6 +117,7 @@
 					tagIds: [],
 					status: 100,
 					operationId: '',
+					requestType: '',
 					summary: '',
 					description: '',
 					deprecated: false,
@@ -325,6 +326,9 @@
 			addInterface: function () {
 				this.$refs['interfaceItem'].validate(async (valid) => {
 					if (valid) {
+						if (this.interfaceItem.method.toLowerCase() !== 'get') {
+							this.interfaceItem.requestType = 'body'; // 默认值
+						}
 						await createInterface(this.interfaceItem, (response) => {
 							if (response.header.code === '0') {
 								this.init();
@@ -416,6 +420,9 @@
 		}
 		.path-input .ivu-form-item-content {
 			margin-left: 0px !important;
+		}
+		.ivu-table-wrapper,.ivu-page{
+			margin-top: 15px;
 		}
 	}
 </style>

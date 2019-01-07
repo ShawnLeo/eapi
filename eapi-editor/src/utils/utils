@@ -33,3 +33,61 @@ export const reverse = (children) => { // 迭代处理 反显数据处理
     }
   });
 };
+
+export const coverJsonToDatamodel = (jsonObject, children) => {
+	for(let key  in jsonObject){
+		let value = jsonObject[key];
+
+		if (!jsonObject[key] || ((typeof value === 'string') && value.constructor === String)) {
+			// String 类型的
+			children.push({
+				name: key,
+				description: '',
+				dataType: 'string',
+				example: value,
+				children: [],
+				required: false,
+				_expanded: false
+			});
+		} else if ((typeof value == 'number') && value.constructor == Number) {
+			// String 数字类型的
+			children.push({
+				name: key,
+				description: '',
+				dataType: 'integer',
+				example: value,
+				children: [],
+				required: false,
+				_expanded: false
+			});
+		} else if ((typeof value == 'object') && value.constructor == Object) {
+			let item = {
+				name: key,
+				description: '',
+				dataType: 'object',
+				example: '',
+				children: [],
+				required: false,
+				_expanded: false
+			};
+			coverJsonToDatamodel(value, item.children);
+			children.push(item);
+		} else if ((typeof value == 'object') && value.constructor == Array) {
+			let item = {
+				name: key,
+				description: '',
+				dataType: 'array',
+				example: '',
+				children: [],
+				required: false,
+				_expanded: false
+			};
+			if (value.length > 0) {
+				let _value = value.slice(0,1);
+				coverJsonToDatamodel(_value, item.children);
+      }
+			children.push(item);
+		}
+		// console.log(key,":",jsonObject[key]);
+	}
+};

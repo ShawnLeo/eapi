@@ -11,7 +11,7 @@
     </Form>
     <div class="clearfix"></div>
     <Form ref="formInline" inline class="project-tags-form form-in-table" v-show="showEditMenus">
-      <Button @click="deleteTags">删除</Button>
+      <Button size="small" @click="deleteTags">删除</Button>
     </Form>
     <Table :loading="loading" stripe ref="selection" :columns="columns" :data="data" @on-selection-change="onCelectionChange"></Table>
     <Modal
@@ -200,6 +200,9 @@ export default {
       line-height: 35px;
       left: 60px;
       top: 127px;
+    }
+    .ivu-table-wrapper,.ivu-page{
+      margin-top: 15px;
     }
   }
 </style>

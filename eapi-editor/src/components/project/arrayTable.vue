@@ -1,6 +1,6 @@
 <template>
-    <div class="components-project-hashTable">
-      <Icon type="arrow-up-b" style="position:relative;left:180px;top:-6px; z-index:2;color:#dddee1;" v-show="showIcon"></Icon>
+    <div class="components-project-hashtable">
+      <Icon type="md-arrow-dropup" style="position:relative;left:25%;top:-20px;font-size: 24px; z-index:2;color:#dddee1;" v-show="showIcon"></Icon>
       <Table :columns="columns10" :data="rows" class="datamodel-table"></Table>
       <!-- <Form ref="formInline" inline>
         <Button>导入数据模型</Button>
@@ -52,7 +52,7 @@
 								let customDataModel = JSON.parse(getStore('customDataModel'));
 								let options = [];
 								systemDataModel.forEach(datamodel => {
-									if (!(datamodel.dataType === 'array' && this.isArrayItem)) {
+									if (datamodel.dataType !== 'array') {
 										options.push(h('Option', {
 											props: {
 												value: datamodel.dataType
@@ -73,7 +73,8 @@
                   h('Select', {
                     attrs: {
                       id: 'edit-name-' + params.index,
-                      value: params.row.dataType
+                      value: params.row.dataType,
+											filterable: true
                     },
                     on: {
                       'on-change': (value) => {

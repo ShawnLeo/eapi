@@ -66,7 +66,7 @@
 //        await logout((response) => {
 //          if (response.header.code === '0') {
             this.$store.dispatch('userInit', '');
-            removeStore(ACCESS_TOKEN)
+            removeStore(ACCESS_TOKEN);
             this.$router.push('/');
 //          }
 //        });

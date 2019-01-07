@@ -209,7 +209,8 @@
                 h('Select', {
                   attrs: {
                     id: 'edit-name-' + params.index,
-                    value: params.row.dataModel.dataType
+                    value: params.row.dataModel.dataType,
+										filterable: true
                   },
                   on: {
                     'on-change': (value) => {
@@ -397,7 +398,8 @@
         overflow-x: inherit;
       }
       td.ivu-table-expanded-cell{
-        padding: 10px
+        padding: 10px;
+        background: none;
       }
       .ivu-icon-ios-arrow-right:before{
         content: '';

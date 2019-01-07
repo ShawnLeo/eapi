@@ -1,11 +1,7 @@
 <template>
-  <div class="footer">
-    <Footer>
-      <BackTop :bottom="200">
-        <!--<div class="top">返回顶端</div>-->
-      </BackTop>
+    <Footer class="layout-footer-center">
+      2018-2019 &copy; <a>EasyApi</a>
     </Footer>
-  </div>
 </template>
 
 <script>
@@ -22,4 +18,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .layout-footer-center{
+    text-align: center;
+  }
 </style>

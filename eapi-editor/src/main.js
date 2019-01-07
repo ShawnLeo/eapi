@@ -5,6 +5,8 @@ import iView from 'iview';
 import store from './store/store';
 import i18n from './locale';
 
+
+import animated from 'animate.css';
 import 'iview/dist/styles/iview.css';
 import './assets/css/cover.less';
 import './assets/css/common.less';
@@ -15,6 +17,7 @@ import router from './router';
 Vue.config.productionTip = false;
 
 Vue.use(iView);
+Vue.use(animated);
 
 new Vue({
   i18n,

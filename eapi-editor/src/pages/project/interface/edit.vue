@@ -1,6 +1,6 @@
 <template>
   <div class="project-interface-edit">
-    <Form ref="interfaceItem" :model="interfaceItem" :label-width=80 :rules="ruleValidate">
+    <Form ref="interfaceItem" :model="interfaceItem" :label-width=90 :rules="ruleValidate">
       <Spin size="large" fix v-if="spinShow"></Spin>
       <div style="width:90%;margin:0 auto;padding-top:30px;">
         <Row class="interface-detail">

@@ -8,6 +8,7 @@
 				</transition>
 			</Content>
 			<t-footer></t-footer>
+			<BackTop :bottom="200"></BackTop>
 		</Layout>
 	</div>
 </template>
@@ -37,6 +38,7 @@
 				}
 				getLoginUser((resp) => {
 					this.$store.dispatch('userInit', resp.body);
+//					this.$router.push('/');
 				});
 			}
 		},
