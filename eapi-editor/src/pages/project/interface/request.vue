@@ -855,7 +855,7 @@
       requestTypeChange(value) {
         this.$Modal.confirm({
           title: '切换确认',
-          content: '<p>您确定要切换吗？</p><p>切换请求数据类型将会导致现有数据丢失！，确定切换成 “' + value + '” 类型吗？</p>',
+          content: '<p>您确定要切换吗？</p><p>切换请求数据类型将会导致现有<a style="color: red">' + (value === "body" ? 'formData' : 'body') + '数据丢失</a>，确定切换成 “' + value + '” 类型吗？</p>',
           onOk: () => {
 						if (value === 'body') {
 							this.interfaceItem.formDatas = [];

@@ -6,14 +6,14 @@
         <Button type="primary" icon="md-add" @click="newTag">新建标签</Button>
       </FormItem>
       <FormItem prop="search">
-        <Input type="text" placeholder="搜索"/>
+        <Input type="text" placeholder="名称搜索" v-model="searchModel" @on-keyup="searchData"/>
       </FormItem>
     </Form>
     <div class="clearfix"></div>
     <Form ref="formInline" inline class="project-tags-form form-in-table" v-show="showEditMenus">
       <Button size="small" @click="deleteTags">删除</Button>
     </Form>
-    <Table :loading="loading" stripe ref="selection" :columns="columns" :data="data" @on-selection-change="onCelectionChange"></Table>
+    <Table :loading="loading" stripe ref="selection" :columns="columns" :data="filterTags" @on-selection-change="onCelectionChange"></Table>
     <Modal
         v-model="addTagModal"
         title="新建标签组" width="700">
@@ -91,7 +91,9 @@ export default {
             }
         }
       ],
-      data: [],
+			tags: [],
+			filterTags: [],
+			searchModel: '',
       selection: [],
       ruleValidate: {
         name: [
@@ -119,7 +121,8 @@ export default {
       this.formItem.projectId = projectId;
       await getTagList({projectId: projectId}, (response) => {
         if (response.header.code === '0') {
-          this.data = response.body;
+          this.tags = response.body;
+          this.filterTags = response.body;
         } else {
           this.$Message.error(response.header.message);
         }
@@ -174,7 +177,10 @@ export default {
 					this.$Message.success("取消删除！");
 				}
 			});
-    }
+    },
+		searchData() {
+			this.filterTags = this.tags.filter(item => item.name.toLowerCase().indexOf(this.searchModel.toLowerCase()) > -1);
+		}
   },
   mounted() {
     this.init();

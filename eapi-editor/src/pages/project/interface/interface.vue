@@ -6,7 +6,7 @@
 				<Button type="primary" icon="md-add" @click="newInterface">新建接口</Button>
 			</FormItem>
 			<FormItem prop="search">
-				<Input type="text" placeholder="搜索"/>
+				<Input type="text" placeholder="名称搜索" v-model="searchModel" @on-keyup="searchData"/>
 			</FormItem>
 		</Form>
 		<div class="clearfix"></div>
@@ -15,7 +15,7 @@
 			<Button @click="editStatus = true;" size="small">设置状态</Button>
 			<!--<Button size="small">设置标签</Button>-->
 		</Form>
-		<Table stripe ref="selection" :columns="columns" :loading="loading" :data="data" @on-selection-change="onCelectionChange"></Table>
+		<Table stripe ref="selection" :columns="columns" :loading="loading" :data="filterInterfaces" @on-selection-change="onCelectionChange"></Table>
 
 		<Modal v-model="addInterfaceModal" title="新建接口" width="700">
 			<Form ref="interfaceItem" :model="interfaceItem" :label-width=80 :rules="ruleValidate">
@@ -258,7 +258,9 @@
 						}
 					}
 				],
-				data: [],
+				interfaces: [],
+				filterInterfaces: [],
+				searchModel: '',
 				selection: [],
 				tags: [],
 				ruleValidate: {
@@ -292,7 +294,8 @@
 				this.interfaceItem.projectId = projectId;
 				getInterfaceList({projectId: projectId}, (response) => {
 					if (response.header.code === '0') {
-						this.data = response.body;
+						this.interfaces = response.body;
+						this.filterInterfaces = response.body;
 					} else {
 						this.$Message.error(response.header.message);
 					}
@@ -388,6 +391,9 @@
 						this.$Message.error(response.header.message);
 					}
 				});
+			},
+			searchData() {
+				this.filterInterfaces = this.interfaces.filter(item => item.name.toLowerCase().indexOf(this.searchModel.toLowerCase()) > -1);
 			}
 		},
 		mounted() {

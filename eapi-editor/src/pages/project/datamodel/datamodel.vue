@@ -6,7 +6,7 @@
         <Button type="primary" icon="md-add" @click="newDatamodel">新建模型</Button>
       </FormItem>
       <FormItem prop="search">
-        <Input type="text" placeholder="搜索"/>
+        <Input type="text" placeholder="名称搜索" v-model="searchModel" @on-keyup="searchData"/>
       </FormItem>
     </Form>
     <div class="clearfix"></div>
@@ -15,7 +15,7 @@
       <!--<Button>设置状态</Button>-->
       <!--<Button>设置标签</Button>-->
     </Form>
-    <Table :loading="loading" stripe ref="selection" :columns="columns" :data="data" @on-selection-change="onCelectionChange"></Table>
+    <Table :loading="loading" stripe ref="selection" :columns="columns" :data="filterDatamodels" @on-selection-change="onCelectionChange"></Table>
     <add-data-model :addDataModelModal="addDataModelModal" @closeModal="closeModal"></add-data-model>
   </div>
 </template>
@@ -75,7 +75,8 @@
           }
         ],
         selection: [],
-        data: [],
+				filterDatamodels: [],
+				datamodels: [],
         systemDataModel: []
       };
     },
@@ -99,7 +100,8 @@
           projectId: projectId
         }, (response) => {
           if (response.header.code === '0') {
-            this.data = response.body;
+            this.datamodels = response.body;
+            this.filterDatamodels = response.body;
             setStore('customDataModel', this.data);
           } else {
             this.$Message.error(response.header.message);
@@ -147,7 +149,10 @@
       closeModal () {
         this.init();
         this.addDataModelModal = false;
-      }
+      },
+			searchData() {
+				this.filterDatamodels = this.datamodels.filter(item => item.name.toLowerCase().indexOf(this.searchModel.toLowerCase()) > -1);
+			}
     },
     mounted() {
       this.init();

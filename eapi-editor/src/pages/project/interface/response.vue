@@ -174,6 +174,7 @@
                   attrs: {
                     id: 'edit-name-' + params.index,
                     placeholder: '名称',
+										disabled: true,
                     value: params.row.dataModel.name
                   },
                   on: {
@@ -300,77 +301,77 @@
                 })
               ]);
             }
-          },
-          {
-            title: '添加',
-            key: 'action',
-            width: 60,
-            align: 'center',
-            renderHeader: (h, params) => {
-              return h('div', [
-                h('Button', {
-                  props: {
-//                    type: 'ghost',
-                    shape: 'circle',
-                    size: 'small',
-                    icon: 'md-add'
-                  },
-                  style: {
-                    //                    marginRight: '5px'
-                  },
-                  on: {
-                    click: () => {
-                      this.interfaceItem.responseBody.push({
-                        responseIn: 'schema',
-                        interfaceId: this.interfaceItem.id,
-                        dataModel: {
-                          name: '',
-                          description: '',
-                          dataType: 'string',
-                          example: '',
-                          children: [],
-													required: false,
-                          _expanded: false
-                        }
-                      });
-                    }
-                  }
-                })
-              ]);
-            },
-            render: (h, params) => {
-              return h('div', [
-                h('Button', {
-                  props: {
-//                    type: 'ghost',
-                    shape: 'circle',
-                    size: 'small',
-                    icon: 'md-remove'
-                  },
-                  style: {
-                    marginRight: '5px'
-                  },
-                  on: {
-                    click: () => {
-                      if (this.interfaceItem.responseBody.length <= 1) {
-                        this.$Message.warning('请至少保留一条响应数据');
-                        return;
-                      }
-
-											this.interfaceItem.responseBody.splice(params.index, 1);
-//                      if (this.interfaceItem.responseBody[params.index].dataModel.id) {
-//                        this.deleteRequestInfo([params.row], () => {
-//                          this.interfaceItem.responseBody.splice(params.index, 1);
-//                        });
-////                        this.deleteDataModel([params.row], params.index);
-//                      } else {
-//                        this.interfaceItem.responseBody.splice(params.index, 1);
+//          },
+//          {
+//            title: ' ',
+//            key: 'action',
+//            width: 60,
+//            align: 'center',
+//            renderHeader: (h, params) => {
+//              return h('div', [
+//                h('Button', {
+//                  props: {
+////                    type: 'ghost',
+//                    shape: 'circle',
+//                    size: 'small',
+//                    icon: 'md-add'
+//                  },
+//                  style: {
+//                    //                    marginRight: '5px'
+//                  },
+//                  on: {
+//                    click: () => {
+//                      this.interfaceItem.responseBody.push({
+//                        responseIn: 'schema',
+//                        interfaceId: this.interfaceItem.id,
+//                        dataModel: {
+//                          name: '',
+//                          description: '',
+//                          dataType: 'string',
+//                          example: '',
+//                          children: [],
+//													required: false,
+//                          _expanded: false
+//                        }
+//                      });
+//                    }
+//                  }
+//                })
+//              ]);
+//            },
+//            render: (h, params) => {
+//              return h('div', [
+//                h('Button', {
+//                  props: {
+////                    type: 'ghost',
+//                    shape: 'circle',
+//                    size: 'small',
+//                    icon: 'md-remove'
+//                  },
+//                  style: {
+//                    marginRight: '5px'
+//                  },
+//                  on: {
+//                    click: () => {
+//                      if (this.interfaceItem.responseBody.length <= 1) {
+//                        this.$Message.warning('请至少保留一条响应数据');
+//                        return;
 //                      }
-                    }
-                  }
-                })
-              ]);
-            }
+//
+//											this.interfaceItem.responseBody.splice(params.index, 1);
+////                      if (this.interfaceItem.responseBody[params.index].dataModel.id) {
+////                        this.deleteRequestInfo([params.row], () => {
+////                          this.interfaceItem.responseBody.splice(params.index, 1);
+////                        });
+//////                        this.deleteDataModel([params.row], params.index);
+////                      } else {
+////                        this.interfaceItem.responseBody.splice(params.index, 1);
+////                      }
+//                    }
+//                  }
+//                })
+//              ]);
+//            }
           }]
       };
     },
@@ -408,7 +409,7 @@
         content: '';
       }
       .ivu-table-wrapper, .ivu-page{
-        margin-top: -20px;
+        margin-top: -32px;
       }
       .expand-row{
         margin: 5px;
