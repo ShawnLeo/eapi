@@ -1,6 +1,6 @@
 <template>
   <div class="project-list">
-    <Card class="fr right-content">
+    <Card class="right-content">
       <Tabs value="name1">
         <TabPane label="项目管理" name="name1">
           <Spin size="large" fix v-if="loading"></Spin>
@@ -86,11 +86,7 @@
       getProjectList: async function() {
         this.loading = true;
         await getProjectList((response) => {
-          if (response.header.code === '0') {
-            this.projects = response.body;
-          } else {
-            this.$Message.error(response.header.message);
-          }
+          this.projects = response.body;
           this.loading = false;
         });
       },

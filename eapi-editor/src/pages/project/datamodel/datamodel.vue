@@ -77,47 +77,31 @@
         selection: [],
 				filterDatamodels: [],
 				datamodels: [],
-				searchModel: '',
-        systemDataModel: []
+				searchModel: ''
       };
     },
     components: {
       addDataModel
     },
     computed: {
-      state() {
+			projectId() {
+        return this.$store.state.app.projectId || getStore('projectId');
+      },
+			state() {
         return this.$store.state.app;
       }
     },
     methods: {
       init() {
-        this.getDataModelList();
-        this.getSystemDataModelList();
+				this.getDataModelList();
       },
       getDataModelList: async function () {
-        this.loading = true;
-        let projectId = this.state.projectId || getStore('projectId');
-        await getCustomDataModelList({
-          projectId: projectId
-        }, (response) => {
-          if (response.header.code === '0') {
-            this.datamodels = response.body;
-            this.filterDatamodels = response.body;
-            setStore('customDataModel', this.datamodels);
-          } else {
-            this.$Message.error(response.header.message);
-          }
+				this.loading = true;
+        await getCustomDataModelList({projectId: this.projectId}, (response) => {
+          this.datamodels = response.body;
+          this.filterDatamodels = response.body;
+					this.$store.dispatch('customDataModel', response.body);
           this.loading = false;
-        });
-      },
-      getSystemDataModelList: async function () { // 系统默认数据结构
-        await getDataModelList({type: 'system'}, (response) => {
-          if (response.header.code === '0') {
-            this.systemDataModel = response.body;
-            setStore('systemDataModel', this.systemDataModel);
-          } else {
-            this.$Message.error(response.header.message);
-          }
         });
       },
       deleteDataModel() {
@@ -126,13 +110,9 @@
 					content: '<p>删除数据不可恢复！</p><p>确认要删除吗？</p>',
 					onOk: () => {
 						deleteDataModelInBatch(this.selection, (response) => {
-							if (response.header.code === '0') {
-								this.$Message.success('删除成功！');
-								this.showEditMenus = false;
-								this.init();
-							} else {
-								this.$Message.error(response.header.message);
-							}
+              this.$Message.success('删除成功！');
+              this.showEditMenus = false;
+              this.init();
 						});
 					},
 					onCancel: () => {

@@ -55,19 +55,22 @@
 
 				<div class="wrapper-content box clearfix">
 					<div style="float: left;width: 50%;padding-left: 30px; border-right: 1px solid #d1d5da;">
-						<h3>导出swagger文档</h3><br>
+						<h3><Icon type="ios-cloud-download-outline" /> 导出swagger文档</h3><br>
 						<p>说明:</p>
 						<p style="text-indent:2em;">导出标准格式的swagger.json文档</p><br><br>
+
 						<Button type="success" @click="exportSwagger">导出</Button>
+
 						<br><br>
 					</div>
 					<div style="float: right;width: 50%;padding-left: 60px">
-						<h3>导入swagger文档</h3><br>
+						<h3><Icon type="ios-cloud-upload-outline" /> 导入swagger文档</h3><br>
 						<p>说明:</p>
 						<p style="text-indent:2em;">1.导入格式只支持标准的swagger.json</p>
 						<p style="text-indent:2em;">2.导入swagger.json会导致现有数据丢失</p>
 						<br>
 						<Button type="info" @click="importSwagger" >导入</Button>
+
 					</div>
 				</div>
 			</i-col>
@@ -78,7 +81,7 @@
 					<h2 class="title-border">删除此项目</h2>
 				</div>
 
-				<div class="wrapper-content box">
+				<div class="wrapper-content box danger-box">
 					<p>此操作不可逆，将删除<b>{{project.title}}</b>项目, 及项目下接口、数据模型和标签等全部内容，且<b>不可恢复</b>！</p>
 					<br>
 					<p>请输入项目名称以进行确认:</p><br>
@@ -181,17 +184,13 @@
 		},
 		methods: {
 			init() {
+				this.uploadUrl = baseUrl + '/swagger/import/file/' + this.projectId;
 				this.getProjectById();
 			},
 			getProjectById() {
-				let projectId = this.state.projectId || getStore('projectId');
-				this.uploadUrl = baseUrl + '/swagger/import/file/' + projectId;
-				getProjectById({id: projectId}, (response) => {
-					if (response.header.code === '0') {
-						this.project = response.body;
-					} else {
-						this.$Message.error(response.header.message);
-					}
+				getProjectById({id: this.projectId}, (response) => {
+					this.project = response.body;
+					this.$store.dispatch('project', response.body);
 				});
 			},
 			updateProject() {
@@ -253,12 +252,8 @@
 			},
 			handleRemove() {
 				deleteProjectById({id: this.project.id}, (response) => {
-					if (response.header.code === '0') {
-						this.$Message.success('删除成功！');
-						this.$router.push({path: '/project/list'});
-					} else {
-						this.$Message.error(response.header.message);
-					}
+					this.$Message.success('删除成功！');
+					this.$router.push({path: '/project/list'});
 				});
 			},
 			okImport() {
@@ -266,11 +261,9 @@
 					projectId: this.project.id,
 					swaggerUrl: this.swaggerUrl
 				}, (response) => {
-					if (response.header.code === '0') {
-						this.$Message.success('导入成功！');
-						this.swaggerUrl = '';
-						this.showImportModal = false;
-					}
+					this.$Message.success('导入成功！');
+					this.swaggerUrl = '';
+					this.showImportModal = false;
 				});
 			},
 			cancelImport() {
@@ -280,6 +273,9 @@
 		computed: {
 			state() {
 				return this.$store.state.app;
+			},
+			projectId(){
+				return this.$store.state.app.projectId || getStore('projectId')
 			}
 		},
 		mounted() {
@@ -306,7 +302,7 @@
 		display: none;
 	}
 	.settings{
-		padding: 20px 100px;
+		padding: 20px 80px;
 	}
 	.box{
 		border: 1px solid #d1d5da;
@@ -316,5 +312,8 @@
 	.title-border {
 		border-left: 4px solid #2d8cf0;
 		padding-left: 20px;
+	}
+	.danger-box{
+		border: 1px solid #d73a49;
 	}
 </style>

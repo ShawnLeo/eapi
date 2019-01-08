@@ -5,7 +5,10 @@ const app = {
   state: {
     lang: '',
     user: {},
-    projectId: ''
+    projectId: '',
+    project: {},
+		systemDataModel: {},
+		customDataModel: {}
   },
   mutations: {
     SWITCH_LANG (state, lang) {
@@ -18,6 +21,18 @@ const app = {
     PROJECT_ID (state, projectId) {
       state.projectId = projectId;
       setStore('projectId', projectId);
+    },
+    PROJECT (state, project) {
+      state.project = project;
+      setStore('project', project);
+    },
+		SYSTEM_DATAMODEL (state, systemDataModel) {
+      state.systemDataModel = systemDataModel;
+      setStore('systemDataModel', systemDataModel);
+    },
+		CUSTOM_DATAMODEL (state, customDataModel) {
+      state.customDataModel = customDataModel;
+      setStore('customDataModel', customDataModel);
     }
   },
   actions: {
@@ -29,6 +44,15 @@ const app = {
     },
     projectId: ({commit}, payload) => {
       commit('PROJECT_ID', payload);
+    },
+    project: ({commit}, payload) => {
+      commit('PROJECT', payload);
+    },
+		systemDataModel: ({commit}, payload) => {
+      commit('SYSTEM_DATAMODEL', payload);
+    },
+		customDataModel: ({commit}, payload) => {
+      commit('CUSTOM_DATAMODEL', payload);
     }
   }
 };
