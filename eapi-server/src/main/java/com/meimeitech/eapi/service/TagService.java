@@ -2,7 +2,9 @@ package com.meimeitech.eapi.service;
 
 
 import com.google.common.collect.Lists;
+import com.meimeitech.common.util.UserContextHolder;
 import com.meimeitech.common.vo.Response;
+import com.meimeitech.common.vo.UserSession;
 import com.meimeitech.eapi.entity.Interface;
 import com.meimeitech.eapi.entity.Tag;
 import com.meimeitech.eapi.repository.InterfaceRepository;
@@ -32,7 +34,8 @@ public class TagService {
     }
 
     public Response create(Tag tag) {
-        tag.setCreater("admin");
+        UserSession user = UserContextHolder.getContext();
+        tag.setCreater(user.getLoginName());
         tag.setCreateTime(new Date());
         return Response.success(tagRepository.save(tag));
     }

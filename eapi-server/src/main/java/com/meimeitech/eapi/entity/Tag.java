@@ -33,8 +33,14 @@ public class Tag extends AbstractTag {
     /**
      * 创建人
      */
-    @Column(name = "CREATER",length = 10)
+    @Column(name = "CREATER",length = 40)
     private String creater;
+
+    /**
+     * 创建人昵称
+     */
+    @Column(name = "CREATER_USERNAME",length = 64)
+    private String createrUserName;
 
     /**
      * 创建时间
@@ -71,6 +77,14 @@ public class Tag extends AbstractTag {
 
     public void setCreater(String creater) {
         this.creater = creater;
+    }
+
+    public String getCreaterUserName() {
+        return createrUserName;
+    }
+
+    public void setCreaterUserName(String createrUserName) {
+        this.createrUserName = createrUserName;
     }
 
     public Date getCreateTime() {

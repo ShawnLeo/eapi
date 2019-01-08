@@ -3,6 +3,8 @@ package com.meimeitech.eapi.service;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.meimeitech.common.BizException;
+import com.meimeitech.common.util.UserContextHolder;
+import com.meimeitech.common.vo.UserSession;
 import com.meimeitech.eapi.entity.*;
 import com.meimeitech.eapi.util.Swagger2Eapi;
 import com.meimeitech.eapi.util.Eapi2Swagger;
@@ -113,25 +115,20 @@ public class Swagger2Service {
 
     public void importSwagger(Swagger output, String projectId){
 
+        UserSession user = UserContextHolder.getContext();
+
         // 删掉原来项目
         projectService.deleteContent(projectId);
 
         // 添加标签
-        swagger2Eapi.tagSetToTagList(output.getTags(), projectId, "");
+        swagger2Eapi.tagSetToTagList(output.getTags(), projectId, user.getId().toString(), user.getLoginName());
 
         // 添加模块
-        swagger2Eapi.modelMap(output.getDefinitions(), projectId, "");
+        swagger2Eapi.modelMap(output.getDefinitions(), projectId, user.getId().toString(), user.getLoginName());
 
         // 添加接口
-        swagger2Eapi.mapInterfaceListings(output.getPaths(), projectId, null);
+        swagger2Eapi.mapInterfaceListings(output.getPaths(), projectId, user.getId().toString(), user.getLoginName());
 
     }
-
-
-//    public static void main(String[] args) {
-//        new Swagger2Service().importSwagger(null, null);
-//    }
-
-
 
 }

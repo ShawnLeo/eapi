@@ -1,7 +1,9 @@
 package com.meimeitech.eapi.service;
 
 
+import com.meimeitech.common.util.UserContextHolder;
 import com.meimeitech.common.vo.Response;
+import com.meimeitech.common.vo.UserSession;
 import com.meimeitech.eapi.entity.*;
 import com.meimeitech.eapi.model.InterfaceVo;
 import com.meimeitech.eapi.repository.InterfaceRepository;
@@ -40,9 +42,12 @@ public class InterfaceService {
      */
     @Transactional
     public Response create(InterfaceVo interfaceVo) {
+        UserSession user = UserContextHolder.getContext();
+
         Interface _interface = new Interface();
         BeanUtils.copyProperties(interfaceVo, _interface);
-        _interface.setCreater("admin");
+        _interface.setCreater(user.getId().toString());
+        _interface.setCreaterUserName(user.getLoginName());
         _interface.setCreateTime(new Date());
         interfaceVo.getTagIds().forEach(tagId -> {
             Tag tag = new Tag();

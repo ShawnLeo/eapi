@@ -41,11 +41,6 @@ public class InterfaceVo  implements Serializable{
     private String operationId;
 
     /**
-     * 副标题
-     */
-    private String summary;
-
-    /**
      * 描述
      */
     private String description;
@@ -73,6 +68,8 @@ public class InterfaceVo  implements Serializable{
      * 创建人
      */
     private String creater;
+
+    private String createrUserName;
 
     /**
      * 创建时间
@@ -165,14 +162,6 @@ public class InterfaceVo  implements Serializable{
 
     public void setOperationId(String operationId) {
         this.operationId = operationId;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
     }
 
     public String getDescription() {
@@ -271,6 +260,14 @@ public class InterfaceVo  implements Serializable{
         this.creater = creater;
     }
 
+    public String getCreaterUserName() {
+        return createrUserName;
+    }
+
+    public void setCreaterUserName(String createrUserName) {
+        this.createrUserName = createrUserName;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -323,19 +320,22 @@ public class InterfaceVo  implements Serializable{
                 ", path='" + path + '\'' +
                 ", tagIds=" + tagIds +
                 ", operationId='" + operationId + '\'' +
-                ", summary='" + summary + '\'' +
                 ", description='" + description + '\'' +
                 ", deprecated=" + deprecated +
                 ", status=" + status +
                 ", displayOrder=" + displayOrder +
-                ", projectId=" + projectId +
+                ", projectId='" + projectId + '\'' +
                 ", creater='" + creater + '\'' +
+                ", createrUserName='" + createrUserName + '\'' +
                 ", createTime=" + createTime +
+                ", requestType='" + requestType + '\'' +
                 ", pathParams=" + pathParams +
                 ", headers=" + headers +
                 ", querys=" + querys +
                 ", body=" + body +
                 ", formDatas=" + formDatas +
+                ", responseHeader=" + responseHeader +
+                ", responseBody=" + responseBody +
                 '}';
     }
 }

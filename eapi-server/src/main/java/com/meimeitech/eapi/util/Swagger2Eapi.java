@@ -52,7 +52,7 @@ public class Swagger2Eapi {
     private ResponseInfoRepository responseInfoRepository;
 
     // Tag
-    public void tagSetToTagList(List<Tag> tags, String projectId, String creater) {
+    public void tagSetToTagList(List<Tag> tags, String projectId, String creater, String createrUserName) {
         if (tags == null) {
             return;
         }
@@ -62,11 +62,11 @@ public class Swagger2Eapi {
 
             com.meimeitech.eapi.entity.Tag newTag = new com.meimeitech.eapi.entity.Tag();
             newTag.setName(tag.getName());
-            System.out.println(tag.getDescription());
             newTag.setDescription(tag.getDescription());
             newTag.setProjectId(projectId);
             newTag.setCreateTime(new Date());
             newTag.setCreater(creater);
+            newTag.setCreaterUserName(createrUserName);
             newTags.add(newTag);
 
         });
@@ -75,7 +75,7 @@ public class Swagger2Eapi {
     }
 
     // Datamodel
-    public void modelMap(Map<String, Model> map, String projectId, String creater) {
+    public void modelMap(Map<String, Model> map, String projectId, String creater, String createrUserName) {
         if (map == null) {
            return;
         }
@@ -93,7 +93,7 @@ public class Swagger2Eapi {
 
 //            dataModel.setChildren();
             dataModel.setCreater(creater);
-////            dataModel.setCreaterUserName();
+            dataModel.setCreaterUserName(createrUserName);
             dataModel.setCreateTime(new Date());
 
             dataModel.setDescription(model.getDescription());
@@ -122,7 +122,7 @@ public class Swagger2Eapi {
         dataModelRepository.saveAll(dataModels);
     }
 
-    public void mapInterfaceListings(Map<String, Path> map, String projectId, String creater) {
+    public void mapInterfaceListings(Map<String, Path> map, String projectId, String creater, String createrUserName) {
 
         int index = 0;
 
@@ -133,7 +133,7 @@ public class Swagger2Eapi {
         List<ResponseInfo> responseInfos = Lists.newArrayList();
 
         for (Map.Entry<String, Path> pathMap : map.entrySet()) {
-            System.out.println("Key = " + pathMap.getKey() + ", Value = " + pathMap.getValue());
+//            System.out.println("Key = " + pathMap.getKey() + ", Value = " + pathMap.getValue());
 
             Path path = pathMap.getValue();
             Map<HttpMethod, Operation> operations =  path.getOperationMap();
@@ -146,6 +146,7 @@ public class Swagger2Eapi {
                 _interface.setName(operation.getSummary());
                 _interface.setMethod(entry.getKey().name().toLowerCase());
                 _interface.setCreater(creater);
+                _interface.setCreaterUserName(createrUserName);
                 _interface.setCreateTime(new Date());
                 _interface.setDeprecated(operation.isDeprecated() == null ? false : operation.isDeprecated());
                 _interface.setOperationId(operation.getOperationId());
@@ -163,14 +164,14 @@ public class Swagger2Eapi {
 //                interfaces.add(_interface);
                 interfaceRepository.save(_interface);
 
-
-
                 AtomicReference<String> paramIn = new AtomicReference<>(ParamInConsts.query.name());
                 // 请求参数
                 List<Parameter> parameters = operation.getParameters();
                 parameters.forEach(parameter -> {
                     RequestInfo requestInfo = Parameters.parameter(parameter);
                     requestInfo.setInterfaceId(_interface.getId());
+                    requestInfo.setCreater(creater);
+                    requestInfo.setCreaterUserName(createrUserName);
                     if (requestInfo.getParamIn().equals(ParamInConsts.body.name())) {
                         paramIn.set(ParamInConsts.body.name());
                     } else if (requestInfo.getParamIn().equals(ParamInConsts.formData.name())){
@@ -190,11 +191,13 @@ public class Swagger2Eapi {
                     responseInfo.setResponseIn(ResponseInConsts.schema.name());
                     responseInfo.setDescription(response.getDescription());
                     responseInfo.setCreater(creater);
+                    responseInfo.setCreaterUserName(createrUserName);
                     responseInfo.setCreateTime(new Date());
 
                     DataModel dataModel = new DataModel();
                     dataModel.setCreateTime(new Date());
-//        dataModel.setCreater(creater);
+                    dataModel.setCreater(creater);
+                    dataModel.setCreaterUserName(createrUserName);
                     dataModel.setName(responseEntry.getKey());
                     dataModel.setDescription(responseInfo.getDescription());
                     dataModel.setType(UNIT_TYPE);

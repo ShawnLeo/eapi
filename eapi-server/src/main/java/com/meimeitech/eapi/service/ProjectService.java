@@ -1,7 +1,9 @@
 package com.meimeitech.eapi.service;
 
 
+import com.meimeitech.common.util.UserContextHolder;
 import com.meimeitech.common.vo.Response;
+import com.meimeitech.common.vo.UserSession;
 import com.meimeitech.eapi.entity.Project;
 import com.meimeitech.eapi.repository.ProjectRepository;
 import org.apache.commons.lang3.StringUtils;
@@ -12,6 +14,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +28,12 @@ import java.util.List;
 @Service
 public class ProjectService {
     private static Logger logger = LoggerFactory.getLogger(ProjectService.class);
+
+    @Value("${swagger.host:10.133.255.201:7050}")
+    private String swaggerHost;
+
+    @Value("${swagger.contact-email:easyapi@163.com}")
+    private String contactEmail;
 
     @Autowired
     private ProjectRepository projectRepository;
@@ -47,12 +56,14 @@ public class ProjectService {
     }
 
     public Response create(Project project) {
+        UserSession user = UserContextHolder.getContext();
 
-        project.setContactEmail("demo@demo.com");
-        project.setHost("10.133.255.201:7050");
+        project.setContactEmail(contactEmail);
+        project.setHost(swaggerHost);
         project.setVersion("1.0.0");
         project.setCreateTime(new Date());
-        project.setCreater("admin");
+        project.setCreater(user.getId().toString());
+        project.setCreaterUserName(user.getLoginName());
         project = projectRepository.save(project);
         project.setBasePath("/virtserver/" + project.getId() + "/1.0.0/");
 

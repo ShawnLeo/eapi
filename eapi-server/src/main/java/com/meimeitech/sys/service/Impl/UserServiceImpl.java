@@ -35,10 +35,10 @@ public class UserServiceImpl implements UserService {
 
     private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    @Value("${mail.register:/#/user/active}")
+    @Value("${mail.register:#/user/active}")
     private String registerUrl;
 
-    @Value("${mail.forget:/#/user/reset}")
+    @Value("${mail.forget:#/user/reset}")
     private String forgetUrl;
 
     @Value("${host.server: http://localhost:8080}")

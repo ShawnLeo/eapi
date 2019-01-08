@@ -43,9 +43,6 @@
 					<i-input v-model="interfaceItem.operationId" placeholder="例如：findByUserId"></i-input>
 				</FormItem>
 				<div class="clearfix"></div>
-				<FormItem label="摘要" prop="summary">
-					<i-input v-model="interfaceItem.summary" placeholder="最多20个中文或者40个英文字符"></i-input>
-				</FormItem>
 				<FormItem label="描述" prop="description">
 					<i-input v-model="interfaceItem.description" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="描述"></i-input>
 				</FormItem>
@@ -118,7 +115,6 @@
 					status: 100,
 					operationId: '',
 					requestType: '',
-					summary: '',
 					description: '',
 					deprecated: false,
 					projectId: ''
@@ -130,7 +126,7 @@
 				columns: [
 					{
 						type: 'selection',
-						width: 58,
+						width: 50,
 						align: 'center'
 					},
 					{
@@ -247,8 +243,7 @@
 					},
 					{
 						title: '创建人',
-						width: 80,
-						key: 'creater'
+						key: 'createrUserName'
 					},
 					{
 						title: '创建时间',
@@ -320,7 +315,6 @@
 					tagIds: [],
 					status: 100,
 					operationId: '',
-					summary: '',
 					description: '',
 					deprecated: false,
 					projectId: this.state.projectId || getStore('projectId')

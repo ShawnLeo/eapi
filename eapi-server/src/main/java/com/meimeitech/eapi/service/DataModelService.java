@@ -1,7 +1,9 @@
 package com.meimeitech.eapi.service;
 
 
+import com.meimeitech.common.util.UserContextHolder;
 import com.meimeitech.common.vo.Response;
+import com.meimeitech.common.vo.UserSession;
 import com.meimeitech.eapi.entity.DataModel;
 import com.meimeitech.eapi.repository.DataModelRepository;
 import org.slf4j.Logger;
@@ -35,9 +37,11 @@ public class DataModelService {
     }
 
     public Response create(DataModel dataModel) {
+        UserSession user = UserContextHolder.getContext();
+
         dataModel.setType(CUSTOM_TYPE);
-        // TODO
-        dataModel.setCreater("admin");
+        dataModel.setCreater(user.getId().toString());
+        dataModel.setCreaterUserName(user.getLoginName());
         dataModel.setCreateTime(new Date());
         dataModelRepository.save(dataModel);
         deepSetParent(dataModel, dataModel.getChildren());

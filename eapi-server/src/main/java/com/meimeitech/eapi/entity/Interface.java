@@ -52,12 +52,6 @@ public class Interface extends AbstractInterface {
     private String operationId;
 
     /**
-     * 副标题
-     */
-    @Column(name = "SUMMARY",length = 1000)
-    private String summary;
-
-    /**
      * 描述
      */
     @Column(name = "DESCRIPTION",length = 2000)
@@ -90,8 +84,14 @@ public class Interface extends AbstractInterface {
     /**
      * 创建人
      */
-    @Column(name = "CREATER",length = 10)
+    @Column(name = "CREATER",length = 40)
     private String creater;
+
+    /**
+     * 创建人昵称
+     */
+    @Column(name = "CREATER_USERNAME",length = 64)
+    private String createrUserName;
 
     /**
      * 创建时间
@@ -145,14 +145,6 @@ public class Interface extends AbstractInterface {
         this.operationId = operationId;
     }
 
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -199,6 +191,14 @@ public class Interface extends AbstractInterface {
 
     public void setCreater(String creater) {
         this.creater = creater;
+    }
+
+    public String getCreaterUserName() {
+        return createrUserName;
+    }
+
+    public void setCreaterUserName(String createrUserName) {
+        this.createrUserName = createrUserName;
     }
 
     public Date getCreateTime() {

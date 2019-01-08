@@ -64,7 +64,7 @@
           },
           {
             title: '创建人',
-            key: 'creater'
+            key: 'createrUserName'
           },
           {
             title: '创建时间',
@@ -77,6 +77,7 @@
         selection: [],
 				filterDatamodels: [],
 				datamodels: [],
+				searchModel: '',
         systemDataModel: []
       };
     },
@@ -102,7 +103,7 @@
           if (response.header.code === '0') {
             this.datamodels = response.body;
             this.filterDatamodels = response.body;
-            setStore('customDataModel', this.data);
+            setStore('customDataModel', this.datamodels);
           } else {
             this.$Message.error(response.header.message);
           }

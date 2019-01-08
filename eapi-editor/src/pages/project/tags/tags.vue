@@ -82,7 +82,7 @@ export default {
         },
         {
             title: '创建人',
-            key: 'creater'
+            key: 'createrUserName'
         },
         {
             title: '创建时间',

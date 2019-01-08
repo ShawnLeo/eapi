@@ -4,7 +4,7 @@
       <Spin size="large" fix v-if="spinShow"></Spin>
       <div style="width:90%;margin:0 auto;padding-top:30px;">
         <Row class="interface-detail">
-          <i-col span="12">
+          <i-col span="13" style="border-right: 1px solid #dddee1;padding-right: 30px;">
             <FormItem prop="name" :label-width=-1 >
               <i-input v-model="interfaceItem.name" placeholder="Enter something..." class="login-input"></i-input>
             </FormItem>
@@ -21,19 +21,14 @@
                        placeholder="描述"></i-input>
             </FormItem>
           </i-col>
-          <i-col span="11" offset="1" style="border-left: 1px solid #dddee1; padding-left:30px;">
+          <i-col span="11">
             <FormItem label="标签" style="margin-top:20px;">
               <Select v-model="interfaceItem.status" require="true">
                 <Option v-for="(item, index) in status" :value="item.value" :key="index">{{item.label}}</Option>
               </Select>
             </FormItem>
-              <!--<i-input v-model="interfaceItem.status" placeholder="Enter something..."></i-input>-->
             <FormItem label="创建人">
-              <i-input v-model="interfaceItem.creater" placeholder="Enter something..." disabled></i-input>
-            </FormItem>
-            <FormItem label="摘要">
-              <i-input v-model="interfaceItem.summary" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
-                       placeholder="摘要(for swagger文件)"></i-input>
+              <i-input v-model="interfaceItem.createrUserName" placeholder="Enter something..." disabled></i-input>
             </FormItem>
           </i-col>
         </Row>
