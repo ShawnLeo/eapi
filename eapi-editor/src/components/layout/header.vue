@@ -2,6 +2,9 @@
   <div class="header">
     <Header>
       <div style="min-width: 1070px;">
+        <router-link class="fl logo" style="margin-right: 25px;" :to="{path: '/project/index'}">
+          <img width="150" height="50" src="@/assets/img/logo.png">
+        </router-link>
         <Menu ref="mainMenus" mode="horizontal" theme="dark" :active-name="$route.path" class="fl"
               @on-select="selectFn">
           <!--<Menu-Item name="/project/index">-->
