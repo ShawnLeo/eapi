@@ -22,7 +22,7 @@
             </FormItem>
           </i-col>
           <i-col span="11">
-            <FormItem label="标签" style="margin-top:20px;">
+            <FormItem label="接口状态" style="margin-top:20px;">
               <Select v-model="interfaceItem.status" require="true">
                 <Option v-for="(item, index) in status" :value="item.value" :key="index">{{item.label}}</Option>
               </Select>
@@ -41,7 +41,7 @@
           <TabPane label="响应数据" name="name2">
             <response :interfaceItem="interfaceItem"></response>
           </TabPane>
-          <TabPane label="操作日志" name="name3">开发中</TabPane>
+          <TabPane label="操作日志" name="name3">开发中...</TabPane>
         </Tabs>
       </div>
       <FormItem>
@@ -95,6 +95,10 @@
 					{
 						value: 400,
 						label: '已完成'
+					},
+					{
+						value: 500,
+						label: '已废弃'
 					}
 				],
         ruleValidate: {

@@ -58,13 +58,7 @@ public class Interface extends AbstractInterface {
     private String description;
 
     /**
-     * 弃用
-     */
-    @Column(name = "DEPRECATED")
-    private boolean deprecated;
-
-    /**
-     * 状态  100-未开始 200-开发中 300-测试中 400-已完成
+     * 状态  100-未开始 200-开发中 300-测试中 400-已完成 500-已废弃
      */
     @Column(name = "STATUS")
     private short status;
@@ -151,14 +145,6 @@ public class Interface extends AbstractInterface {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public boolean isDeprecated() {
-        return deprecated;
-    }
-
-    public void setDeprecated(boolean deprecated) {
-        this.deprecated = deprecated;
     }
 
     public Integer getDisplayOrder() {

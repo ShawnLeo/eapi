@@ -148,14 +148,18 @@ public class Swagger2Eapi {
                 _interface.setCreater(creater);
                 _interface.setCreaterUserName(createrUserName);
                 _interface.setCreateTime(new Date());
-                _interface.setDeprecated(operation.isDeprecated() == null ? false : operation.isDeprecated());
+//                _interface.setDeprecated(operation.isDeprecated() == null ? false : operation.isDeprecated());
                 _interface.setOperationId(operation.getOperationId());
                 _interface.setDisplayOrder(index);
                 _interface.setDescription(operation.getDescription());
                 _interface.setPath(pathMap.getKey());
                 _interface.setProjectId(projectId);
 //                _interface.setRequestType();
-                _interface.setStatus((short)100);
+                short status = (short) 100;
+                if( operation.isDeprecated() != null && operation.isDeprecated()) {
+                    status = (short) 500;
+                }
+                _interface.setStatus(status);
 
                 List<com.meimeitech.eapi.entity.Tag> tags = tagRepository.findAll((Specification<com.meimeitech.eapi.entity.Tag>) (root, query, cb) -> cb.and(merge(
                         eq(cb, root.get("projectId"), projectId),

@@ -68,8 +68,8 @@ public class Eapi2Swagger {
         });
 
         Operation operation = new Operation().operationId(anInterface.getOperationId()).tags(list_)
-                .description(anInterface.getDescription()).summary(anInterface.getName());
-//                .deprecated(anInterface.isDeprecated())
+                .description(anInterface.getDescription()).summary(anInterface.getName())
+                .deprecated(anInterface.getStatus() == (short)500);
 //                .defaultResponse(response);
         operation.setParameters(parameters);
 

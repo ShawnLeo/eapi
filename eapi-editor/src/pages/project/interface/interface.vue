@@ -46,13 +46,6 @@
 				<FormItem label="描述" prop="description">
 					<i-input v-model="interfaceItem.description" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="描述"></i-input>
 				</FormItem>
-				<!--<FormItem label="接口状态" prop="deprecated">-->
-					<!--<i-switch v-model="interfaceItem.deprecated" size="large">-->
-						<!--<span slot="open">On</span>-->
-						<!--<span slot="close">Off</span>-->
-					<!--</i-switch>-->
-					<!--<span style="color:#FF0000">*关闭表示接口已废弃</span>-->
-				<!--</FormItem>-->
 			</Form>
 			<div slot="footer">
 				<Button type="text" size="large" @click="reset">重置</Button>
@@ -70,6 +63,7 @@
 						<Option value="200">开发中</Option>
 						<Option value="300">测试中</Option>
 						<Option value="400">已完成</Option>
+						<Option value="500">已废弃</Option>
 					</Select>
 				</FormItem>
 			</Form>
@@ -133,13 +127,22 @@
 						title: '名称',
 						key: 'name',
 						render: (h, params) => {
-							return h('a', {
-								on: {
-									click: () => {
-										this.$router.push({path: '/project/interface/edit', query: {id: params.row.id}});
+							if (params.row.status === 500) {
+								return h('span', {
+									style: {
+										'text-decoration': 'line-through'
 									}
-								}
-							}, params.row.name);
+								},params.row.name);
+							} else {
+								return h('a', {
+									on: {
+										click: () => {
+											this.$router.push({path: '/project/interface/edit', query: {id: params.row.id}});
+										}
+									}
+								}, params.row.name);
+							}
+
 						}
 					},
 					{
@@ -161,6 +164,9 @@
 									color = 'red';
 									break;
 							}
+							if (params.row.status === 500) {
+								color = 'default';
+							}
 							return h('Tag', {
 								props: {
 									color: color
@@ -171,7 +177,25 @@
 					},
 					{
 						title: '路径',
-						key: 'path'
+						key: 'path',
+						render: (h, params) => {
+							if (params.row.status === 500) {
+								return h('span', {
+									style: {
+										'text-decoration': 'line-through'
+									}
+								},params.row.path);
+							} else {
+								return h('a', {
+									on: {
+										click: () => {
+											this.$router.push({path: '/project/interface/edit', query: {id: params.row.id}});
+										}
+									}
+								}, params.row.path);
+							}
+
+						}
 					},
 					{
 						title: '标签',
@@ -193,6 +217,7 @@
 						render: (h, params) => {
 							let color = 'primary';
 							let label = '未开始';
+							let isdeprecated = false;
 							switch (params.row.status) {
 								case 100:
 									color = 'primary';
@@ -210,6 +235,11 @@
 									color = 'success';
 									label = '已完成';
 									break;
+								case 500:
+									color = 'info';
+									label = '已废弃';
+									isdeprecated = true;
+									break;
 							}
 							return h('Dropdown', {
 								props: {
@@ -226,6 +256,9 @@
 								}
 							}, [
 								h('Button', {
+									'class': {
+										'isdeprecated': isdeprecated
+									},
 									props: {
 										type: color,
 										size: "small",
@@ -236,7 +269,8 @@
 									h('DropdownItem', {props: {name: 100}}, '未开始'),
 									h('DropdownItem', {props: {name: 200}}, '开发中'),
 									h('DropdownItem', {props: {name: 300}}, '测试中'),
-									h('DropdownItem', {props: {name: 400}}, '已完成')
+									h('DropdownItem', {props: {name: 400}}, '已完成'),
+									h('DropdownItem', {props: {name: 500}}, '已废弃')
 								])
 							]);
 						}
@@ -423,6 +457,13 @@
 		}
 		.ivu-table-wrapper,.ivu-page{
 			margin-top: 15px;
+		}
+		.isdeprecated{
+			color: rgba(0,0,0,.25);
+			border-color: #dcdee2;
+			&:hover {
+				color: rgba(0,0,0,.25);
+			}
 		}
 	}
 </style>
