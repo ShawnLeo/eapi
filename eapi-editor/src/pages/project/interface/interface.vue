@@ -13,7 +13,7 @@
 		<Form ref="formInline" inline class="project-interface-form form-in-table" v-show="showEditMenus">
 			<Button @click="deleteInterface" size="small">删除</Button>
 			<Button @click="editStatus = true;" size="small">设置状态</Button>
-			<Button @click="copyStatus = true;" size="small">复制</Button>
+			<Button @click="showCopyModal" size="small" v-if="singleSelect">复制</Button>
 			<!--<Button size="small">设置标签</Button>-->
 		</Form>
 		<Table stripe ref="selection" :columns="columns" :loading="loading" :data="filterInterfaces" @on-selection-change="onCelectionChange"></Table>
@@ -40,7 +40,7 @@
 						<Option v-for="(tag, index) in tags" :value="tag.id" :key="index">{{tag.name}}</Option>
 					</Select>
 				</FormItem>
-				<FormItem label="代码映射" style="width:50%;float:left;" prop="operationId">
+				<FormItem label="操作Id(方法名)" style="width:50%;float:left;" prop="operationId">
 					<i-input v-model="interfaceItem.operationId" placeholder="例如：findByUserId"></i-input>
 				</FormItem>
 				<div class="clearfix"></div>
@@ -71,15 +71,13 @@
 			<div class="clearfix"></div>
 		</Modal>
 
-		<Modal v-model="copyStatus"
-				title="复制接口"
-				@on-ok="okEditStatus" width="700">
-			<Form  class="project-interface-form form-in-table" :label-width=80>
+		<Modal v-model="copyStatus" title="复制接口" width="700">
+			<Form ref="copyInterfaceItem" :model="copyInterfaceItem" :label-width=80 :rules="copyRuleValidate">
 				<FormItem label="接口名称" prop="name">
-					<i-input v-model="interfaceItem.name" placeholder="最多20个中文或者40个英文字符"></i-input>
+					<i-input v-model="copyInterfaceItem.name" placeholder="最多20个中文或者40个英文字符"></i-input>
 				</FormItem>
 				<FormItem label="接口路径" prop="method" style="width: 30%;float:left;">
-					<Select v-model="interfaceItem.method" require="true">
+					<Select v-model="copyInterfaceItem.method" require="true">
 						<Option value="get">GET</Option>
 						<Option value="post">POST</Option>
 						<Option value="put">PUT</Option>
@@ -87,23 +85,27 @@
 					</Select>
 				</FormItem>
 				<FormItem prop="path" style="width:70%;float:left;" :label-width=-1>
-					<i-input v-model="interfaceItem.path" placeholder="例如：/api/get/{id}"></i-input>
+					<i-input v-model="copyInterfaceItem.path" placeholder="例如：/api/get/{id}"></i-input>
 				</FormItem>
 				<div class="clearfix"></div>
 				<FormItem label="标签" style="width:50%;float:left;" prop="tagIds">
-					<Select v-model="interfaceItem.tagIds" multiple require="true">
+					<Select v-model="copyInterfaceItem.tagIds" multiple require="true">
 						<Option v-for="(tag, index) in tags" :value="tag.id" :key="index">{{tag.name}}</Option>
 					</Select>
 				</FormItem>
-				<FormItem label="代码映射" style="width:50%;float:left;" prop="operationId">
-					<i-input v-model="interfaceItem.operationId" placeholder="例如：findByUserId"></i-input>
+				<FormItem label="操作Id(方法名)" style="width:50%;float:left;" prop="operationId" :label-width=120>
+					<i-input v-model="copyInterfaceItem.operationId" placeholder="例如：findByUserId"></i-input>
 				</FormItem>
 				<div class="clearfix"></div>
 				<FormItem label="描述" prop="description">
-					<i-input v-model="interfaceItem.description" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="描述"></i-input>
+					<i-input v-model="copyInterfaceItem.description" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="描述"></i-input>
 				</FormItem>
 			</Form>
 			<div class="clearfix"></div>
+			<div slot="footer">
+				<Button type="text" size="large" @click="copyStatus = false">取消</Button>
+				<Button type="primary" size="large" @click="okCopyInteface">确定</Button>
+			</div>
 		</Modal>
 	</div>
 </template>
@@ -111,6 +113,7 @@
 <script type="text/ecmascript-6">
 	import {
 		createInterface,
+		copyInterface,
 		getInterfaceList,
 		getTagList,
 		deleteInterfaceInBatch,
@@ -124,6 +127,24 @@
 		data() {
 			const validateNameExists = (rule, value, callback) => {
 				checkInterfaceExists(this.interfaceItem, (response) => {
+					if (response.header.code === '0') {
+						if (response.body) {
+							callback(new Error('接口已存在'));
+						} else {
+							callback();
+						}
+					} else {
+						callback(new Error(response.header.message));
+					}
+				});
+			};
+			const validateCopyNameExists = (rule, value, callback) => {
+				let validate = {
+					method: this.copyInterfaceItem.method,
+					path: this.copyInterfaceItem.path,
+					projectId: this.copyInterfaceItem.projectId
+				};
+				checkInterfaceExists(validate, (response) => {
 					if (response.header.code === '0') {
 						if (response.body) {
 							callback(new Error('接口已存在'));
@@ -149,11 +170,13 @@
 					deprecated: false,
 					projectId: ''
 				},
+				copyInterfaceItem: {},
 				editStatus: false,
 				copyStatus: false,
 				status: '',
 				loading: false,
 				showEditMenus: false,
+				singleSelect: false,
 				columns: [
 					{
 						type: 'selection',
@@ -341,6 +364,19 @@
 						{required: true, message: '请输入接口路径', trigger: 'blur'},
 						{validator: validateNameExists, trigger: 'change'}
 					]
+				},
+				copyRuleValidate: {
+					name: [
+						{required: true, message: '请输入接口名称', trigger: 'blur'}
+					],
+					path: [
+						{required: true, message: '请输入接口路径', trigger: 'blur'},
+						{validator: validateCopyNameExists, trigger: 'blur'}
+					],
+					method: [
+						{required: true, message: '请输入接口路径', trigger: 'blur'},
+						{validator: validateCopyNameExists, trigger: 'change'}
+					]
 				}
 			};
 		},
@@ -409,8 +445,17 @@
 					}
 				});
 			},
+			okCopyInteface: function () {
+				this.$refs['copyInterfaceItem'].validate((valid) => {
+					if (valid) {
+						copyInterface(this.copyInterfaceItem, (response) => {this.init(); });
+						this.copyStatus = false;
+					}
+				});
+			},
 			onCelectionChange(selection) {
 				this.showEditMenus = selection.length !== 0;
+				this.singleSelect = selection.length === 1;
 				this.selection = selection;
 			},
 			deleteInterface() {
@@ -459,6 +504,15 @@
 			},
 			searchData() {
 				this.filterInterfaces = this.interfaces.filter(item => item.name.toLowerCase().indexOf(this.searchModel.toLowerCase()) > -1);
+			},
+			showCopyModal() {
+				this.copyStatus = true;
+				this.copyInterfaceItem = this.selection[0];
+				let tagIds = [];
+				this.copyInterfaceItem.tags.forEach(tag => {
+					tagIds.push(tag.id);
+				});
+				this.copyInterfaceItem.tagIds = tagIds;
 			}
 		},
 		mounted() {

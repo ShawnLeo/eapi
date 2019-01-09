@@ -121,4 +121,16 @@ public class InterfaceController {
     public Response changeStatus(@RequestBody List<InterfaceVo> interfaceVos) {
         return interfaceService.changeStatus(interfaceVos);
     }
+
+
+    /**
+     * 复制接口
+     *
+     * @param interfaceVo
+     * @return
+     */
+    @RequestMapping(value = "/copy", method = RequestMethod.POST)
+    public Response copy(@RequestBody InterfaceVo interfaceVo) {
+        return interfaceService.copy(interfaceVo);
+    }
 }

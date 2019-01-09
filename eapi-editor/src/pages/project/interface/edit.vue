@@ -13,7 +13,7 @@
                 <Option v-for="(tag, index) in tags" :value="tag.id" :key="index">{{tag.name}}</Option>
               </Select>
             </FormItem>
-            <FormItem label="代码映射" style="margin-top:20px;">
+            <FormItem label="操作Id(方法名)" style="margin-top:20px;">
               <i-input v-model="interfaceItem.operationId" placeholder="Enter something..."></i-input>
             </FormItem>
             <FormItem label="描述">

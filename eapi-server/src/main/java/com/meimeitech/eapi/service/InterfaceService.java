@@ -1,12 +1,14 @@
 package com.meimeitech.eapi.service;
 
 
+import com.meimeitech.common.RetCode;
 import com.meimeitech.common.util.UserContextHolder;
 import com.meimeitech.common.vo.Response;
 import com.meimeitech.common.vo.UserSession;
 import com.meimeitech.eapi.entity.*;
 import com.meimeitech.eapi.model.InterfaceVo;
 import com.meimeitech.eapi.repository.InterfaceRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
@@ -165,6 +168,40 @@ public class InterfaceService {
         interfaceVos.forEach(interfaceVo -> {
             interfaceRepository.changeStatus(interfaceVo.getId(), interfaceVo.getStatus());
         });
+
+        return Response.success("");
+    }
+
+    @Transactional
+    public Response copy(InterfaceVo interfaceVo) {
+
+        if(StringUtils.isEmpty(interfaceVo.getId())) {
+            return Response.response(RetCode.VALIDATEERROR);
+        }
+
+        String copyId = interfaceVo.getId();
+
+        UserSession user = UserContextHolder.getContext();
+
+        Interface _interface = new Interface();
+
+        BeanUtils.copyProperties(interfaceVo, _interface);
+        _interface.setId(null);
+        _interface.setCreater(user.getId().toString());
+        _interface.setCreaterUserName(user.getLoginName());
+        _interface.setCreateTime(new Date());
+        interfaceVo.getTagIds().forEach(tagId -> {
+            Tag tag = new Tag();
+            tag.setId(tagId);
+            _interface.getTags().add(tag);
+        });
+        interfaceRepository.save(_interface);
+
+//        InterfaceVo copyFrom = (InterfaceVo) this.getById(copyId).getBody();
+
+        infoService.copyRequestInfo(copyId, _interface.getId());
+
+        infoService.copyResponseInfo(copyId, _interface.getId());
 
         return Response.success("");
     }

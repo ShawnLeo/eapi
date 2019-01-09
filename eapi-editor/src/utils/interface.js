@@ -49,6 +49,8 @@ export const deleteInterfaceInBatch = (data, callback) => fetch(INTERFACE + '/ba
 export const getInterfaceList = (data, callback) => fetch(INTERFACE + '/list', {callback, reqParams: data}, 'GET');
 // 创建接口
 export const createInterface = (data, callback) => fetch(INTERFACE + '/create', {callback, reqBody: data}, 'POST');
+// 复制接口
+export const copyInterface = (data, callback) => fetch(INTERFACE + '/copy', {callback, reqBody: data}, 'POST');
 // 检查接口名称是否已存在
 export const checkInterfaceExists = (data, callback) => fetch(INTERFACE + '/check', {callback, reqBody: data}, 'POST');
 // 批量删除请求数据

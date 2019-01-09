@@ -1,6 +1,7 @@
 package com.meimeitech.eapi.service;
 
 
+import com.google.common.collect.Lists;
 import com.meimeitech.common.util.UserContextHolder;
 import com.meimeitech.common.vo.Response;
 import com.meimeitech.common.vo.UserSession;
@@ -9,6 +10,7 @@ import com.meimeitech.eapi.repository.DataModelRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -105,12 +107,36 @@ public class DataModelService {
             dataModel.setParent(parent);
             dataModel.setType(UNIT_TYPE);
             dataModel.setProjectId(parent.getProjectId());
-            dataModel.setCreater("admin");
+//            dataModel.setCreater("admin");
             dataModel.setCreateTime(new Date());
             if(dataModel.getChildren() != null && dataModel.getChildren().size() > 0){
                 deepSetParent(dataModel, dataModel.getChildren());
             }
         });
+    }
+
+    public static void deepResetCopyModel(DataModel parent, List<DataModel> children){
+
+        if (children == null) {
+            return;
+        }
+
+        List newChildren = Lists.newArrayList();
+
+        children.forEach(oldDataModel -> {
+            DataModel dataModel = new DataModel();
+            BeanUtils.copyProperties(oldDataModel, dataModel);
+            dataModel.setId(null);
+            dataModel.setParent(parent);
+            dataModel.setCreateTime(new Date());
+            newChildren.add(dataModel);
+            if(dataModel.getChildren() != null && dataModel.getChildren().size() > 0){
+                deepResetCopyModel(dataModel, dataModel.getChildren());
+            } else {
+                dataModel.setChildren(null);
+            }
+        });
+        parent.setChildren(newChildren);
     }
 
     // 迭代删除

@@ -1,5 +1,6 @@
 package com.meimeitech.eapi.service;
 
+import ch.qos.logback.core.joran.util.beans.BeanUtil;
 import com.google.common.collect.Lists;
 import com.meimeitech.common.vo.Response;
 import com.meimeitech.eapi.consts.ParamInConsts;
@@ -13,8 +14,10 @@ import com.meimeitech.eapi.model.InterfaceVo;
 import com.meimeitech.eapi.repository.DataModelRepository;
 import com.meimeitech.eapi.repository.RequestInfoRepository;
 import com.meimeitech.eapi.repository.ResponseInfoRepository;
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +27,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static com.meimeitech.eapi.consts.DataModelType.UNIT_TYPE;
+import static com.meimeitech.eapi.service.DataModelService.deepResetCopyModel;
 import static com.meimeitech.eapi.service.DataModelService.deepSetParent;
 
 @Service
@@ -153,7 +157,7 @@ public class InfoService {
     public <T extends AbstractInfo> void saveDataModel(List<T> infos) {
         infos.forEach(info -> {
             DataModel dataModel = info.getDataModel();
-            dataModel.setCreater("admin");
+//            dataModel.setCreater("admin");
             dataModel.setType(UNIT_TYPE);
             dataModel.setCreateTime(new Date());
 //            dataModelRepository.save(dataModel);
@@ -264,6 +268,76 @@ public class InfoService {
                 .findByInterfaceIdAndResponseInOrderByCreateTimeDesc(id, ResponseInConsts.header.name()));
         interfaceVo.setResponseBody(responseInfoRepository
                 .findByInterfaceIdAndResponseInOrderByCreateTimeDesc(id, ResponseInConsts.schema.name()));
+    }
+
+    /**
+     * 复制请求
+     *
+     * @param copyId
+     * @param interfaceId
+     */
+    public void copyRequestInfo(String copyId, String interfaceId) {
+        List<RequestInfo> requestInfos = requestInfoRepository.findByInterfaceIdOrderByCreateTimeDesc(copyId);
+
+        if (requestInfos.isEmpty()) {
+            return;
+        }
+
+        List<RequestInfo> newRequestInfos = Lists.newArrayList();
+        requestInfos.forEach(requestInfo -> {
+            DataModel dataModel = new DataModel();
+            BeanUtils.copyProperties(requestInfo.getDataModel(), dataModel);
+            dataModel.setId(null);
+            dataModel.setCreateTime(new Date());
+            deepResetCopyModel(dataModel, dataModel.getChildren());
+            dataModelRepository.save(dataModel);
+
+            RequestInfo newRequsetInfo = new RequestInfo();
+            newRequsetInfo.setParamIn(requestInfo.getParamIn());
+            newRequsetInfo.setDataModel(dataModel);
+            newRequsetInfo.setInterfaceId(interfaceId);
+            newRequsetInfo.setCreateTime(new Date());
+            newRequestInfos.add(newRequsetInfo);
+        });
+
+        requestInfoRepository.saveAll(newRequestInfos);
+    }
+
+    /**
+     * 复制响应
+     *
+     * @param copyId
+     * @param interfaceId
+     */
+    public void copyResponseInfo(String copyId, String interfaceId) {
+
+        List<ResponseInfo> responseInfos = responseInfoRepository.findByInterfaceIdOrderByCreateTimeDesc(copyId);
+
+        if (responseInfos.isEmpty()) {
+            return;
+        }
+
+        List<ResponseInfo> newResponseInfos = Lists.newArrayList();
+
+        responseInfos.forEach(responseInfo -> {
+
+            DataModel dataModel = new DataModel();
+            BeanUtils.copyProperties(responseInfo.getDataModel(), dataModel);
+            dataModel.setId(null);
+            dataModel.setCreateTime(new Date());
+            deepResetCopyModel(dataModel, dataModel.getChildren());
+            dataModelRepository.save(dataModel);
+
+            ResponseInfo newRequestInfo = new ResponseInfo();
+            newRequestInfo.setResponseIn(responseInfo.getResponseIn());
+            newRequestInfo.setDescription(responseInfo.getDescription());
+            newRequestInfo.setDataModel(dataModel);
+            newRequestInfo.setInterfaceId(interfaceId);
+            newRequestInfo.setCreateTime(new Date());
+            newResponseInfos.add(newRequestInfo);
+        });
+
+        responseInfoRepository.saveAll(newResponseInfos);
     }
 
 }
