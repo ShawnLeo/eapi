@@ -13,6 +13,7 @@
 		<Form ref="formInline" inline class="project-interface-form form-in-table" v-show="showEditMenus">
 			<Button @click="deleteInterface" size="small">删除</Button>
 			<Button @click="editStatus = true;" size="small">设置状态</Button>
+			<Button @click="copyStatus = true;" size="small">复制</Button>
 			<!--<Button size="small">设置标签</Button>-->
 		</Form>
 		<Table stripe ref="selection" :columns="columns" :loading="loading" :data="filterInterfaces" @on-selection-change="onCelectionChange"></Table>
@@ -69,6 +70,41 @@
 			</Form>
 			<div class="clearfix"></div>
 		</Modal>
+
+		<Modal v-model="copyStatus"
+				title="复制接口"
+				@on-ok="okEditStatus" width="700">
+			<Form  class="project-interface-form form-in-table" :label-width=80>
+				<FormItem label="接口名称" prop="name">
+					<i-input v-model="interfaceItem.name" placeholder="最多20个中文或者40个英文字符"></i-input>
+				</FormItem>
+				<FormItem label="接口路径" prop="method" style="width: 30%;float:left;">
+					<Select v-model="interfaceItem.method" require="true">
+						<Option value="get">GET</Option>
+						<Option value="post">POST</Option>
+						<Option value="put">PUT</Option>
+						<Option value="delete">DELETE</Option>
+					</Select>
+				</FormItem>
+				<FormItem prop="path" style="width:70%;float:left;" :label-width=-1>
+					<i-input v-model="interfaceItem.path" placeholder="例如：/api/get/{id}"></i-input>
+				</FormItem>
+				<div class="clearfix"></div>
+				<FormItem label="标签" style="width:50%;float:left;" prop="tagIds">
+					<Select v-model="interfaceItem.tagIds" multiple require="true">
+						<Option v-for="(tag, index) in tags" :value="tag.id" :key="index">{{tag.name}}</Option>
+					</Select>
+				</FormItem>
+				<FormItem label="代码映射" style="width:50%;float:left;" prop="operationId">
+					<i-input v-model="interfaceItem.operationId" placeholder="例如：findByUserId"></i-input>
+				</FormItem>
+				<div class="clearfix"></div>
+				<FormItem label="描述" prop="description">
+					<i-input v-model="interfaceItem.description" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="描述"></i-input>
+				</FormItem>
+			</Form>
+			<div class="clearfix"></div>
+		</Modal>
 	</div>
 </template>
 
@@ -114,6 +150,7 @@
 					projectId: ''
 				},
 				editStatus: false,
+				copyStatus: false,
 				status: '',
 				loading: false,
 				showEditMenus: false,

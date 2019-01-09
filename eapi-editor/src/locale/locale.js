@@ -13,7 +13,8 @@ export default {
     },
     menus: {
       index: '首页',
-      projects: '项目管理'
+      projects: '项目管理',
+			codegen: '代码生成'
     },
     switchLangTitle: '切换语言',
 		login: {

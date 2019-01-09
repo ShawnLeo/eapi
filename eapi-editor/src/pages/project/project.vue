@@ -24,8 +24,8 @@
           </Menu-Item>
         </Menu>
         <div class="tab-bar">
-          <Button type="info" icon="ios-play" class="fr sub-menu-button" @click="publish">发布</Button>
-          <Button type="success" icon="ios-eye" class="fr sub-menu-button" @click="preview">预览</Button>
+          <Button icon="md-play" class="fr sub-menu-button" @click="publish">发布</Button>
+          <Button icon="md-eye" class="fr sub-menu-button" @click="preview">接口文档</Button>
         </div>
         <div class="clearfix"></div>
       </div>
@@ -48,7 +48,7 @@ export default {
 			return this.$store.state.app;
 		},
 		projectId(){
-			return this.$store.state.app.projectId
+			return this.$store.state.app.projectId;
     }
 	},
   methods: {
@@ -101,7 +101,7 @@ export default {
           position: relative;
           top: 16px;
           .sub-menu-button{
-            margin-left: 15px;
+            margin-left: 10px;
           }
         }
       }

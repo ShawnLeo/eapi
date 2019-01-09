@@ -7,7 +7,7 @@
           <div style="display: flex">
             <Card style="width:240px;margin: 15px;" v-for="(project, index) in projects" :key="index">
               <div style="text-align:center" @click="goInterface(project.id)">
-                <img width="80" height="80" style="border-radius:  50%;" src="../../assets/img/logo.png">
+                <img width="80" height="80" style="border-radius:  50%;" src="../../assets/img/logo2.png">
                 <h3>{{project.title}}</h3>
               </div>
             </Card>

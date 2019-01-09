@@ -3,9 +3,9 @@
     <Header>
       <div style="min-width: 1070px;">
         <router-link class="fl logo" style="margin-right: 25px;" :to="{path: '/project/index'}">
-          <img width="150" height="50" src="@/assets/img/logo.png">
+          <img width="150" height="50" src="@/assets/img/logo1.png">
         </router-link>
-        <Menu ref="mainMenus" mode="horizontal" theme="dark" :active-name="$route.path" class="fl"
+        <Menu ref="mainMenus" mode="horizontal" theme="dark" :active-name="$route.meta.menuActive" class="fl"
               @on-select="selectFn">
           <!--<Menu-Item name="/project/index">-->
             <!--{{ $t("menus.index") }}-->
@@ -13,6 +13,10 @@
           <Menu-Item name="/project/list">
             {{ $t("menus.projects") }}
           </Menu-Item>
+
+          <!--<Menu-Item name="/code/generator">-->
+            <!--{{ $t("menus.codegen") }}-->
+          <!--</Menu-Item>-->
         </Menu>
 
         <div class="select_lang fr">

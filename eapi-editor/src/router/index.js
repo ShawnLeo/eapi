@@ -18,6 +18,9 @@ const router = new Router({
       children: [{
         path: '/project/list',
         name: 'interface',
+				meta: {
+					menuActive: '/project/list'
+				},
         component: () => import('../pages/project/list.vue')
       }, {
         path: '/project/index',
@@ -29,7 +32,8 @@ const router = new Router({
         children: [{
           path: '/project/interface',
           meta: {
-            subMenuActive: '/project/interface',
+            menuActive: '/project/list',
+						subMenuActive: '/project/interface',
 						auth: true
           },
           name: 'interface',
@@ -37,6 +41,7 @@ const router = new Router({
         }, {
           path: '/project/interface/edit',
           meta: {
+						menuActive: '/project/list',
             subMenuActive: '/project/interface',
 						auth: true
           },
@@ -46,6 +51,7 @@ const router = new Router({
           path: '/project/datamodel',
           name: 'datamodel',
           meta: {
+						menuActive: '/project/list',
             subMenuActive: '/project/datamodel',
 						auth: true
           },
@@ -61,6 +67,7 @@ const router = new Router({
           path: '/project/datamodel/edit',
           name: 'datamodelEdit',
           meta: {
+						menuActive: '/project/list',
             subMenuActive: '/project/datamodel',
 						auth: true
           },
@@ -69,6 +76,7 @@ const router = new Router({
           path: '/project/tags',
           name: 'tags',
           meta: {
+						menuActive: '/project/list',
             subMenuActive: '/project/tags',
 						auth: true
           },
@@ -77,6 +85,7 @@ const router = new Router({
           path: '/project/regular',
           name: 'regular',
           meta: {
+						menuActive: '/project/list',
             subMenuActive: '/project/regular',
 						auth: true
           },
@@ -85,6 +94,7 @@ const router = new Router({
           path: '/project/settings',
           name: 'settings',
           meta: {
+						menuActive: '/project/list',
             subMenuActive: '/project/settings',
 						auth: true
           },
