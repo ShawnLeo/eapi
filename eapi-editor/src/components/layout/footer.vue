@@ -1,6 +1,6 @@
 <template>
     <Footer class="layout-footer-center">
-      2018-2019 &copy; <a>EasyApi</a>
+      2018-2019 &copy; <a>EagleApi</a>
     </Footer>
 </template>
 

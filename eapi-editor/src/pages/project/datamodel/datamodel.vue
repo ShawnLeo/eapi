@@ -58,10 +58,10 @@
             title: '描述',
             key: 'description'
           },
-          {
-            title: '分组',
-            key: 'group'
-          },
+//          {
+//            title: '分组',
+//            key: 'group'
+//          },
           {
             title: '创建人',
             key: 'createrUserName'
