@@ -88,9 +88,10 @@
 					<Input v-model="title" placeholder="项目名称"/>
 					<br>
 					<br>
-					<Button type="error" long  v-if="showDeleteButton" @click="handleRemove">我已了解风险，删除此项目</Button>
-					<Button type="error" long disabled v-else>我已了解风险，删除此项目</Button>
-
+					<FormItem :label-width=-1>
+						<Button type="error" long  v-if="showDeleteButton" @click="handleRemove">我已了解风险，删除此项目</Button>
+						<Button type="error" long disabled v-else>我已了解风险，删除此项目</Button>
+					</FormItem>
 				</div>
 			</i-col>
 		</Form>
@@ -275,7 +276,7 @@
 				return this.$store.state.app;
 			},
 			projectId(){
-				return this.$store.state.app.projectId || getStore('projectId')
+				return this.$store.state.app.projectId || getStore('projectId');
 			}
 		},
 		mounted() {
@@ -294,26 +295,10 @@
 </script>
 
 <style>
-	.wrapper-content {
-		padding: 20px 0px;
-		position: relative;
-	}
 	.ivu-upload-list{
 		display: none;
 	}
 	.settings{
 		padding: 20px 80px;
-	}
-	.box{
-		border: 1px solid #d1d5da;
-		border-radius: 3px;
-		padding: 40px 60px 30px 20px;
-	}
-	.title-border {
-		border-left: 4px solid #2d8cf0;
-		padding-left: 20px;
-	}
-	.danger-box{
-		border: 1px solid #d73a49;
 	}
 </style>

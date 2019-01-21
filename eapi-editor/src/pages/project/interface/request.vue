@@ -931,6 +931,7 @@
 
 <style lang="less">
   .request{
+    padding-bottom: 130px;
     .ivu-table{
       overflow: inherit;
       .ivu-table-overflowX {

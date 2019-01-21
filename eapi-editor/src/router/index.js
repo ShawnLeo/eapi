@@ -16,15 +16,18 @@ const router = new Router({
       name: 'project',
       component: () => import('../pages/index.vue'),
       children: [{
+				path: '/project/index',
+				name: 'projectIndex',
+				meta: {
+					menuActive: '/project/index'
+				},
+				component: () => import('../pages/project/index.vue')
+			}, {
         path: '/project/list',
-        name: 'interface',
+        name: 'projectList',
 				meta: {
 					menuActive: '/project/list'
 				},
-        component: () => import('../pages/project/list.vue')
-      }, {
-        path: '/project/index',
-        name: 'projectIndex',
         component: () => import('../pages/project/list.vue')
       }, {
         path: '/project/project',
@@ -45,7 +48,7 @@ const router = new Router({
             subMenuActive: '/project/interface',
 						auth: true
           },
-          name: 'interface',
+          name: 'interfaceEdit',
           component: () => import('../pages/project/interface/edit.vue')
         }, {
           path: '/project/datamodel',
@@ -107,7 +110,7 @@ const router = new Router({
 			component: () => import('../pages/user/login.vue')
 		}, {
 			path: '/user/register',
-			name: 'login',
+			name: 'register',
 			component: () => import('../pages/user/register.vue')
 		}, {
 			path: '/user/active',
@@ -143,7 +146,7 @@ const router = new Router({
 			component: () => import('../pages/user/reset.vue')
 		}, {
 			path: '/user/reset/email',
-			name: 'reset',
+			name: 'resetEmail',
 			meta: {
 				// menuActive: '/otc/floor', // 一级菜单激活 路由名称
 				// subMenuActive: '/accountCenter/account' // 二级级菜单激活 路由名称

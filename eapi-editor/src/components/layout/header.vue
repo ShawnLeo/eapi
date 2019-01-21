@@ -7,16 +7,20 @@
         </router-link>
         <Menu ref="mainMenus" mode="horizontal" theme="dark" :active-name="$route.meta.menuActive" class="fl"
               @on-select="selectFn">
-          <!--<Menu-Item name="/project/index">-->
-            <!--{{ $t("menus.index") }}-->
-          <!--</Menu-Item>-->
+          <Menu-Item name="/project/index">
+            {{ $t("menus.index") }}
+          </Menu-Item>
           <Menu-Item name="/project/list">
             {{ $t("menus.projects") }}
           </Menu-Item>
 
-          <!--<Menu-Item name="/code/generator">-->
-            <!--{{ $t("menus.codegen") }}-->
-          <!--</Menu-Item>-->
+          <Menu-Item name="/code/generator">
+            {{ $t("menus.codegen") }}
+          </Menu-Item>
+
+          <Menu-Item name="/code/docs">
+              文档
+          </Menu-Item>
         </Menu>
 
         <div class="select_lang fr">

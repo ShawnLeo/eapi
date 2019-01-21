@@ -45,3 +45,7 @@ host:
 mail:
   register: "#/user/active"
   forget: "#/user/reset"
+
+swagger:
+  host: 10.133.255.201:7050
+  contact-email: easyapi@163.com
