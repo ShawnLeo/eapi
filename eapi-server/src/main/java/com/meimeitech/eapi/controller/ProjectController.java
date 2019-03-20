@@ -53,8 +53,8 @@ public class ProjectController {
      * @return
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public Response list() {
-        return projectService.list();
+    public Response list( @RequestParam(value = "groupId") String groupId) {
+        return projectService.list(groupId);
     }
 
     /**

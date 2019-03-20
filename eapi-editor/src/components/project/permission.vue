@@ -4,16 +4,16 @@
 			<h2 class="title-border">权限控制</h2>
 		</div>
 		<div class="wrapper-content box">
-			<Form :model="formItem" :label-width="140">
+			<Form :model="group" :label-width="140">
 				<FormItem label="用户申请验证方式：" style="float: left">
-					<RadioGroup v-model="formItem.permission">
-						<Radio label="public">需管理员验证</Radio>
-						<Radio label="private">自动通过为</Radio>
+					<RadioGroup v-model="group.verify" @chang="group.verifyRole = null">
+						<Radio label="1">需管理员验证</Radio>
+						<Radio label="2">自动通过为</Radio>
 					</RadioGroup>
 				</FormItem>
 
-				<FormItem label="" style="width: 500px;float: right" :label-width="-1">
-					<Select v-model="formItem.select">
+				<FormItem label="" style="width: 500px;float: right" :label-width="-1" v-if="group.verify === '2'">
+					<Select v-model="group.verifyRole">
 						<Option value="2">管理员</Option>
 						<Option value="3">开发者</Option>
 						<Option value="4">观察者</Option>
@@ -37,7 +37,12 @@
 </template>
 
 <script type="text/ecmascript-6">
+	import {groupUpdate, groupDelete, groupUserQuit} from '../../utils/interface';
+
 	export default {
+		props: {
+			group: Object
+		},
 		data () {
 			return {
 				columns2: [
@@ -129,7 +134,12 @@
 			};
 		},
 		methods: {
-			updatePremission() {}
+			updatePremission() {
+				groupUpdate(this.group, () => {
+					this.$Message.success('修改成功!');
+					this.$emit('update');
+				});
+			}
 		}
 	};
 </script>

@@ -30,6 +30,15 @@ const router = new Router({
 				},
         component: () => import('../pages/project/list.vue')
       }, {
+				path: '/project/search',
+				name: 'search',
+				meta: {
+					menuActive: '/project/search',
+					subMenuActive: '/project/search',
+					auth: true
+				},
+				component: () => import('../pages/project/search.vue')
+			}, {
         path: '/project/project',
         component: () => import('../pages/project/project.vue'),
         children: [{

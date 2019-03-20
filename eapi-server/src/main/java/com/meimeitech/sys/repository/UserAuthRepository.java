@@ -2,9 +2,10 @@ package com.meimeitech.sys.repository;
 
 import com.meimeitech.sys.entity.UserAuth;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.query.Param;
 
-public interface UserAuthRepository extends JpaRepository<UserAuth,String> {
+public interface UserAuthRepository extends JpaRepository<UserAuth,String> , JpaSpecificationExecutor<UserAuth> {
 
     /**
      * 根据用户登陆账号查询认证账户

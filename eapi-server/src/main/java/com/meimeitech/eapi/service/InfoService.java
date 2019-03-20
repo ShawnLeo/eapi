@@ -1,6 +1,5 @@
 package com.meimeitech.eapi.service;
 
-import ch.qos.logback.core.joran.util.beans.BeanUtil;
 import com.google.common.collect.Lists;
 import com.meimeitech.common.vo.Response;
 import com.meimeitech.eapi.consts.ParamInConsts;
@@ -14,7 +13,6 @@ import com.meimeitech.eapi.model.InterfaceVo;
 import com.meimeitech.eapi.repository.DataModelRepository;
 import com.meimeitech.eapi.repository.RequestInfoRepository;
 import com.meimeitech.eapi.repository.ResponseInfoRepository;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;

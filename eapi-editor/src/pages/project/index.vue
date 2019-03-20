@@ -18,21 +18,23 @@
       </p>
 
       <div class="project-box">
-        <Card style="width:240px;margin: 15px;cursor: pointer;" v-for="(project, index) in projects" :key="index">
+        <Card class="project-item" v-for="(project, index) in projects" :key="index">
           <div style="text-align:center" @click="goInterface(project.id)">
-            <Avatar class="project-avatar" size="large" >{{project.title.substring(0, 1)}}</Avatar>
-            <br>
+            <div class="avatar">
+              <Avatar shape="square" class="project-avatar" size="large" >{{project.title.substring(0, 1)}}</Avatar>
+            </div>
             <br>
             <h4>{{project.title}}</h4>
           </div>
         </Card>
-        <Card style="width:240px;margin: 15px;cursor: pointer;">
+        <Card class="project-item">
           <div style="text-align:center;"  @click="$router.push({path: '/project/list'})">
-            <Avatar style="background: #f0faff;color: #2d8cf0;" class="project-avatar" size="large" >ALL</Avatar>
-            <br>
+            <div class="avatar">
+              <Avatar style="background: #f0faff;color: #2d8cf0;" class="project-avatar" size="large" >ALL</Avatar>
+            </div>
             <br>
             <h4 style="color: #2d8cf0;">查看所有项目</h4>
-            <!--<Icon type="md-add" size="100"></Icon>-->
+            <!--<Icon type="md-add" size="100"></Icon>  shape="square"  -->
           </div>
         </Card>
       </div>
@@ -57,6 +59,18 @@
       <!--</Tabs>-->
     </Card>
 
+    <Card class="fr unprocessed-application main-content ">
+      <p slot="title">
+        <Icon type="ios-alarm" />
+        我的申请列表
+      </p>
+      <Table :columns="columns2" :data="data2" style="margin-bottom: 60px"></Table>
+      <!--<Tabs value="name1">-->
+        <!--<TabPane label="未处理的申请" name="name2">-->
+          <!--<Table :columns="columns2" :data="data2" style="margin-bottom: 60px"></Table>-->
+        <!--</TabPane>-->
+      <!--</Tabs>-->
+    </Card>
 
   </div>
 </template>
@@ -166,12 +180,8 @@
       },
       getProjectList: async function() {
         this.loading = true;
-        await getProjectList((response) => {
-          if (response.header.code === '0') {
-            this.projects = response.body;
-          } else {
-            this.$Message.error(response.header.message);
-          }
+        await getProjectList({groupId: 'all'}, (response) => {
+          this.projects = response.body;
           this.loading = false;
         });
       },
@@ -194,6 +204,24 @@
         display: flex;
         display: -webkit-flex;
         flex-wrap:wrap;
+        .project-item{
+          width:204px;
+          margin: 15px;
+          cursor: pointer;
+          background: url(../../assets/img/project_item.png) no-repeat;
+          background-size:100% 100%;
+          .avatar{
+            padding: 20px;
+            border-bottom: 1px solid #dcdee2;
+            .project-avatar {
+              width: 60px;
+              height: 60px;
+              border-radius: 30px;
+              font-size: 24px;
+              padding: 10px;
+            }
+          }
+        }
       }
       .ivu-card-head{
         padding: 25px 16px;
@@ -209,12 +237,5 @@
   .ivu-tabs-nav {
     height: 60px;
     line-height: 40px;
-  }
-  .project-avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 30px;
-    font-size: 24px;
-    padding: 10px;
   }
 </style>

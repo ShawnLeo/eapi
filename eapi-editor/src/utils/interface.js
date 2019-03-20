@@ -14,7 +14,7 @@ const USER = '/user';
 
 /** ******* 项目-start ******** **/
 // 获取项目列表
-export const getProjectList = (callback) => fetch(PROJECT + '/list', {callback}, 'GET');
+export const getProjectList = (data, callback) => fetch(PROJECT + '/list', {callback, reqParams: data}, 'GET');
 // 根据ID获取项目
 export const getProjectById = (data, callback) => fetch(PROJECT + '/' + data.id, {callback}, 'GET');
 // 创建项目
@@ -104,3 +104,30 @@ export const emailResetSend = (data, callback) => fetch(USER + '/email/reset/sen
 // 重置密码
 export const emailReset = (data, callback) => fetch(USER + '/email/reset', {callback, reqBody: data}, 'POST');
 /** ******* 用户-end ******** **/
+
+/** ******* 项目组-start ******** **/
+// 查询项目组
+export const groupGet = (data, callback) => fetch('/group', {callback, reqParams: data}, 'GET');
+// 添加项目组
+export const groupAdd = (data, callback) => fetch('/group', {callback, reqBody: data}, 'POST');
+// 修改项目组
+export const groupUpdate = (data, callback) => fetch('/group', {callback, reqBody: data}, 'PUT');
+// 删除项目组
+export const groupDelete = (data, callback) => fetch('/group', {callback, reqParams: data}, 'DELETE');
+// 我的项目组列表
+export const groupList = (callback) => fetch('/group/list', {callback}, 'GET');
+// 创建者转交项目组
+export const groupTransfer = (data, callback) => fetch('/group/transfer', {callback, reqParams: data}, 'GET');
+// 添加项目组成员
+export const groupUserAdd = (data, callback) => fetch('/group/user', {callback, reqBody: data}, 'POST');
+// 项目组成员列表
+export const groupUserList = (data, callback) => fetch('/group/user/list', {callback, reqParams: data}, 'GET');
+// 退出项目组
+export const groupUserQuit = (data, callback) => fetch('/group/user/quit', {callback, reqParams: data}, 'GET');
+// 退出项目组
+export const groupUserUpdate = (data, callback) => fetch('/group/user/update', {callback, reqBody: data}, 'POST');
+// 查询用户
+export const groupUserQuery = (data, callback) => fetch('/group/user/query/' + data.username, {callback, reqParams: {groupId: data.groupId}}, 'GET');
+// 当前用户在某项目组下的角色
+export const getCurrUserRole = (data, callback) => fetch('/group/user/role', {callback, reqParams: data}, 'GET');
+/** ******* 项目组-end ******** **/
