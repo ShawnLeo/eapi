@@ -30,7 +30,7 @@
         <Card class="project-item">
           <div style="text-align:center;"  @click="$router.push({path: '/project/list'})">
             <div class="avatar">
-              <Avatar style="background: #f0faff;color: #2d8cf0;" class="project-avatar" size="large" >ALL</Avatar>
+              <Avatar  shape="square" style="background: #f0faff;color: #2d8cf0;" class="project-avatar" size="large" >all</Avatar>
             </div>
             <br>
             <h4 style="color: #2d8cf0;">查看所有项目</h4>
@@ -95,14 +95,14 @@
 						key: 'name',
 						render: (h, params) => {
 							return h('div', [
-								h('Avatar', {
-									props: {
-										size: 'small'
-									},
-									style: {
-										marginRight: '5px'
-									}
-								}, params.row.name.substring(0, 1)),
+//								h('Avatar', {
+//									props: {
+//										size: 'small'
+//									},
+//									style: {
+//										marginRight: '5px'
+//									}
+//								}, params.row.name.substring(0, 1)),
 								h('span', params.row.name + ' ')
 							]);
 						}

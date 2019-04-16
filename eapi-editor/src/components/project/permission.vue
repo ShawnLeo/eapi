@@ -56,14 +56,14 @@
 						key: 'name',
 						render: (h, params) => {
 							return h('div', [
-								h('Avatar', {
-									props: {
-										size: 'small'
-									},
-									style: {
-										marginRight: '5px'
-									}
-								}, params.row.name.substring(0, 1)),
+//								h('Avatar', {
+//									props: {
+//										size: 'small'
+//									},
+//									style: {
+//										marginRight: '5px'
+//									}
+//								}, params.row.name.substring(0, 1)),
 								h('span', params.row.name + ' ')
 							]);
 						}

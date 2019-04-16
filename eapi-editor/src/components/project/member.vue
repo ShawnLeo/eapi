@@ -76,14 +76,14 @@
 						key: 'userName',
 						render: (h, params) => {
 							let renderH = [
-								h('Avatar', {
-									props: {
-										size: 'small'
-									},
-									style: {
-										marginRight: '5px'
-									}
-								}, params.row.userName.substring(0, 1)),
+//								h('Avatar', {
+//									props: {
+//										size: 'small'
+//									},
+//									style: {
+//										marginRight: '5px'
+//									}
+//								}, params.row.userName.substring(0, 1)),
 								h('span', params.row.userName + ' ')
 							];
 							if (params.row.userId === this.$store.state.app.user.id) {
