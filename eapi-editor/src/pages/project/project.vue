@@ -2,11 +2,11 @@
   <div class="project">
 
     <div class="title">
-      <h2><Icon type="ios-bookmarks-outline" />  {{state.project.title}}</h2>
+      <h2><Icon type="ios-bookmarks-outline" />  默认项目组 / {{state.project.title}}</h2>
       <div></div>
     </div>
 
-    <Card class="right-content clearfix">
+    <Card class="main-content right-content clearfix">
       <div class="sub-menu">
         <Menu ref="mainNav" mode="horizontal" theme="light" :active-name="$route.meta.subMenuActive" class="fl"
               @on-select="selectMenu">
@@ -87,7 +87,7 @@ export default {
     .title{
       margin-bottom: 15px;
     }
-    .right-content{
+    .main-content{
       .sub-menu{
         border-bottom: 1px solid #e9eaec;
         .ivu-menu {

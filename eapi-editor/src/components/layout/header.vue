@@ -1,22 +1,43 @@
 <template>
   <div class="header">
     <Header>
-      <div style="min-width: 1070px;">
+      <div class="header-content clearfix">
         <router-link class="fl logo" style="margin-right: 25px;" :to="{path: '/project/index'}">
           <img width="150" height="50" src="@/assets/img/logo1.png">
         </router-link>
+        <div class="fl search-input">
+          <Form ref="formInline" inline v-bind:class="{ 'search-input-select': searchSelect }">
+            <FormItem prop="user">
+              <i-input type="text" placeholder="搜索项目或项目组"
+                       @on-search="searchSelectFn()"
+                       @on-focus="searchSelect = true" @on-blur="searchSelect = false" search></i-input>
+            </FormItem>
+          </Form>
+        </div>
+
         <Menu ref="mainMenus" mode="horizontal" theme="dark" :active-name="$route.meta.menuActive" class="fl"
               @on-select="selectFn">
-          <!--<Menu-Item name="/project/index">-->
-            <!--{{ $t("menus.index") }}-->
-          <!--</Menu-Item>-->
+          <Menu-Item name="/project/index">
+            <Icon type="ios-home" />
+            {{ $t("menus.index") }}
+          </Menu-Item>
           <Menu-Item name="/project/list">
+            <Icon type="ios-paper" />
             {{ $t("menus.projects") }}
           </Menu-Item>
 
           <!--<Menu-Item name="/code/generator">-->
             <!--{{ $t("menus.codegen") }}-->
           <!--</Menu-Item>-->
+
+          <Menu-Item name="https://github.com/ShawnLeo/eapi">
+            <Icon type="logo-github" /> GitHub
+          </Menu-Item>
+
+          <Menu-Item name="/code/docs">
+            <Icon type="ios-document" />
+              文档
+          </Menu-Item>
         </Menu>
 
         <div class="select_lang fr">
@@ -32,7 +53,7 @@
 
         <div class="head-user fr">
           <li class="head-user" v-if="state.user.authId">
-            <span class="title" growing-ignore="true">{{state.user.authId}} <Icon type="arrow-down-b"></Icon></span>
+            <span class="title" growing-ignore="true"><Avatar icon="ios-person" />   {{state.user.authId}} <Icon type="arrow-down-b"></Icon></span>
             <ul class="head-user-list">
               <li><a href="javascript:void(0);" @click="logout" class="btn_logout"><Icon type="log-out"></Icon>退出登录</a></li>
             </ul>
@@ -54,12 +75,20 @@
     data() {
       return {
         msg: '',
-        value2: 0
+        value2: 0,
+        searchSelect: false
       };
     },
     methods: {
-      selectFn(a) {
-        this.$router.push({path: a});
+			selectFn(a) {
+				if (a.indexOf('https://github.com/') > -1) {
+					window.open(a, '_blank');
+				} else {
+					this.$router.push({path: a});
+				}
+			},
+			searchSelectFn() {
+				this.$router.push('/project/search');
       },
       goLogin() {
         this.$router.push('/user/login');
@@ -95,14 +124,35 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="less">
-  .header{
+<style lang="less">
+  .header {
     .ivu-layout-header {
       background: #292E4E;
-      .ivu-menu-dark{
+      .header-content {
+        min-width: 1070px;
         background: #292E4E;
+        .ivu-menu-dark {
+          background: #292E4E;
+        }
+        .search-input {
+          padding-top: 15px;
+          height: 64px;
+          input {
+            border: none;
+            color: #ffffff;
+            background-color: hsla(0, 0%, 100%, .125);
+          }
+        }
+        .search-input-select{
+          input {
+            color: #000000;
+            background-color: #ffffff;
+          }
+        }
+
       }
     }
+
     .select_lang {
       font-size: 14px;
       position: relative;

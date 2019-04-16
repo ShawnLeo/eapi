@@ -41,7 +41,11 @@ spring:
     template-loader-path: classpath:/freemarker
     suffix: .ftl
 host:
-  server: http://10.133.255.201:5001/pc/swagger-editor/index.html
+  server: http://118.25.0.116/swagger-editor/latest/index.html
 mail:
   register: "#/user/active"
   forget: "#/user/reset"
+
+swagger:
+  host: 118.25.0.116:7050
+  contact-email: easyapi@163.com

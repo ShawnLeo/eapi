@@ -16,7 +16,7 @@
     }
   }
   .left-content{
-    width:200px;
+    width:152px;
     padding: 0px;
     .ivu-card-body {
       padding: 0px;
@@ -25,12 +25,14 @@
         font-weight: bold;
       }
     }
-    .ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu) {
+    .ivu-menu-light.ivu-menu-vertical .ivu-menu-item-group .ivu-menu-item-active:not(.ivu-menu-submenu) {
       color: #1188FC;
       border-left: 2px solid #1188FC;
-      border-right: none;
       background: @primary-table-bg-color;
       z-index: 2;
+      &:after{
+        width: 0px;
+      }
     }
   }
   .right-content{
@@ -169,7 +171,22 @@
       }
     }
   }
-
+  .wrapper-content {
+    padding: 20px 0px;
+    position: relative;
+    .title-border {
+      border-left: 4px solid #2d8cf0;
+      padding-left: 20px;
+    }
+  }
+  .box{
+    border: 1px solid #d1d5da;
+    border-radius: 3px;
+    padding: 40px 60px 10px 20px;
+  }
+  .danger-box{
+    border: 1px solid #d73a49;
+  }
 }
 
 .modal-form{

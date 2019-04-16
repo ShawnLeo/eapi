@@ -1,6 +1,7 @@
 package com.meimeitech.eapi.service;
 
 
+import com.google.common.collect.Lists;
 import com.meimeitech.common.util.UserContextHolder;
 import com.meimeitech.common.vo.Response;
 import com.meimeitech.common.vo.UserSession;
@@ -44,8 +45,15 @@ public class ProjectService {
     @Autowired
     private DataModelService dataModelService;
 
-    public Response list() {
-       return Response.success(projectRepository.findAll());
+    public Response list(String groupId) {
+        UserSession user = UserContextHolder.getContext();
+        List<Project> projects;
+        if ("all".equals(groupId)) {
+            projects = projectRepository.findAllGroups(user.getId().toString());
+        } else {
+            projects = projectRepository.findByGroupId(groupId);
+        }
+       return Response.success(projects);
     }
 
     public Response update(Project project) {
@@ -130,6 +138,18 @@ public class ProjectService {
         dataModelService.deleteByProjectId(projectId);
         // 删掉所有的标签
         tagService.deleteByProjectId(projectId);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List search(String title) {
+
+        List<Project> projects = Lists.newArrayList();
+
+
+        return projects;
     }
 
 }

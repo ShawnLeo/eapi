@@ -27,9 +27,6 @@ public class Project extends AbstractProject {
     @Column(name = "CONTACT_EMAIL",length = 100)
     private String contactEmail;
 
-//    @Column(name = "description",length = 100)
-//   private String          license
-
     @Column(name = "HOST",length = 100)
     private String host;
 
@@ -39,6 +36,8 @@ public class Project extends AbstractProject {
     @Column(name = "DEPLOY_URL",length = 200)
     private String deployUrl;
 
+    @Column(name = "GROUPID",length = 40)
+    private String groupId;
 //    @Column(name = "description",length = 100)
 //    schemes
 
@@ -115,6 +114,14 @@ public class Project extends AbstractProject {
 
     public void setDeployUrl(String deployUrl) {
         this.deployUrl = deployUrl;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 
     public String getCreater() {

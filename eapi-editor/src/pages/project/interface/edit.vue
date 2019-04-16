@@ -44,9 +44,12 @@
           <TabPane label="操作日志" name="name3">开发中...</TabPane>
         </Tabs>
       </div>
-      <FormItem>
-        <Button type="primary" size="large" @click="updateInterface">保存</Button>
-      </FormItem>
+      <div style="width:90%;margin:0 auto;">
+        <FormItem style="float: right;">
+          <Button type="primary" size="large" @click="updateInterface" style="width: 120px">保存</Button>
+        </FormItem>
+      </div>
+
     </Form>
   </div>
 </template>

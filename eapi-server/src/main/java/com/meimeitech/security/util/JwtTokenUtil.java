@@ -118,7 +118,7 @@ public class JwtTokenUtil implements Serializable {
 //            redisTemplate.expire(Constants.KEY_HASH_TOKEN, Constants.TIME_KEY_HASH_TOKEN, TimeUnit.MINUTES);
 
         } catch (Exception e) {
-            logger.info("JWT token 解析异常！");
+            logger.error("JWT Token 解析异常！");
         }
 
         return session;

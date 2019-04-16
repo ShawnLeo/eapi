@@ -54,6 +54,15 @@ public abstract class Schema {
 		 * 响应数据信息
 		 */
 		String RESPONSE_INFO = NS + "RESPONSE_INFO";
+
+		/**
+		 * 项目组
+		 */
+		String GROUP = NS + "GROUP";
+		/**
+		 * 项目组成员
+		 */
+		String GROUP_USER = NS + "GROUP_USER";
 	}
 
 	/**
