@@ -386,6 +386,7 @@
     box-shadow: 2px 2px 4px #dcdee2;
     .datamodel-table{
       &.ivu-table-wrapper{
+        overflow: visible;
         border: none;
       }
       .ivu-table{
