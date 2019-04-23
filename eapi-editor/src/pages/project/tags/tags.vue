@@ -16,7 +16,7 @@
     <Table :loading="loading" stripe ref="selection" :columns="columns" :data="filterTags" @on-selection-change="onCelectionChange"></Table>
     <Modal
         v-model="addTagModal"
-        title="新建标签组" width="700">
+        title="新建标签组" width="700" :mask-closable=false>
         <Form ref="tagFormItem" :model="formItem" :label-width=120 :rules="ruleValidate" >
             <FormItem label="标签名称" prop="name">
                 <i-input v-model="formItem.name" placeholder="例如：user"></i-input>

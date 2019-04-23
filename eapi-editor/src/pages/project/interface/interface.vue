@@ -18,7 +18,7 @@
 		</Form>
 		<Table stripe ref="selection" :columns="columns" :loading="loading" :data="filterInterfaces" @on-selection-change="onCelectionChange"></Table>
 
-		<Modal v-model="addInterfaceModal" title="新建接口" width="700">
+		<Modal v-model="addInterfaceModal" title="新建接口" width="700" :mask-closable=false>
 			<Form ref="interfaceItem" :model="interfaceItem" :label-width=80 :rules="ruleValidate">
 				<FormItem label="接口名称" prop="name">
 					<i-input v-model="interfaceItem.name" placeholder="最多20个中文或者40个英文字符"></i-input>
@@ -71,7 +71,7 @@
 			<div class="clearfix"></div>
 		</Modal>
 
-		<Modal v-model="copyStatus" title="复制接口" width="700">
+		<Modal v-model="copyStatus" title="复制接口" width="700" :mask-closable=false>
 			<Form ref="copyInterfaceItem" :model="copyInterfaceItem" :label-width=80 :rules="copyRuleValidate">
 				<FormItem label="接口名称" prop="name">
 					<i-input v-model="copyInterfaceItem.name" placeholder="最多20个中文或者40个英文字符"></i-input>
