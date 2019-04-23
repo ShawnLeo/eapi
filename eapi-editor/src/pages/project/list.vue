@@ -1,7 +1,7 @@
 <template>
   <div class="project-list main-content">
     <Card class="fl left-content">
-      <a href="#" slot="extra" class="add-group" @click="addGroupModal = true"><Icon type="logo-googleplus" /></a>
+      <a href="#" slot="extra" class="add-group" @click="addGroupModal = true"><Icon type="logo-googleplus" /> 添加</a>
       <Menu ref="groupMenus" theme="light" :active-name="groupId" width="152px" @on-select="selectMenu">
         <MenuGroup title="项目组">
           <Menu-Item name="all">全部项目组</Menu-Item>

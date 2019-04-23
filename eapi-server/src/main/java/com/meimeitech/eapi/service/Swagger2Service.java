@@ -6,6 +6,7 @@ import com.meimeitech.common.BizException;
 import com.meimeitech.common.util.UserContextHolder;
 import com.meimeitech.common.vo.UserSession;
 import com.meimeitech.eapi.entity.*;
+import com.meimeitech.eapi.model.ProjectVo;
 import com.meimeitech.eapi.util.Swagger2Eapi;
 import com.meimeitech.eapi.util.Eapi2Swagger;
 import io.swagger.models.*;
@@ -40,7 +41,7 @@ public class Swagger2Service {
      */
     public Swagger buildSwagger (String projectId) {
 
-        Project project = (Project) projectService.findById(projectId).getBody();
+        ProjectVo project = (ProjectVo) projectService.findById(projectId).getBody();
 
         Swagger swagger = new Swagger();
         swagger.setHost(project.getHost());

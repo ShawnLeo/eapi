@@ -7,6 +7,7 @@ import com.meimeitech.eapi.consts.ResponseInConsts;
 import com.meimeitech.eapi.entity.*;
 import com.meimeitech.eapi.entity.Tag;
 import com.meimeitech.eapi.model.Parameters;
+import com.meimeitech.eapi.model.ProjectVo;
 import com.meimeitech.eapi.model.Properties;
 import com.meimeitech.eapi.repository.*;
 import io.swagger.models.*;
@@ -133,7 +134,7 @@ public class Eapi2Swagger {
         return list_;
     }
 
-    public Info apiInfo(Project project) {
+    public Info apiInfo(ProjectVo project) {
         return new Info().title(project.getTitle())
                 .description(project.getDescription())
                 .license(new License().name("Apache 2.0").url("http://www.apache.org/licenses/LICENSE-2.0.html"))
