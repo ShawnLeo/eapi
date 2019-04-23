@@ -82,15 +82,15 @@ export default {
           key: 'description'
         },
         {
-            title: '创建人',
-            key: 'createrUserName'
+					title: '创建人',
+					key: 'createrUserName'
         },
         {
-            title: '创建时间',
-					  sortable: true,
-            render: (h, params) => {
-              return h('span', params.row.createTime.substring(0, 10));
-            }
+					title: '创建时间',
+					sortable: true,
+					render: (h, params) => {
+						return h('span', params.row.createTime.substring(0, 10));
+					}
         }
       ],
 			tags: [],

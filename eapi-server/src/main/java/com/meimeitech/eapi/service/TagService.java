@@ -35,7 +35,8 @@ public class TagService {
 
     public Response create(Tag tag) {
         UserSession user = UserContextHolder.getContext();
-        tag.setCreater(user.getLoginName());
+        tag.setCreater(user.getId().toString());
+        tag.setCreaterUserName(user.getLoginName());
         tag.setCreateTime(new Date());
         return Response.success(tagRepository.save(tag));
     }
