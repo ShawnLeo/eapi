@@ -74,6 +74,7 @@ export default {
         },
         {
           title: '名称',
+					sortable: true,
           key: 'name'
         },
         {
@@ -86,6 +87,7 @@ export default {
         },
         {
             title: '创建时间',
+					  sortable: true,
             render: (h, params) => {
               return h('span', params.row.createTime.substring(0, 10));
             }

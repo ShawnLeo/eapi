@@ -8,7 +8,7 @@
     <div class="project-datamodel-add">
       <Form :model="formItem" ref="datamodelForm" :label-width=80 style="margin-top: 30px;" :rules="ruleValidate">
         <FormItem label="模型名称" style="width: 60%;" prop="name">
-          <i-input v-model="formItem.name" placeholder="最多20个中文或者40个英文字符"></i-input>
+          <i-input v-model="formItem.name" placeholder="例如：User"></i-input>
         </FormItem>
         <FormItem label="描述" style="width: 60%;">
           <i-input v-model="formItem.description" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
