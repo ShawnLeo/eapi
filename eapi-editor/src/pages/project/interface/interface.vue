@@ -208,6 +208,7 @@
 					{
 						title: '方法',
 						width: 80,
+						sortable: true,
 						render: (h, params) => {
 							let color = 'green';
 							switch (params.row.method) {
@@ -238,6 +239,7 @@
 					{
 						title: '路径',
 						key: 'path',
+						sortable: true,
 						render: (h, params) => {
 							if (params.row.status === 500) {
 								return h('span', {
@@ -341,7 +343,8 @@
 					},
 					{
 						title: '创建时间',
-						width: 100,
+						width: 110,
+						sortable: true,
 						render: (h, params) => {
 							return h('span', params.row.createTime.substring(0, 10));
 						}
