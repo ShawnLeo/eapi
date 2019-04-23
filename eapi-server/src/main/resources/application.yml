@@ -1,3 +1,5 @@
+spring.profiles.active: dev
+
 server:
   port: 7050
 logging:
@@ -20,15 +22,7 @@ spring:
     username: sa
     password: sa
     data: classpath:sql/data.sql
-  h2:
-    server:
-      enabled: true
-      args: -tcp -web
-    console:
-      enabled: true
-      path: /h2-console
-      settings:
-        web-allow-others: true
+
   mail:
     host: smtp.163.com
     username: easyapi@163.com
@@ -43,12 +37,59 @@ spring:
   freemarker:
     template-loader-path: classpath:/freemarker
     suffix: .ftl
-host:
-  server: http://118.25.0.116/swagger-editor/latest/index.html
 mail:
   register: "#/user/active"
   forget: "#/user/reset"
 
+
+---
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:file:~/.h2/swagger;AUTO_SERVER=TRUE
+    url: jdbc:h2:tcp://127.0.0.1:9092/~/.h2/swagger
+    #    url: jdbc:h2:tcp://192.168.31.184:9092/~/.h2/swagger
+    username: sa
+    password: sa
+    data: classpath:sql/data.sql
+  h2:
+    server:
+      enabled: true
+      args: -tcp -web
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+host:
+  server: http://localhost:8080
+swagger:
+  host: localhost:7050
+  contact-email: easyapi@163.com
+
+---
+spring:
+  profiles: prod
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:~/.h2/swagger;AUTO_SERVER=TRUE
+#    url: jdbc:h2:tcp://127.0.0.1:9092/~/.h2/swagger
+    #    url: jdbc:h2:tcp://192.168.31.184:9092/~/.h2/swagger
+    username: sa
+    password: sa
+    data: classpath:sql/data.sql
+  h2:
+    server:
+      enabled: false
+      args: -tcp -web
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+host:
+  server: http://118.25.0.116/swagger-editor/latest/index.html
 swagger:
   host: 118.25.0.116:7050
   contact-email: easyapi@163.com

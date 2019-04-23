@@ -112,7 +112,7 @@ public class ProjectService {
 
         BeanUtils.copyProperties(project, projectVo);
 
-        Group group = groupRepository.findById(project.getId()).get();
+        Group group = groupRepository.findById(project.getGroupId()).get();
 
         if(group != null) {
             projectVo.setGroupName(group.getName());
