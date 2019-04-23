@@ -69,6 +69,7 @@
           {
             title: '创建时间',
             key: 'createTime',
+						sortable: true,
             render: (h, params) => {
               return h('span', params.row.createTime.substring(0, 10));
             }
