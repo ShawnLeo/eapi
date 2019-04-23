@@ -2,7 +2,7 @@
   <div class="project-list main-content">
     <Card class="fl left-content">
       <a href="#" slot="extra" class="add-group" @click="addGroupModal = true"><Icon type="logo-googleplus" /></a>
-      <Menu ref="groupMenus" theme="light" :active-name="activeName" width="152px" @on-select="selectMenu">
+      <Menu ref="groupMenus" theme="light" :active-name="groupId" width="152px" @on-select="selectMenu">
         <MenuGroup title="项目组">
           <Menu-Item name="all">全部项目组</Menu-Item>
           <Menu-Item :name="group.id" v-for="(group, index) in groups" :key="index">{{group.name}} </Menu-Item>
@@ -116,7 +116,7 @@
 				addGroupModal: false,
         projects: [],
 				groups: [],
-        groupId: 'all',
+        groupId: this.$route.query.groupId ? this.$route.query.groupId :'all',
 				currUserRole: '', // 当前用户在项目组中角色
 				group: {
 					name: '',
@@ -150,13 +150,13 @@
     },
     methods: {
       init() {
-        this.getProjectList('all');
+        this.getProjectList();
         this.getGroupList();
       },
-      getProjectList: function(groupId) {
+      getProjectList: function() {
         this.loading = true;
         // 获取该项目组下项目列表
-        getProjectList({groupId: groupId}, (response) => {
+        getProjectList({groupId: this.groupId}, (response) => {
           this.projects = response.body;
           this.loading = false;
         });
@@ -171,11 +171,14 @@
         this.loading = true;
         await groupList((response) => {
           this.groups = response.body;
+					this.$nextTick(() => { this.$refs.groupMenus.updateActiveName(); });
           this.loading = false;
         });
       },
       goInterface(id) {
+        // 项目
         this.$store.dispatch('projectId', id);
+        // 项目组
         this.$router.push({path: '/project/interface'});
       },
       reset() {
@@ -193,7 +196,7 @@
         this.$refs['projectFormItem'].validate(async (valid) => {
           if (valid) {
             await createProject(this.formItem, (response) => {
-							this.getProjectList(this.groupId);
+							this.getProjectList();
               this.reset();
             });
             this.addProjectModal = false;
@@ -218,7 +221,7 @@
 				this.currUserRole = '';
 				this.tabSelect = 'pm';
 				this.groupId = name;
-				this.getProjectList(name);
+				this.getProjectList();
 				if (name !== 'all') {
 					this.getCurrUserRole(name);
         }

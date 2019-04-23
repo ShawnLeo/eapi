@@ -1,4 +1,4 @@
-package com.meimeitech.db;
+package com.meimeitech.eapi.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

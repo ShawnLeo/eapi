@@ -2,7 +2,7 @@
   <div class="project">
 
     <div class="title">
-      <h2><Icon type="ios-bookmarks-outline" />  默认项目组 / {{state.project.title}}</h2>
+      <h2><Icon type="ios-bookmarks-outline" />  <router-link :to="{path:'/project/list',query:{groupId:state.project.groupId}}">{{state.project.groupName}}a</router-link> / {{state.project.title}}</h2>
       <div></div>
     </div>
 
@@ -61,8 +61,8 @@ export default {
     publish() {
       publishProject({id: this.projectId}, (response) => {this.$Message.success(response.body);});
     },
-		getProjectById: async function() {
-			await getProjectById({id: this.projectId}, (response) => {this.$store.dispatch('project', response.body);});
+		getProjectById: function() {
+      getProjectById({id: this.projectId}, (response) => {this.$store.dispatch('project', response.body);});
 		},
 		getSystemDataModelList: function () {
 			getDataModelList({type: 'system'}, (response) => {this.$store.dispatch('systemDataModel', response.body);});

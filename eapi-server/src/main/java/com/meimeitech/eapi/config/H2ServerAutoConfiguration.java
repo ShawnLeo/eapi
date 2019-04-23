@@ -1,4 +1,4 @@
-package com.meimeitech.db;
+package com.meimeitech.eapi.config;
 
 /*
  * Copyright 2012-2017 the original author or authors.

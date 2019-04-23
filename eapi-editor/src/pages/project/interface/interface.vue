@@ -40,7 +40,7 @@
 						<Option v-for="(tag, index) in tags" :value="tag.id" :key="index">{{tag.name}}</Option>
 					</Select>
 				</FormItem>
-				<FormItem label="操作Id(方法名)" style="width:50%;float:left;" prop="operationId">
+				<FormItem label="操作Id(方法名)" style="width:50%;float:left;" prop="operationId" :label-width=120>
 					<i-input v-model="interfaceItem.operationId" placeholder="例如：findByUserId"></i-input>
 				</FormItem>
 				<div class="clearfix"></div>

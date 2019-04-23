@@ -5,7 +5,10 @@ import com.google.common.collect.Lists;
 import com.meimeitech.common.util.UserContextHolder;
 import com.meimeitech.common.vo.Response;
 import com.meimeitech.common.vo.UserSession;
+import com.meimeitech.eapi.entity.Group;
 import com.meimeitech.eapi.entity.Project;
+import com.meimeitech.eapi.model.ProjectVo;
+import com.meimeitech.eapi.repository.GroupRepository;
 import com.meimeitech.eapi.repository.ProjectRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
@@ -14,6 +17,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.domain.Specification;
@@ -38,6 +42,8 @@ public class ProjectService {
 
     @Autowired
     private ProjectRepository projectRepository;
+    @Autowired
+    private GroupRepository groupRepository;
     @Autowired
     private InterfaceService interfaceService;
     @Autowired
@@ -91,7 +97,28 @@ public class ProjectService {
     }
 
     public Response findById(String id) {
-        return Response.success(projectRepository.findById(id).get());
+
+        if (StringUtils.isEmpty(id)) {
+            return Response.error("请求数据异常");
+        }
+
+        ProjectVo projectVo = new ProjectVo();
+
+        Project project = projectRepository.findById(id).get();
+
+        if (project == null) {
+            return Response.error("未找到数据");
+        }
+
+        BeanUtils.copyProperties(project, projectVo);
+
+        Group group = groupRepository.findById(project.getId()).get();
+
+        if(group != null) {
+            projectVo.setGroupName(group.getName());
+        }
+
+        return Response.success(projectVo);
     }
 
     @Transactional
