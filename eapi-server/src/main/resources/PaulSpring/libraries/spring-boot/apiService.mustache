@@ -1,0 +1,22 @@
+package {{package}};
+
+{{#imports}}import {{import}};
+{{/imports}}
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.List;
+
+/**
+ *  the {{{baseName}}} API
+ */
+{{#operations}}
+public interface {{classname}}Biz {
+{{#operation}}
+    /**
+     *  {{{notes}}}
+     */
+    {{>returnTypes}} {{operationId}}({{#allParams}}{{>queryParamsService}}{{>pathParamsService}}{{>headerParamsService}}{{>bodyParamsService}}{{>formParamsService}}{{#hasMore}},{{/hasMore}}{{/allParams}}){{^jdk8}};{{/jdk8}}
+{{/operation}}
+}
+{{/operations}}
