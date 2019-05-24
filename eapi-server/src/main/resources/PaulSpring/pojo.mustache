@@ -2,8 +2,7 @@
 {{>generatedAnnotation}}{{#discriminator}}{{>typeInfoAnnotation}}{{/discriminator}}{{>xmlAnnotation}}
 /**
  * {{#description}}{{.}}{{/description}}{{^description}}{{classname}}{{/description}}
- */{{#description}}
-@ApiModel(description = "{{{description}}}"){{/description}}
+ */
 {{#jackson}}
 @JsonIgnoreProperties(ignoreUnknown = true)
 {{/jackson}}
@@ -39,13 +38,12 @@ public class {{classname}} {{#parent}}extends {{{parent}}}{{/parent}} {{#seriali
     {{/gson}}
     {{#isContainer}}
         {{#useBeanValidation}}@Valid{{/useBeanValidation}}
-    @ApiModelProperty(value = "{{{description}}}")
     private {{{datatypeWithEnum}}} {{name}}{{#required}} = {{{defaultValue}}}{{/required}}{{^required}} = null{{/required}};
     {{/isContainer}}
     {{^isContainer}}
-    @ApiModelProperty(value = "{{{description}}}")
     private {{{datatypeWithEnum}}} {{name}} = {{{defaultValue}}};
     {{/isContainer}}
+
 {{/vars}}
 
 {{#vars}}
