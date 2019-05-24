@@ -1,0 +1,14 @@
+package {{package}};
+
+{{^isOpenFeign}}
+    import org.springframework.cloud.netflix.feign.FeignClient;
+{{/isOpenFeign}}
+{{#isOpenFeign}}
+    import org.springframework.cloud.openfeign.FeignClient;
+{{/isOpenFeign}}
+
+{{=<% %>=}}
+@FeignClient("${FeignClient.<%classname%>.ServiceName}")
+<%={{ }}=%>
+public interface {{classname}}Client extends {{classname}} {
+}

@@ -1,5 +1,8 @@
 module.exports = {
-	publicPath: './',
+    publicPath: './',
   assetsDir: 'static',
-  productionSourceMap: false
+  productionSourceMap: false,
+    devServer: {
+        port: 7060,     // 端口
+    },
 };

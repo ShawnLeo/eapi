@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!-- 配置详解参考,link:https://www.cnblogs.com/radio/p/5591602.html-->
+<generatorConfiguration>
+    <!-- 在MBG工作的时候，需要额外加载的依赖包-->
+    <!--<classPathEntry location="ojdbc6.jar"/>-->
+
+    <!--
+        context:生成一组对象的环境
+        id:必选，上下文id，用于在生成错误时提示
+        defaultModelType:指定生成对象的样式
+            1，conditional：类似hierarchical；
+            2，flat：所有内容（主键，blob）等全部生成在一个对象中；
+            3，hierarchical：主键生成一个XXKey对象(key class)，Blob等单独生成一个对象，其他简单属性在一个对象中(record class)
+        targetRuntime:
+            1，MyBatis3：默认的值，生成基于MyBatis3.x以上版本的内容，包括XXXBySample；
+            2，MyBatis3Simple：类似MyBatis3，只是不生成XXXBySample；
+        introspectedColumnImpl：类全限定名，用于扩展MBG
+    -->
+    <!--targetRuntime="com.paulzhangcc.mybatis.generator.IntrospectedTableMyBatis3ImplHelper"-->
+    <context id="mysql" targetRuntime="MyBatis3">
+        <!--
+        当表名或者字段名为SQL关键字的时候，可以设置该属性为true，MBG会自动给表名或字段名添加**分隔符（beginningDelimiter，beginningDelimiter）**。-->
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="beginningDelimiter" value='`'/>
+        <property name="endingDelimiter" value='`'/>
+        <!-- 生成的Java文件的编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin">
+            <property name="useToStringFromRoot" value="true"/>
+        </plugin>
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+        <plugin type="com.meimeitech.generator.tools.mybatis.plugin.VOPlugin">
+            <property name="targetProject" value="${targetProject}"/>
+            <property name="targetPackage" value="${targetPackage}.VO"/>
+            <property name="classSuffix" value="VO"/>
+        </plugin>
+
+
+        <!--在table中关闭了所有example增删改查-->
+        <!-- <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+             <property name="searchString" value="DOExample$"/>
+             <property name="replaceString" value="Example"/>
+         </plugin>-->
+
+        <commentGenerator type="com.meimeitech.generator.tools.mybatis.generator.CommentGeneratorHelper">
+            <property name="suppressAllComments" value="fase"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <!-- mysql配置 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false"
+                        userId="root"
+                        password="root">
+            <property name="useInformationSchema" value="true"></property>
+        </jdbcConnection>
+        <!-- JDBC 连接信息 -->
+
+        <!-- java类型处理器
+       用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；
+       注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和 NUMERIC数据类型；
+        -->
+        <javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+            <!--
+            true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型
+            false：默认,
+                scale>0;length>18：使用BigDecimal;
+                scale=0;length[10,18]：使用Long；
+                scale=0;length[5,9]：使用Integer；
+                scale=0;length<5：使用Short；
+            -->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- java模型创建器，是必须要的元素
+            负责：1，key类（见context的defaultModelType）；2，java类；3，查询类
+            targetPackage：生成的类要放的包，真实的包受enableSubPackages属性控制；
+            targetProject：目标项目，指定一个存在的目录下，生成的内容会放到指定目录中，如果目录不存在，MBG不会自动建目录
+        -->
+        <javaModelGenerator targetPackage="com.zhijiansihang.gen.dao.po"
+                            targetProject="C:\pengrun\work\code\git\mybatis-generator\gen">
+            <property name="enableSubPackages" value="true"/>
+            <!-- 设置是否在getter方法中，对String类型字段调用trim()方法 -->
+            <property name="trimStrings" value="true"/>
+
+        </javaModelGenerator>
+
+        <!-- 生成SQL map的XML文件生成器，
+        注意，在Mybatis3之后，我们可以使用mapper.xml文件+Mapper接口（或者不用mapper接口），
+            或者只使用Mapper接口+Annotation，所以，如果 javaClientGenerator配置中配置了需要生成XML的话，这个元素就必须配置
+        targetPackage/targetProject:同javaModelGenerator
+        -->
+        <sqlMapGenerator targetPackage="com.zhijiansihang.gen.dao.xml"
+                         targetProject="C:\pengrun\work\code\git\mybatis-generator\gen">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 对于mybatis来说，即生成Mapper接口，注意，如果没有配置该元素，那么默认不会生成Mapper接口
+            targetPackage/targetProject:同javaModelGenerator
+            type：选择怎么生成mapper接口（在MyBatis3/MyBatis3Simple下）：
+                1，ANNOTATEDMAPPER：会生成使用Mapper接口+Annotation的方式创建（SQL生成在annotation中），不会生成对应的XML；
+                2，MIXEDMAPPER：使用混合配置，会生成Mapper接口，并适当添加合适的Annotation，但是XML会生成在XML中；
+                3，XMLMAPPER：会生成Mapper接口，接口完全依赖XML；
+            注意，如果context是MyBatis3Simple：只支持ANNOTATEDMAPPER和XMLMAPPER
+        -->
+        <javaClientGenerator type="MIXEDMAPPER"
+                             targetPackage="com.zhijiansihang.gen.dao"
+                             targetProject="C:\pengrun\work\code\git\mybatis-generator\gen">
+            <!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
+            <property name="enableSubPackages" value="true"/>
+            <!-- 可以为所有生成的接口添加一个父接口，但是MBG只负责生成，不负责检查
+                <property name="rootInterface" value=""/>
+            -->
+        </javaClientGenerator>
+        <table tableName="user" mapperName="UserDAO" domainObjectName="User"
+               enableCountByExample="true" enableDeleteByExample="false"
+               enableSelectByExample="true" enableUpdateByExample="false"
+        >
+            <!--false 为使用驼峰-->
+            <property name="useActualColumnNames" value="false"/>
+            <!--对于自增序列需要加-->
+            <generatedKey column="user_id" sqlStatement="MySql" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>
+
