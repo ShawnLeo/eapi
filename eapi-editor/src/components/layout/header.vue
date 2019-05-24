@@ -26,9 +26,10 @@
             {{ $t("menus.projects") }}
           </Menu-Item>
 
-          <!--<Menu-Item name="/code/generator">-->
-            <!--{{ $t("menus.codegen") }}-->
-          <!--</Menu-Item>-->
+          <Menu-Item name="/code/generator">
+            <Icon type="md-archive" />
+          {{ $t("menus.codegen") }}
+        </Menu-Item>
 
           <Menu-Item name="https://github.com/ShawnLeo/eapi">
             <Icon type="logo-github" /> GitHub

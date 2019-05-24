@@ -1,0 +1,88 @@
+package {{package}};
+
+{{^jdk8}}
+{{#imports}}import {{import}};
+{{/imports}}
+{{/jdk8}}
+{{^isDelegate}}
+import com.fasterxml.jackson.databind.ObjectMapper;
+{{/isDelegate}}
+{{^jdk8}}
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+{{/jdk8}}
+import org.springframework.web.bind.annotation.RestController;
+{{^jdk8}}
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.beans.factory.annotation.Autowired;
+import {{package}}.{{classname}}Biz;
+import com.paul.platform.common.vo.Result;
+
+    {{#useBeanValidation}}
+import javax.validation.constraints.*;
+import javax.validation.Valid;
+    {{/useBeanValidation}}
+{{/jdk8}}
+{{^isDelegate}}
+import javax.servlet.http.HttpServletRequest;
+    {{#jdk8}}
+import java.util.Optional;
+    {{/jdk8}}
+{{/isDelegate}}
+{{^jdk8-no-delegate}}
+    {{#useOptional}}
+import java.util.Optional;
+    {{/useOptional}}
+{{/jdk8-no-delegate}}
+{{^jdk8}}
+    {{^isDelegate}}
+import java.io.IOException;
+    {{/isDelegate}}
+import java.util.List;
+    {{#async}}
+import java.util.concurrent.Callable;
+    {{/async}}
+{{/jdk8}}
+import io.swagger.annotations.*;
+import com.paul.platform.common.utils.ResultUtil;
+{{>generatedAnnotation}}
+
+/**
+ *  the {{{baseName}}} API
+ */
+@Api(value = "{{{baseName}}}", description = "the {{{baseName}}} API")
+@RestController
+{{#operations}}
+public class {{classname}}Controller{
+
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger({{classname}}Controller.class);
+    @Autowired
+    private {{classname}}Biz delegate;
+
+{{#operation}}
+    /**
+     *  {{{notes}}}
+     */
+    @ApiOperation(value = "{{{summary}}}", notes = "{{{notes}}}")
+    @RequestMapping(value = "{{{path}}}",{{#singleContentTypes}}{{#hasProduces}}produces = "{{{vendorExtensions.x-accepts}}}",{{/hasProduces}}{{#hasConsumes}}consumes = "{{{vendorExtensions.x-contentType}}}",{{/hasConsumes}}{{/singleContentTypes}}{{^singleContentTypes}}{{#hasProduces}}produces = { {{#produces}}"{{{mediaType}}}"{{#hasMore}},{{/hasMore}}{{/produces}} },{{/hasProduces}}{{#hasConsumes}}consumes = { {{#consumes}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/consumes}} },{{/hasConsumes}}{{/singleContentTypes}}method = RequestMethod.{{httpMethod}})
+    public Result<{{>returnTypes}}> {{operationId}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{#hasMore}},{{/hasMore}}{{/allParams}}) {
+        return new ResultUtil<{{>returnTypes}}>().setData(delegate.{{operationId}}({{#allParams}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}}));
+    }
+{{/operation}}
+}
+{{/operations}}
+
+
+
+
+
+
