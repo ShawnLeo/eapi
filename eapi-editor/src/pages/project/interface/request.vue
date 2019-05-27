@@ -33,7 +33,7 @@
         </Tooltip>
       </span>
       <Table :columns="querysColumns" :data="interfaceItem.querys"></Table>
-      <hash-table :columns="querysColumns" :rows="interfaceItem.querys" v-on:childrenChange="queryChildrenChange"></hash-table>
+      <import-data v-on:childrenChange="queryChildrenChange"></import-data>
     </FormItem>
     <FormItem v-if="showRequsts">
       <span slot="label">
@@ -63,6 +63,7 @@
 
       <Table :columns="bodyColumns" :data="interfaceItem.body" v-if="interfaceItem.requestType === 'body'"></Table>
       <Table :columns="formDatasColumns" :data="interfaceItem.formDatas" v-if="interfaceItem.requestType === 'formData'"></Table>
+      <import-data  v-on:childrenChange="formChildrenChange" v-if="interfaceItem.requestType === 'formData'"></import-data>
       <!--<hash-table v-if="interfaceItem.requestType === 'body'"></hash-table>-->
 
     </FormItem>
@@ -74,6 +75,7 @@
 
 <script type="text/ecmascript-6">
   import hashTable from '../../../components/project/hashTable.vue';
+  import importData from '../../../components/project/importData.vue';
   import { deleteRequestInBatch } from '../../../utils/interface';
   import { pathParam } from '../../../utils/utils';
   import aceEditor from 'vue2-ace-editor';
@@ -108,6 +110,8 @@
         }, null, 2),
         requestType: '',
         showRequsts: false,
+        importFromDatamodel: false,
+        importFromJSON: false,
         pathParamsColumns: [{
           title: '名称',
           render: (h, params) => {
@@ -827,13 +831,14 @@
     },
     components: {
       aceEditor,
-      hashTable
+      hashTable,
+      importData
     },
     methods: {
       init() {
         setTimeout(() => {
 					this.requestType = this.interfaceItem.requestType;
-          if (this.interfaceItem.pathParams.length === 0) {
+          if (this.interfaceItem.pathParams && this.interfaceItem.pathParams.length === 0) {
             this.setPathParams();
           }
         }, 500);
@@ -871,8 +876,41 @@
         });
       },
       queryChildrenChange(children) {
-          if (JSON.stringify(this.interfaceItem.querys) !== JSON.stringify(children)) {
-              this.interfaceItem.querys = children;
+          for(let no in children){
+              const query = children[no];
+              if (query.dataType == 'string' || query.dataType == 'boolean' || query.dataType == 'integer'){
+                  this.interfaceItem.querys.push({
+                      paramIn: 'query',
+                      interfaceId: this.interfaceItem.id,
+                      dataModel: {
+                          name: query.name,
+                          dataType: query.dataType,
+                          type: 'unit',
+                          description: query.description,
+                          required: query.required,
+                          example: query.example
+                      }
+                  });
+              }
+          }
+      },
+      formChildrenChange(children) {
+          for(let no in children){
+              const query = children[no];
+              if (query.dataType == 'string' || query.dataType == 'boolean' || query.dataType == 'integer' ||query.dataType == 'file' ){
+                  this.interfaceItem.formDatas.push({
+                      paramIn: 'formData',
+                      interfaceId: this.interfaceItem.id,
+                      dataModel: {
+                          name: query.name,
+                          dataType: query.dataType,
+                          type: 'unit',
+                          description: query.description,
+                          required: query.required,
+                          example: query.example
+                      }
+                  });
+              }
           }
       },
       deleteRequestInfo(row, callback) {
