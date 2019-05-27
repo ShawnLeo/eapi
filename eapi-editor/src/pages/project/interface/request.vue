@@ -110,8 +110,6 @@
         }, null, 2),
         requestType: '',
         showRequsts: false,
-        importFromDatamodel: false,
-        importFromJSON: false,
         pathParamsColumns: [{
           title: '名称',
           render: (h, params) => {
@@ -836,12 +834,16 @@
     },
     methods: {
       init() {
-        setTimeout(() => {
-					this.requestType = this.interfaceItem.requestType;
-          if (this.interfaceItem.pathParams && this.interfaceItem.pathParams.length === 0) {
-            this.setPathParams();
-          }
-        }, 500);
+				setTimeout(() => {
+					if (this.interfaceItem.name) {
+						this.requestType = this.interfaceItem.requestType;
+						if (this.interfaceItem.pathParams.length === 0) {
+							this.setPathParams();
+						}
+					} else {
+						this.init();
+					}
+				}, 300);
       },
 //			changeMethod(value) {
 //				this.$Modal.confirm({
@@ -859,6 +861,18 @@
 //      	// 请求数据是否展示
 //      },
       requestTypeChange(value) {
+      	let exitsData = true;
+      	if (value === "formData") {
+					exitsData = this.interfaceItem.body && this.interfaceItem.body.length > 0;
+        } else if (value === "body") {
+					exitsData = this.interfaceItem.formDatas && this.interfaceItem.formDatas.length > 0;
+				}
+
+				if (!exitsData) { // 没有数据直接切换
+					this.requestType = this.interfaceItem.requestType;
+					return;
+        }
+
         this.$Modal.confirm({
           title: '切换确认',
           content: '<p>您确定要切换吗？</p><p>切换请求数据类型将会导致现有<a style="color: red">' + (value === "body" ? 'formData' : 'body') + '数据丢失</a>，确定切换成 “' + value + '” 类型吗？</p>',
@@ -967,6 +981,8 @@
 					this.showRequsts = false;
 				} else {
 					this.showRequsts = true;
+					this.interfaceItem.requestType = 'body';
+					this.requestType = 'body';
 				}
       }
     }
