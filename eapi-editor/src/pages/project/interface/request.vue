@@ -33,6 +33,7 @@
         </Tooltip>
       </span>
       <Table :columns="querysColumns" :data="interfaceItem.querys"></Table>
+      <hash-table :columns="querysColumns" :rows="interfaceItem.querys" v-on:childrenChange="queryChildrenChange"></hash-table>
     </FormItem>
     <FormItem v-if="showRequsts">
       <span slot="label">
@@ -868,6 +869,11 @@
 						this.interfaceItem.requestType = this.requestType;
           }
         });
+      },
+      queryChildrenChange(children) {
+          if (JSON.stringify(this.interfaceItem.querys) !== JSON.stringify(children)) {
+              this.interfaceItem.querys = children;
+          }
       },
       deleteRequestInfo(row, callback) {
         deleteRequestInBatch(row, (response) => {
