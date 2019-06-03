@@ -161,7 +161,50 @@ const router = new Router({
 				// subMenuActive: '/accountCenter/account' // 二级级菜单激活 路由名称
 			},
 			component: () => import('../pages/user/resetSend.vue')
-		}]
+		},
+        {
+            path: '/code/generator',
+            name: 'generator',
+            redirect: '/code/generator/setting',
+            component: () => import('../pages/generator/index.vue'),
+            children: [{
+                path: '/code/generator/mybatis',
+                name: 'codeGeneratorMbatis',
+                meta: {
+                    menuActive: '/code/generator/mybatis'
+                },
+                component: () => import('../pages/generator/codeGeneratorMbatis.vue')
+            }, {
+                path: '/code/generator/swagger',
+                name: 'codeGeneratorSwagger',
+                meta: {
+                    menuActive: '/code/generator/swagger'
+                },
+                component: () => import('../pages/generator/codeGeneratorSwagger.vue')
+            }, {
+                path: '/code/generator/setting',
+                name: 'codeGeneratorSetting',
+                meta: {
+                    menuActive: '/code/generator/setting'
+                },
+                component: () => import('../pages/generator/codeGeneratorSetting.vue')
+            }, {
+                path: '/code/generator/vue',
+                name: 'codeGeneratorVue',
+                meta: {
+                    menuActive: '/code/generator/vue'
+                },
+                component: () => import('../pages/generator/codeGeneratorVue.vue')
+            }, {
+                path: '/code/generator/vuetest',
+                name: 'codeGeneratorVueTest',
+                meta: {
+                    menuActive: '/code/generator/vuetest'
+                },
+                component: () => import('../pages/generator/codeGeneratorVueTest.vue')
+            }]
+        }
+	]
   }, {
     path: '/swagger',
     component: () => import('../pages/swagger/ui.vue')

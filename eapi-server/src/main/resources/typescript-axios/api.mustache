@@ -1,0 +1,140 @@
+{{>licenseInfo}}
+import * as models from '../model/models';
+import axios from '../../libs/axios.js';
+import {AxiosPromise, AxiosRequestConfig} from "axios";
+{{#operations}}
+{{#description}}
+/**
+ * {{&description}}
+ */
+{{/description}}
+export class {{classname}} {
+
+{{#operation}}
+  /**
+   * {{&notes}}
+   {{#summary}}
+   * @summary {{&summary}}
+   {{/summary}}
+   {{#allParams}}
+   * @param {{paramName}} {{description}}
+   {{/allParams}}
+   */
+  public {{operationIdOriginal}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}{{#hasMore}}, {{/hasMore}}{{/allParams}}): AxiosPromise<models.Result<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}any{{/returnType}}>> {
+    let localVarPath = '{{{path}}}'{{#pathParams}}.replace('{' + '{{baseName}}' + '}', encodeURIComponent(String({{paramName}}))){{/pathParams}};
+    let queryParameters: any = {};
+    let headerParams: any = {};
+{{#hasFormParams}}
+    let formParams = new FormData();
+    let reqHasFile = false;
+{{/hasFormParams}}
+{{#allParams}}
+{{#required}}
+    // verify required parameter '{{paramName}}' is not null or undefined
+    if ({{paramName}} === null || {{paramName}} === undefined) {
+      throw new Error('Required parameter {{paramName}} was null or undefined when calling {{nickname}}.');
+    }
+{{/required}}
+{{/allParams}}
+
+{{#queryParams}}
+  {{#isListContainer}}
+      if ({{paramName}}) {
+    {{#isCollectionFormatMulti}}
+      {{paramName}}.forEach((element: any) => {
+        queryParameters['{{baseName}}'].push(element);
+        });
+    {{/isCollectionFormatMulti}}
+    {{^isCollectionFormatMulti}}
+        queryParameters['{{baseName}}'] = {{paramName}}.join(COLLECTION_FORMATS['{{collectionFormat}}']);
+    {{/isCollectionFormatMulti}}
+      }
+  {{/isListContainer}}
+  {{^isListContainer}}
+    if ({{paramName}} !== null && {{paramName}} !== undefined) {
+  {{#isDateTime}}
+      queryParameters['{{baseName}}'] = {{paramName}}.toISOString();
+  {{/isDateTime}}
+  {{^isDateTime}}
+    {{#isDate}}
+      queryParameters['{{baseName}}'] = {{paramName}}.toISOString();
+    {{/isDate}}
+    {{^isDate}}
+      queryParameters['{{baseName}}'] = <string><any>{{paramName}};
+    {{/isDate}}
+  {{/isDateTime}}
+    }
+  {{/isListContainer}}
+{{/queryParams}}
+{{#formParams}}
+{{#isFile}}
+    reqHasFile = true;
+    formParams.append("{{baseName}}", {{paramName}});
+{{/isFile}}
+{{^isFile}}
+    {{#isListContainer}}
+    if ({{paramName}}) {
+    {{#isCollectionFormatMulti}}
+      {{paramName}}.forEach((element: any) => {
+        formParams.append('{{baseName}}', element);
+      });
+    {{/isCollectionFormatMulti}}
+    {{^isCollectionFormatMulti}}
+      formParams.append('{{baseName}}', {{paramName}}.join(COLLECTION_FORMATS['{{collectionFormat}}']));
+    {{/isCollectionFormatMulti}}
+    }
+    {{/isListContainer}}
+    {{^isListContainer}}
+    if ({{paramName}} !== null && {{paramName}} !== undefined) {
+      formParams.append('{{baseName}}', <any>{{paramName}});
+    }
+    {{/isListContainer}}
+{{/isFile}}
+{{/formParams}}
+{{#headerParams}}
+    {{#isListContainer}}
+    if ({{paramName}}) {
+      headerParams['{{baseName}}'] = {{paramName}}.join(COLLECTION_FORMATS['{{collectionFormat}}']);
+    }
+    {{/isListContainer}}
+    {{^isListContainer}}
+    headerParams['{{baseName}}'] = String({{paramName}});
+    {{/isListContainer}}
+{{/headerParams}}
+
+{{#hasFormParams}}
+    if (!reqHasFile) {
+      headerParams['Content-Type'] = 'application/x-www-form-urlencoded';
+    }
+{{/hasFormParams}}
+{{#bodyParam}}
+    headerParams['Content-Type'] = 'application/json';
+{{/bodyParam}}
+    let data = null;
+{{#bodyParam}}
+    data = JSON.stringify({{paramName}});
+{{/bodyParam}}
+{{#hasFormParams}}
+    data = formParams;
+{{/hasFormParams}}
+    let method = '{{httpMethod}}'.toLowerCase();
+    let axiosRequestConfig: AxiosRequestConfig = {
+      url: localVarPath,
+      method: method,
+      headers: headerParams,
+      params: queryParameters,
+      data: data,
+    };
+    return axios.request<models.Result<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}any{{/returnType}}>>(axiosRequestConfig);
+  }
+
+{{/operation}}
+  protected COLLECTION_FORMATS = {
+    'csv': ',',
+    'tsv': '   ',
+    'ssv': ' ',
+    'pipes': '|'
+  }
+}
+{{/operations}}
+export default new {{classname}}();
