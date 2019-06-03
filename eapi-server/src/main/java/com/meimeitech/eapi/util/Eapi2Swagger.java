@@ -7,7 +7,6 @@ import com.meimeitech.eapi.consts.ResponseInConsts;
 import com.meimeitech.eapi.entity.*;
 import com.meimeitech.eapi.entity.Tag;
 import com.meimeitech.eapi.model.Parameters;
-import com.meimeitech.eapi.model.ProjectVo;
 import com.meimeitech.eapi.model.Properties;
 import com.meimeitech.eapi.repository.*;
 import com.meimeitech.eapi.service.Swagger2Service;
@@ -15,7 +14,6 @@ import io.swagger.models.*;
 import io.swagger.models.parameters.Parameter;
 import io.swagger.models.properties.ObjectProperty;
 import io.swagger.models.properties.Property;
-import io.swagger.models.properties.StringProperty;
 import io.swagger.util.Json;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,7 +98,7 @@ public class Eapi2Swagger {
 
             Property property;
 
-            if (project.getCommonResponse() && type.equals(Swagger2Service.BuildType.SWAGGER_UI)) {  // 是否开启通用响应
+            if (project.getCommonResponse() != null && project.getCommonResponse() && type.equals(Swagger2Service.BuildType.SWAGGER_UI)) {  // 是否开启通用响应
                 Map<String, Property> properties = Maps.newHashMap();
 
 
