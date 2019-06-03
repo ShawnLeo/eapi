@@ -6,7 +6,6 @@ import com.meimeitech.common.BizException;
 import com.meimeitech.common.util.UserContextHolder;
 import com.meimeitech.common.vo.UserSession;
 import com.meimeitech.eapi.entity.*;
-import com.meimeitech.eapi.model.ProjectVo;
 import com.meimeitech.eapi.repository.ProjectRepository;
 import com.meimeitech.eapi.util.Swagger2Eapi;
 import com.meimeitech.eapi.util.Eapi2Swagger;
