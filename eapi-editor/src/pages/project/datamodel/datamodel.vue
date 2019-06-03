@@ -96,9 +96,9 @@
       init() {
 				this.getDataModelList();
       },
-      getDataModelList: async function () {
+      getDataModelList: function () {
 				this.loading = true;
-        await getCustomDataModelList({projectId: this.projectId}, (response) => {
+        getCustomDataModelList({projectId: this.projectId}, (response) => {
           this.datamodels = response.body;
           this.filterDatamodels = response.body;
 					this.$store.dispatch('customDataModel', response.body);

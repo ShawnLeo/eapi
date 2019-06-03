@@ -51,7 +51,7 @@ public class Swagger2Controller {
             method = RequestMethod.GET,
             produces = { APPLICATION_JSON_VALUE, HAL_MEDIA_TYPE })
     public ResponseEntity<Json> getDocumentation(@PathVariable("projectId") String projectId,  @RequestParam(value = "group",required = false) String swaggerGroup, HttpServletRequest servletRequest) {
-        Swagger swagger = swagger2Service.buildSwagger(projectId);
+        Swagger swagger = swagger2Service.buildSwagger(projectId, Swagger2Service.BuildType.SWAGGER_UI);
         return new ResponseEntity(jsonSerializer.toJson(swagger), HttpStatus.OK);
     }
 
@@ -69,7 +69,7 @@ public class Swagger2Controller {
                        @RequestParam(value = "group",required = false) String swaggerGroup, HttpServletResponse response)
             throws IOException {
 
-        Swagger swagger = swagger2Service.buildSwagger(projectId);
+        Swagger swagger = swagger2Service.buildSwagger(projectId, Swagger2Service.BuildType.SWAGGER_JSON);
         Json json = jsonSerializer.toJson(swagger);
         response.setHeader("Content-Disposition", "attachment;filename="+ URLEncoder.encode("swagger.json", "utf-8"));
         response.getOutputStream().write(json.value().getBytes());

@@ -34,7 +34,7 @@ import java.util.List;
 public class ProjectService {
     private static Logger logger = LoggerFactory.getLogger(ProjectService.class);
 
-    @Value("${swagger.host:10.133.255.201:7050}")
+    @Value("${swagger.host:localhost:7050}")
     private String swaggerHost;
 
     @Value("${swagger.contact-email:easyapi@163.com}")
@@ -80,6 +80,9 @@ public class ProjectService {
         project.setCreaterUserName(user.getLoginName());
         project = projectRepository.save(project);
         project.setBasePath("/virtserver/" + project.getId() + "/1.0.0/");
+
+        project.setCommonResponse(false);
+        project.setCommonResponseField("data");
 
         return Response.success(projectRepository.save(project));
     }

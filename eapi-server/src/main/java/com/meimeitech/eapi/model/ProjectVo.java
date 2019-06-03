@@ -1,6 +1,7 @@
 package com.meimeitech.eapi.model;
 
 import com.meimeitech.eapi.dialect.AbstractProject;
+
 import java.util.Date;
 
 public class ProjectVo extends AbstractProject {
@@ -25,6 +26,22 @@ public class ProjectVo extends AbstractProject {
     private String groupId;
 
     private String groupName;
+
+
+    /**
+     * 是否开启通用响应
+     */
+    private Boolean commonResponse;
+
+    /**
+     * 通用数据模型
+     */
+    private String commonResponseId;
+
+    /**
+     * 字段名
+     */
+    private String commonResponseField;
 
     /**
      * 创建人
@@ -104,6 +121,30 @@ public class ProjectVo extends AbstractProject {
 
     public void setGroupId(String groupId) {
         this.groupId = groupId;
+    }
+
+    public Boolean getCommonResponse() {
+        return commonResponse;
+    }
+
+    public void setCommonResponse(Boolean commonResponse) {
+        this.commonResponse = commonResponse;
+    }
+
+    public String getCommonResponseId() {
+        return commonResponseId;
+    }
+
+    public void setCommonResponseId(String commonResponseId) {
+        this.commonResponseId = commonResponseId;
+    }
+
+    public String getCommonResponseField() {
+        return commonResponseField;
+    }
+
+    public void setCommonResponseField(String commonResponseField) {
+        this.commonResponseField = commonResponseField;
     }
 
     public String getCreater() {

@@ -7,6 +7,7 @@ import com.meimeitech.common.util.UserContextHolder;
 import com.meimeitech.common.vo.UserSession;
 import com.meimeitech.eapi.entity.*;
 import com.meimeitech.eapi.model.ProjectVo;
+import com.meimeitech.eapi.repository.ProjectRepository;
 import com.meimeitech.eapi.util.Swagger2Eapi;
 import com.meimeitech.eapi.util.Eapi2Swagger;
 import io.swagger.models.*;
@@ -22,6 +23,13 @@ import java.util.*;
 @Service
 public class Swagger2Service {
 
+    public enum  BuildType{
+        SWAGGER_UI, SWAGGER_JSON
+    }
+
+
+    @Autowired
+    private ProjectRepository projectRepository;
 
     @Autowired
     private ProjectService projectService;
@@ -39,9 +47,9 @@ public class Swagger2Service {
      * @param projectId 项目编号
      * @return
      */
-    public Swagger buildSwagger (String projectId) {
+    public Swagger buildSwagger (String projectId, BuildType type) {
 
-        ProjectVo project = (ProjectVo) projectService.findById(projectId).getBody();
+        Project project = projectRepository.findById(projectId).get();
 
         Swagger swagger = new Swagger();
         swagger.setHost(project.getHost());
@@ -59,7 +67,7 @@ public class Swagger2Service {
         swagger.setInfo(eapi2Swagger.apiInfo(project));
 
         // 接口列表
-        Map<String, Path> map__ = eapi2Swagger.mapApiListings(projectId);
+        Map<String, Path> map__ = eapi2Swagger.mapApiListings(project, type);
         swagger.setPaths( map__ );
 
         //

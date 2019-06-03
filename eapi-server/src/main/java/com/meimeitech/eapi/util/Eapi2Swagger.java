@@ -10,10 +10,14 @@ import com.meimeitech.eapi.model.Parameters;
 import com.meimeitech.eapi.model.ProjectVo;
 import com.meimeitech.eapi.model.Properties;
 import com.meimeitech.eapi.repository.*;
+import com.meimeitech.eapi.service.Swagger2Service;
 import io.swagger.models.*;
 import io.swagger.models.parameters.Parameter;
+import io.swagger.models.properties.ObjectProperty;
 import io.swagger.models.properties.Property;
+import io.swagger.models.properties.StringProperty;
 import io.swagger.util.Json;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -39,17 +43,17 @@ public class Eapi2Swagger {
     private ResponseInfoRepository responseInfoRepository;
 
 
-    public Map<String,Path> mapApiListings(String projectId) {
+    public Map<String,Path> mapApiListings(Project project, Swagger2Service.BuildType type) {
         Map<String, Path> map = Maps.newTreeMap();
-        List<Interface> interfaces = interfaceRepository.findAllByProjectIdOrderByPath(projectId);
+        List<Interface> interfaces = interfaceRepository.findAllByProjectIdOrderByPath(project.getId());
         interfaces.forEach( _interface -> {
-            map.put(_interface.getPath(), mapOperations(_interface, map));
+            map.put(_interface.getPath(), mapOperations(_interface, map, project, type));
         });
         return map;
     }
 
 
-    public Path mapOperations(Interface anInterface, Map<String, Path> map) {
+    public Path mapOperations(Interface anInterface, Map<String, Path> map, Project project, Swagger2Service.BuildType type) {
         map.get(anInterface.getPath());
         Path path = map.get(anInterface.getPath());
         if (path == null) {
@@ -93,9 +97,32 @@ public class Eapi2Swagger {
 
         Map<String, Response> responses = Maps.newHashMap();
         responseInfos.forEach(responseInfo -> {
+
+            Property property;
+
+            if (project.getCommonResponse() && type.equals(Swagger2Service.BuildType.SWAGGER_UI)) {  // 是否开启通用响应
+                Map<String, Property> properties = Maps.newHashMap();
+
+
+                dataModelRepository.findById(project.getCommonResponseId()).get().getChildren().forEach(dataModel -> {
+                    properties.put(dataModel.getName(), Properties.mapProperty(dataModel));
+                });
+
+                if (StringUtils.isEmpty(project.getCommonResponseField())) {
+                    properties.put("data", Properties.mapProperty(responseInfo.getDataModel()));
+                } else {
+                    properties.put(project.getCommonResponseField(), Properties.mapProperty(responseInfo.getDataModel()));
+                }
+
+                property = new ObjectProperty().properties(properties).description(responseInfo.getDescription());
+
+            } else {
+                property = Properties.mapProperty(responseInfo.getDataModel());
+            }
+
             Response response = new Response().headers(headers)
                     .description(responseInfo.getDescription())
-                    .schema(Properties.mapProperty(responseInfo.getDataModel()));
+                    .schema(property);
             try{
                 Map<String, Object> examples = Json.mapper().convertValue(responseInfo.getDataModel().getExample(), Json.mapper().getTypeFactory().constructMapType(Map.class, String.class, Object.class));
                 response.setExamples(examples);
@@ -134,7 +161,7 @@ public class Eapi2Swagger {
         return list_;
     }
 
-    public Info apiInfo(ProjectVo project) {
+    public Info apiInfo(Project project) {
         return new Info().title(project.getTitle())
                 .description(project.getDescription())
                 .license(new License().name("Apache 2.0").url("http://www.apache.org/licenses/LICENSE-2.0.html"))

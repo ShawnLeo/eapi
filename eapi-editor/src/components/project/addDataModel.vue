@@ -10,7 +10,7 @@
         <FormItem label="模型名称" style="width: 60%;" prop="name">
           <i-input v-model="formItem.name" placeholder="例如：User"></i-input>
         </FormItem>
-        <FormItem label="描述" style="width: 60%;">
+        <FormItem label="描述" style="width: 60%;" prop="description">
           <i-input v-model="formItem.description" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
                    placeholder="描述"></i-input>
         </FormItem>
@@ -91,7 +91,11 @@
         ruleValidate: {
           name: [
             {required: true, message: '请输入模型名称', trigger: 'blur'},
+						{type: 'string', max: 100, message: '输入小于100个字符', trigger: 'blur' },
             { validator: validateNameExists, trigger: 'blur' }
+          ],
+					description: [
+						{type: 'string', max: 500, message: '输入小于100个字符', trigger: 'blur' }
           ]
         }
       };

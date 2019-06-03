@@ -42,6 +42,24 @@ public class Project extends AbstractProject {
 //    schemes
 
     /**
+     * 是否开启通用响应
+     */
+    @Column(name = "COMMON_RESPONSE")
+    private Boolean commonResponse;
+
+    /**
+     * 通用数据模型
+     */
+    @Column(name = "COMMON_RESPONSE_ID", length = 100)
+    private String commonResponseId;
+
+    /**
+     * 字段名
+     */
+    @Column(name = "COMMON_RESPONSE_FIELD", length = 100)
+    private String commonResponseField;
+
+    /**
      * 创建人
      */
     @Column(name = "CREATER",length = 40)
@@ -122,6 +140,30 @@ public class Project extends AbstractProject {
 
     public void setGroupId(String groupId) {
         this.groupId = groupId;
+    }
+
+    public Boolean getCommonResponse() {
+        return commonResponse;
+    }
+
+    public void setCommonResponse(Boolean commonResponse) {
+        this.commonResponse = commonResponse;
+    }
+
+    public String getCommonResponseId() {
+        return commonResponseId;
+    }
+
+    public void setCommonResponseId(String commonResponseId) {
+        this.commonResponseId = commonResponseId;
+    }
+
+    public String getCommonResponseField() {
+        return commonResponseField;
+    }
+
+    public void setCommonResponseField(String commonResponseField) {
+        this.commonResponseField = commonResponseField;
     }
 
     public String getCreater() {

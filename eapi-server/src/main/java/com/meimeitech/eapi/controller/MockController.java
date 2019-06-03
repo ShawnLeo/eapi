@@ -51,7 +51,7 @@ public class MockController {
 
         String method = request.getMethod().toLowerCase();
 
-        Swagger swagger = swagger2Service.buildSwagger(projectId);
+        Swagger swagger = swagger2Service.buildSwagger(projectId, Swagger2Service.BuildType.SWAGGER_UI);
 
         Path swaggerPath = getPath(swagger, requestPath);
 

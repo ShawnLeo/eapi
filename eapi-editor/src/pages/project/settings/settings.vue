@@ -75,6 +75,38 @@
 				</div>
 			</i-col>
 
+			<i-col span="24">
+				<div class="wrapper-content">
+					<h2 class="title-border">通用响应</h2>
+				</div>
+
+				<div class="wrapper-content box clearfix">
+					<p>说明:</p>
+					<p style="text-indent:2em;">开启通用响应，选择通用数据模型，在接口文档和Mock服务中所有 <b>自定义的响应数据模型</b> 会自动添加在 <b>通用数据模型</b> result字段中。</p>
+
+					<Form :model="project" :label-width=90 style="margin-top: 15px;">
+						<FormItem label="通用响应"  >
+							<i-switch v-model="project.commonResponse"></i-switch>
+						</FormItem>
+
+						<FormItem label="通用数据模型" style="width: 500px;"  v-if="project.commonResponse">
+							<Select v-model="project.commonResponseId">
+								<Option :value="item.id" v-for="item in customDataModel" :key="item.id">{{item.name}}</Option>
+							</Select>
+						</FormItem>
+
+						<FormItem label="字段名" style="width: 500px;"  v-if="project.commonResponse">
+							<Input v-model="project.commonResponseField" placeholder="字段名，默认值：data"/>
+						</FormItem>
+
+						<FormItem>
+							<Button @click="updateProject" type="success" style="float: right">保存</Button>
+						</FormItem>
+					</Form>
+
+
+				</div>
+			</i-col>
 
 			<i-col span="24">
 				<div class="wrapper-content">
@@ -154,6 +186,7 @@
 			return {
 				spinShow: false,
 				showDeleteButton: false,
+				customDataModel:[],
 				project: {},
 				title: '',
 				uploadUrl: '',
@@ -187,6 +220,7 @@
 			init() {
 				this.uploadUrl = baseUrl + '/swagger/import/file/' + this.projectId;
 				this.getProjectById();
+				this.customDataModel = JSON.parse(getStore('customDataModel'));
 			},
 			getProjectById() {
 				getProjectById({id: this.projectId}, (response) => {
@@ -242,10 +276,9 @@
 				});
 			},
 			handleSuccess(res, file) {
-				let _this = this;
 				responseHandler(res, {callback: () => {
-					_this.$Message.success('数据导入成功！');
-					_this.showImportModal = false;
+					this.$Message.success('数据导入成功！');
+					this.showImportModal = false;
 				}});
 			},
 			handleError(error, file) {
@@ -284,11 +317,7 @@
 		},
 		watch: {
 			title: function (newTitle, oldTitle) {
-				if (newTitle === this.project.title) {
-					this.showDeleteButton = true;
-				} else {
-					this.showDeleteButton = false;
-				}
+					this.showDeleteButton = newTitle === this.project.title;
 			}
 		}
 	};
