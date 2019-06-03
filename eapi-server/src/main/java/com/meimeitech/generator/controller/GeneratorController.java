@@ -120,7 +120,7 @@ public class GeneratorController {
             String springBoot = root + File.separator + "SpringBoot";
             String axios = root + File.separator + "Axios"+ File.separator + "gen";
 
-            Swagger swagger = swagger2Service.buildSwagger(mysqlGeneratorModel.getTargetProject());
+            Swagger swagger = swagger2Service.buildSwagger(mysqlGeneratorModel.getTargetProject(), Swagger2Service.BuildType.SWAGGER_JSON);
             Json json = jsonSerializer.toJson(swagger);
 
             FileUtils.writeStringToFile(swaggerFile, json.value(), "UTF-8");
