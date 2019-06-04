@@ -5,7 +5,7 @@
             <div class="sub-menu">
                 <Menu ref="mainNav" mode="horizontal" theme="light" :active-name="$route.meta.menuActive" class="fl"
                       @on-select="selectMenu">
-                    <Menu-Item name="/code/generator/setting">
+                    <Menu-Item name="/code/generator/settings">
                         配置
                     </Menu-Item>
                     <Menu-Item name="/code/generator/mybatis">

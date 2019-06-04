@@ -7,15 +7,15 @@ import layout from '../components/layout/layout.vue';
 Vue.use(Router);
 
 const router = new Router({
-  routes: [{
-    path: '/',
-    redirect: '/project/index',
-    component: layout,
-    children: [{
-      path: '/project',
-      name: 'project',
-      component: () => import('../pages/index.vue'),
-      children: [{
+	routes: [{
+		path: '/',
+		redirect: '/project/index',
+		component: layout,
+		children: [{
+			path: '/project',
+			name: 'project',
+			component: () => import('../pages/index.vue'),
+			children: [{
 				path: '/project/index',
 				name: 'projectIndex',
 				meta: {
@@ -23,13 +23,13 @@ const router = new Router({
 				},
 				component: () => import('../pages/project/index.vue')
 			}, {
-        path: '/project/list',
-        name: 'projectList',
+				path: '/project/list',
+				name: 'projectList',
 				meta: {
 					menuActive: '/project/list'
 				},
-        component: () => import('../pages/project/list.vue')
-      }, {
+				component: () => import('../pages/project/list.vue')
+			}, {
 				path: '/project/search',
 				name: 'search',
 				meta: {
@@ -39,81 +39,81 @@ const router = new Router({
 				},
 				component: () => import('../pages/project/search.vue')
 			}, {
-        path: '/project/project',
-        component: () => import('../pages/project/project.vue'),
-        children: [{
-          path: '/project/interface',
-          meta: {
-            menuActive: '/project/list',
+				path: '/project/project',
+				component: () => import('../pages/project/project.vue'),
+				children: [{
+					path: '/project/interface',
+					meta: {
+						menuActive: '/project/list',
 						subMenuActive: '/project/interface',
 						auth: true
-          },
-          name: 'interface',
-          component: () => import('../pages/project/interface/interface.vue')
-        }, {
-          path: '/project/interface/edit',
-          meta: {
+					},
+					name: 'interface',
+					component: () => import('../pages/project/interface/interface.vue')
+				}, {
+					path: '/project/interface/edit',
+					meta: {
 						menuActive: '/project/list',
-            subMenuActive: '/project/interface',
+						subMenuActive: '/project/interface',
 						auth: true
-          },
-          name: 'interfaceEdit',
-          component: () => import('../pages/project/interface/edit.vue')
-        }, {
-          path: '/project/datamodel',
-          name: 'datamodel',
-          meta: {
+					},
+					name: 'interfaceEdit',
+					component: () => import('../pages/project/interface/edit.vue')
+				}, {
+					path: '/project/datamodel',
+					name: 'datamodel',
+					meta: {
 						menuActive: '/project/list',
-            subMenuActive: '/project/datamodel',
+						subMenuActive: '/project/datamodel',
 						auth: true
-          },
-          component: () => import('../pages/project/datamodel/datamodel.vue')
-        }, {
-        //   path: '/project/datamodel/add',
-        //   meta: {
-        //     menu: '/project/list'
-        //   },
-        //   name: 'interface',
-        //   component: () => import('../pages/project/datamodel/add.vue')
-        // }, {
-          path: '/project/datamodel/edit',
-          name: 'datamodelEdit',
-          meta: {
+					},
+					component: () => import('../pages/project/datamodel/datamodel.vue')
+				}, {
+					//   path: '/project/datamodel/add',
+					//   meta: {
+					//     menu: '/project/list'
+					//   },
+					//   name: 'interface',
+					//   component: () => import('../pages/project/datamodel/add.vue')
+					// }, {
+					path: '/project/datamodel/edit',
+					name: 'datamodelEdit',
+					meta: {
 						menuActive: '/project/list',
-            subMenuActive: '/project/datamodel',
+						subMenuActive: '/project/datamodel',
 						auth: true
-          },
-          component: () => import('../pages/project/datamodel/edit.vue')
-        }, {
-          path: '/project/tags',
-          name: 'tags',
-          meta: {
+					},
+					component: () => import('../pages/project/datamodel/edit.vue')
+				}, {
+					path: '/project/tags',
+					name: 'tags',
+					meta: {
 						menuActive: '/project/list',
-            subMenuActive: '/project/tags',
+						subMenuActive: '/project/tags',
 						auth: true
-          },
-          component: () => import('../pages/project/tags/tags.vue')
-        }, {
-          path: '/project/regular',
-          name: 'regular',
-          meta: {
+					},
+					component: () => import('../pages/project/tags/tags.vue')
+				}, {
+					path: '/project/regular',
+					name: 'regular',
+					meta: {
 						menuActive: '/project/list',
-            subMenuActive: '/project/regular',
+						subMenuActive: '/project/regular',
 						auth: true
-          },
-          component: () => import('../pages/project/regular/regular.vue')
-        }, {
-          path: '/project/settings',
-          name: 'settings',
-          meta: {
+					},
+					component: () => import('../pages/project/regular/regular.vue')
+				}, {
+					path: '/project/settings',
+					name: 'settings',
+					meta: {
 						menuActive: '/project/list',
-            subMenuActive: '/project/settings',
+						subMenuActive: '/project/settings',
 						auth: true
-          },
-          component: () => import('../pages/project/settings/settings.vue')
-        }]
-      }]
-    }, {
+					},
+					component: () => import('../pages/project/settings/settings.vue')
+				}]
+			}]
+		}, {
 			path: '/user/login',
 			name: 'login',
 			component: () => import('../pages/user/login.vue')
@@ -161,54 +161,52 @@ const router = new Router({
 				// subMenuActive: '/accountCenter/account' // 二级级菜单激活 路由名称
 			},
 			component: () => import('../pages/user/resetSend.vue')
-		},
-        {
-            path: '/code/generator',
-            name: 'generator',
-            redirect: '/code/generator/setting',
-            component: () => import('../pages/generator/index.vue'),
-            children: [{
-                path: '/code/generator/mybatis',
-                name: 'codeGeneratorMbatis',
-                meta: {
-                    menuActive: '/code/generator/mybatis'
-                },
-                component: () => import('../pages/generator/codeGeneratorMbatis.vue')
-            }, {
-                path: '/code/generator/swagger',
-                name: 'codeGeneratorSwagger',
-                meta: {
-                    menuActive: '/code/generator/swagger'
-                },
-                component: () => import('../pages/generator/codeGeneratorSwagger.vue')
-            }, {
-                path: '/code/generator/setting',
-                name: 'codeGeneratorSetting',
-                meta: {
-                    menuActive: '/code/generator/setting'
-                },
-                component: () => import('../pages/generator/codeGeneratorSetting.vue')
-            }, {
-                path: '/code/generator/vue',
-                name: 'codeGeneratorVue',
-                meta: {
-                    menuActive: '/code/generator/vue'
-                },
-                component: () => import('../pages/generator/codeGeneratorVue.vue')
-            }, {
-                path: '/code/generator/vuetest',
-                name: 'codeGeneratorVueTest',
-                meta: {
-                    menuActive: '/code/generator/vuetest'
-                },
-                component: () => import('../pages/generator/codeGeneratorVueTest.vue')
-            }]
-        }
-	]
-  }, {
-    path: '/swagger',
-    component: () => import('../pages/swagger/ui.vue')
-  }]
+		}, {
+			path: '/code/generator',
+			name: 'generator',
+			redirect: '/code/generator/settings',
+			component: () => import('../pages/generator/index.vue'),
+			children: [{
+				path: '/code/generator/mybatis',
+				name: 'codeGeneratorMbatis',
+				meta: {
+					menuActive: '/code/generator/mybatis'
+				},
+				component: () => import('../pages/generator/mybatis/mybatis.vue')
+			}, {
+				path: '/code/generator/swagger',
+				name: 'codeGeneratorSwagger',
+				meta: {
+					menuActive: '/code/generator/swagger'
+				},
+				component: () => import('../pages/generator/swagger/swagger.vue')
+			}, {
+				path: '/code/generator/settings',
+				name: 'codeGeneratorSetting',
+				meta: {
+					menuActive: '/code/generator/setting'
+				},
+				component: () => import('../pages/generator/settings/settings.vue')
+			}, {
+				path: '/code/generator/vue',
+				name: 'codeGeneratorVue',
+				meta: {
+					menuActive: '/code/generator/vue'
+				},
+				component: () => import('../pages/generator/swagger/vue.vue')
+			}, {
+				path: '/code/generator/vuetest',
+				name: 'codeGeneratorVueTest',
+				meta: {
+					menuActive: '/code/generator/vuetest'
+				},
+				component: () => import('../pages/generator/swagger/vueTest.vue')
+			}]
+		}]
+	}, {
+		path: '/swagger',
+		component: () => import('../pages/swagger/ui.vue')
+	}]
 });
 
 router.beforeEach((to, from, next) => {
@@ -229,7 +227,7 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach(() => {
-  window.scrollTo(0, 0);
+	window.scrollTo(0, 0);
 });
 
 export default router;
