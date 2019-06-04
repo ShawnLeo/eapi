@@ -26,3 +26,4 @@
 /.nb-gradle/
 /out/
 /db/
+/code_gen_temp/
