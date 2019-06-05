@@ -64,7 +64,7 @@ spring:
     password: sa
     data: classpath:sql/data.sql
 host:
-  server: http://118.25.0.116/swagger-editor/latest/index.html
+  server: http://10.133.255.201:5001/pc/swagger-editor/index.html
 swagger:
-  host: 118.25.0.116:7050
+  host: 10.133.255.201:7050
   contact-email: easyapi@163.com
