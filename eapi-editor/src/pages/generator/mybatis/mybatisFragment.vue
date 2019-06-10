@@ -20,6 +20,9 @@
 				<FormItem label="JAVA类名" prop="domainObjectName">
 					<Input v-model="form.domainObjectName"/>
 				</FormItem>
+				<FormItem label="包名" prop="targetPackage">
+					<Input v-model="form.targetPackage"/>
+				</FormItem>
 				<FormItem label="自增列" prop="generatedKey">
 					<Input v-model="form.generatedKey"/>
 				</FormItem>
@@ -42,7 +45,7 @@
 <script>
 	import {Message} from 'iview';
 	import {setStore, getStore} from "../../../utils/storage";
-	import {generatorDatabaseGen, generatorDatabaseDownload} from "../../../utils/interface";
+	import * as consts from '../../../utils/const';
 
 	export default {
 		name: "mybatis-fragment",
@@ -134,7 +137,7 @@
 				let submitLoadingFalseFun = this.submitLoadingFalse;
 				this.$refs.form.validate(valid => {
 					if (valid) {
-						const db = getStore("generator_db");
+						const db = getStore(consts.GENERATOR_CONFIG);
 						if (!db) {
 							submitLoadingFalseFun();
 							Message.error("请配置数据库信息");

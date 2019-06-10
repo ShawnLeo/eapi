@@ -10,7 +10,7 @@
     mounted() {
       SwaggerUI({
         dom_id: '#myDomId',
-        url: baseUrl + context + '/' + this.$route.query.projectId
+        url: baseUrl + '/v2/api-docs/' + this.$route.query.projectId
       });
     }
   };

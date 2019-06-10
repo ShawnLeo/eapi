@@ -94,7 +94,7 @@ public class MyBatisGeneratorUtil {
             if (objectRefUtil != null) {
                 objectRefUtil.setValue(myBatisGenerator);
             }
-            copyUserInfo(mybatisGeneratorConfigModel);
+//            copyUserInfo(mybatisGeneratorConfigModel);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

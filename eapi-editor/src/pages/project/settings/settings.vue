@@ -323,7 +323,7 @@
 	};
 </script>
 
-<style>
+<style scoped>
 	.ivu-upload-list{
 		display: none;
 	}

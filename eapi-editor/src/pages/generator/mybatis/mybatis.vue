@@ -1,34 +1,39 @@
 <template>
-	<div class="search">
-		<br>
-		<mybatis-fragment v-if="currView=='see'" @close="currView='index'" :column="column" :table="table" style="min-height: 400px"/>
-		<Card v-show="currView=='index'" style="min-height: 400px">
-			<Row class="operation">
-				<Button @click="getDataList" type="primary" icon="md-refresh" style="margin-left: 5px;">刷新</Button>
-			</Row>
-			<Row>
-				<Table :loading="loading" border :columns="columns" :data="data" ref="table"></Table>
-			</Row>
-		</Card>
+	<div class="mybatis">
+		<!--<mybatis-fragment v-if="currView=='see'" @close="currView='index'" :column="column" :table="table" style="min-height: 400px"/>-->
+		<Row>
+			<i-col span="24">
+				<Button @click="init" type="primary" icon="md-refresh" style="float: right;">刷新</Button>
+			</i-col>
+		</Row>
+
+		<Row class="table-list">
+			<Table :loading="loading" border :columns="tableColumns" :data="tables" ref="table"></Table>
+		</Row>
+
+		<mybatis-gen v-model="modalVisible" :table="table" :columns="columns" @on-cancel="modalVisible=false" @on-ok="modalVisible = false"></mybatis-gen>
 	</div>
 </template>
 
 <script>
 	import {generatorDatabaseAll} from "../../../utils/interface";
 	import {setStore, getStore} from "../../../utils/storage";
-	import {Message} from 'iview';
-	import mybatisFragment from "./mybatisFragment.vue";
+	import * as consts from '../../../utils/const';
+	import mybatisGen from '../../../components/generator/mybatisGen.vue';
+//	import mybatisFragment from "./mybatisFragment.vue";
 
 	export default {
 		name: "codeGeneratorMbatis",
-		components: {mybatisFragment},
+		components: {mybatisGen},
 		data() {
 			return {
-				column: [],
+				tables: [], // 表单数据
+				columnMaps: {},
 				table: {},
-				currView: "index",
+				columns: [],
+				modalVisible: false,
 				loading: true, // 表单加载状态
-				columns: [
+				tableColumns: [
 					{
 						type: "index",
 						width: 60,
@@ -91,56 +96,38 @@
 						}
 					}
 				],
-				data: [], // 表单数据
-				datadb: {}, // 表单数据
+				data: {} // 数据
 			};
 		},
 		methods: {
 			init() {
 				this.getDataList();
 			},
-			submited() {
-				this.currView = "index";
-				this.getDataList();
-			},
-			setData(_data) {
-				this.data = [];
-				for (let i = 0; i < _data.table.length; i++) {
-					this.data.push(_data.table[i]);
-				}
-				this.datadb = _data;
-			},
 			getDataList() {
 				this.loading = true;
-
-				const db = getStore("generator_db");
+				const db = getStore(consts.GENERATOR_CONFIG);
 				if (!db) {
-					Message.error("请先配置数据库");
+					this.$Message.error("请先配置数据库");
 					this.loading = false;
 					return;
 				}
-				let setDataFun = this.setData;
-				generatorDatabaseAll(JSON.parse(db), function (data) {
-					if (data.header.code == '0') {
-
-						setDataFun(data.body);
-						Message.success("数据获取成功");
-					} else {
-						Message.error("数据获取失败");
-					}
+				generatorDatabaseAll(JSON.parse(db), (data) => {
+					this.columnMaps = data.body.column;
+					this.tables = data.body.table;
+					this.loading = false;
 				});
-				this.loading = false;
-			},
-			add() {
-				this.currView = "add";
+
 			},
 			gen(v) {
-				this.currView = "edit";
+				this.table = v;
+				this.modalVisible = true;
+				this.columns = this.columnMaps[v.tableName];
 			},
 			see(v) {
-				this.table = v;
-				this.column = this.datadb.column[v.tableName];
-				this.currView = "see";
+				this.$router.push({
+					name: 'codeGeneratorMybatisTable',
+					params: {table: v, column: this.columnMaps[v.tableName]}
+				});
 			}
 		},
 		mounted() {
@@ -149,31 +136,12 @@
 	};
 </script>
 
-<style>
-	.search .operation {
-		margin-bottom: 2vh;
+<style scoped>
+	.mybatis {
+		padding: 20px;
 	}
 
-	.search .select-count {
-		font-size: 13px;
-		font-weight: 600;
-		color: #40a9ff;
-	}
-
-	.select-clear {
-		margin-left: 10px;
-	}
-
-	.search .page {
-		margin-top: 2vh;
-	}
-
-	.search .drop-down {
-		font-size: 13px;
-		margin-left: 5px;
-	}
-
-	.back-title {
-		color: #515a6e;
+	.mybatis .table-list {
+		margin-top: 15px;
 	}
 </style>

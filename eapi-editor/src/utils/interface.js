@@ -135,14 +135,14 @@ export const groupUserQuery = (data, callback) => fetch('/group/user/query/' + d
 export const getCurrUserRole = (data, callback) => fetch('/group/user/role', {callback, reqParams: data}, 'GET');
 /** ******* 项目组-end ******** **/
 
-export const generatorDatabaseAll = (data, callback) => fetch(GENERATOR + '/database/all', {callback, reqBody: data,doNotToast:true}, 'POST');
+export const generatorDatabaseAll = (data, callback) => fetch(GENERATOR + '/database/all', {callback, reqBody: data}, 'POST');
 
-export const generatorDatabaseTest = (data, callback) => fetch(GENERATOR + '/database/test', {callback, reqBody: data,doNotToast:true}, 'POST');
+export const generatorDatabaseTest = (data, callback) => fetch(GENERATOR + '/database/test', {callback, reqBody: data}, 'POST');
 
-export const generatorDatabaseGen = (data, callback) => fetch(GENERATOR + '/database/gen', {callback, reqBody: data,doNotToast:true}, 'POST');
+export const generatorDatabaseGen = (data, callback) => fetch(GENERATOR + '/database/gen', {callback, reqBody: data}, 'POST');
 
 export const generatorDatabaseDownload = (data, callback) => fetch(GENERATOR + '/database/gen', {callback, reqParams: data}, 'GET','blob');
 
-export const generatorSwaggerGen = (data, callback) => fetch(GENERATOR + '/swagger/gen', {callback, reqBody: data,doNotToast:true}, 'POST');
+export const generatorSwaggerGen = (data, callback) => fetch(GENERATOR + '/swagger/gen', {callback, reqBody: data}, 'POST');
 
 export const generatorSwaggerDownload = (data, callback) => fetch(GENERATOR + '/swagger/gen', {callback, reqParams: data}, 'GET','blob');

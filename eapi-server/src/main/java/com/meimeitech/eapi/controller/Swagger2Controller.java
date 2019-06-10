@@ -41,8 +41,7 @@ public class Swagger2Controller {
      * 生成swagger.json文档
      *
      * @param projectId
-     * @param swaggerGroup
-     * @param servletRequest
+     * @param buildType
      * @return
      */
     @ResponseBody
@@ -50,8 +49,11 @@ public class Swagger2Controller {
             value = DEFAULT_URL,
             method = RequestMethod.GET,
             produces = { APPLICATION_JSON_VALUE, HAL_MEDIA_TYPE })
-    public ResponseEntity<Json> getDocumentation(@PathVariable("projectId") String projectId,  @RequestParam(value = "group",required = false) String swaggerGroup, HttpServletRequest servletRequest) {
-        Swagger swagger = swagger2Service.buildSwagger(projectId, Swagger2Service.BuildType.SWAGGER_UI);
+    public ResponseEntity<Json> getDocumentation(@PathVariable("projectId") String projectId,  @RequestParam(name = "type",required = false) Swagger2Service.BuildType buildType) {
+        if (buildType == null) {
+            buildType = Swagger2Service.BuildType.SWAGGER_UI;
+        }
+        Swagger swagger = swagger2Service.buildSwagger(projectId, buildType);
         return new ResponseEntity(jsonSerializer.toJson(swagger), HttpStatus.OK);
     }
 

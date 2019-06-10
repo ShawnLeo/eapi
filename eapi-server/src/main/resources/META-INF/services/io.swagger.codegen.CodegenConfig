@@ -1,2 +1,3 @@
 com.meimeitech.generator.tools.swagger.gen.PaulSpringCodegen
+com.meimeitech.generator.tools.swagger.gen.MeimeitechSpringCodegen
 com.meimeitech.generator.tools.swagger.gen.TypeScriptAxiosClientCodegen

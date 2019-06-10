@@ -60,6 +60,7 @@ public class DatabaseUtil {
         jdbcConnectionConfiguration.setPassword(model.getDbPassword());
         jdbcConnectionConfiguration.setDriverClass(model.getDbDriverClass());
         jdbcConnectionConfiguration.setConnectionURL(model.getDbConnectionURL());
+        jdbcConnectionConfiguration.getProperties().put("remarks","true");
 
         ConnectionFactory connectionFactory = new JDBCConnectionFactory(jdbcConnectionConfiguration);
         Connection connection = null;
@@ -166,6 +167,8 @@ public class DatabaseUtil {
         jdbcConnectionConfiguration.setPassword(model.getDbPassword());
         jdbcConnectionConfiguration.setDriverClass(model.getDbDriverClass());
         jdbcConnectionConfiguration.setConnectionURL(model.getDbConnectionURL());
+        jdbcConnectionConfiguration.getProperties().put("remarks","true");
+
         ConnectionFactory connectionFactory = new JDBCConnectionFactory(jdbcConnectionConfiguration);
         Connection connection = null;
         try {

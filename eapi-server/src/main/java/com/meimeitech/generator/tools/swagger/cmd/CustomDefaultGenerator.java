@@ -166,6 +166,11 @@ public class CustomDefaultGenerator extends DefaultGenerator {
     private boolean existClassPath(String name){
         try {
             URL resource = this.getClass().getClassLoader().getResource((getCPResourcePath(name)));
+
+            if (resource != null) {
+                return true;
+            }
+
             String file = resource.getFile();
             if (new File(file).exists()){
                 return true;

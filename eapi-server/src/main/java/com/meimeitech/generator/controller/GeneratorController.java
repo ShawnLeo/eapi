@@ -7,6 +7,7 @@ import com.meimeitech.generator.tools.mybatis.util.DatabaseUtil;
 import com.meimeitech.generator.tools.mybatis.util.MyBatisGeneratorUtil;
 import com.meimeitech.generator.tools.mybatis.util.MybatisGeneratorConfigModel;
 import com.meimeitech.generator.tools.swagger.Generator;
+import com.meimeitech.generator.tools.swagger.vo.SwaggerConfigVO;
 import io.swagger.models.Swagger;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 @RequestMapping("/generator")
@@ -39,13 +39,12 @@ public class GeneratorController {
         try {
             boolean b = DatabaseUtil.testConnection(mysqlGeneratorModel);
             if (!b) {
-                return Response.error("请检查数据库配置");
+                return Response.error("数据库连接失败！");
             }
             Map<DatabaseUtil.Table, List<DatabaseUtil.Column>> columns = DatabaseUtil.info(mysqlGeneratorModel);
 
             ArrayList<DatabaseUtil.Table> tablesMap = new ArrayList<>();
             Map<String, List<DatabaseUtil.Column>> columnsMap = new HashMap<>();
-            AtomicInteger integer = new AtomicInteger(1);
             columns.forEach((k, v) -> {
                 tablesMap.add(k);
                 columnsMap.put(k.getTableName(), v);
@@ -112,32 +111,38 @@ public class GeneratorController {
     private JsonSerializer jsonSerializer;
 
     @RequestMapping(value = "/swagger/gen", method = RequestMethod.POST)
-    public Response swagger(@RequestBody MybatisGeneratorConfigModel mysqlGeneratorModel) {
+    public Response swagger(@RequestBody SwaggerConfigVO swaggerConfigVO) {
         try {
             long l = System.currentTimeMillis();
             String root = codeGenerateLocation() + File.separator + l;
-            File swaggerFile = new File(root + File.separator + "Swagger.json");
-            String springBoot = root + File.separator + "SpringBoot";
-            String axios = root + File.separator + "Axios"+ File.separator + "gen";
+//            File swaggerFile = new File(root + File.separator + "Swagger.json");
+            String targetProject = root + File.separator + swaggerConfigVO.getLang();
+//            String axios = root + File.separator + "Axios"+ File.separator + "gen";
 
-            Swagger swagger = swagger2Service.buildSwagger(mysqlGeneratorModel.getTargetProject(), Swagger2Service.BuildType.SWAGGER_JSON);
-            Json json = jsonSerializer.toJson(swagger);
+//            Swagger swagger = swagger2Service.buildSwagger(swaggerConfigVO.getTargetProject(), Swagger2Service.BuildType.SWAGGER_JSON);
+//            Json json = jsonSerializer.toJson(swagger);
 
-            FileUtils.writeStringToFile(swaggerFile, json.value(), "UTF-8");
+//            FileUtils.writeStringToFile(swaggerFile, json.value(), "UTF-8");
+//            String swaggerFile = swaggerConfigVO.getTargetProject();
 
             Generator.builder()
-                    .swaggerJson("file:///" + swaggerFile.getPath())
-                    .targetPackage(mysqlGeneratorModel.getTargetPackage())
-                    .targetProject(springBoot)
+                    .swaggerJson(swaggerConfigVO.getTargetProject())
+                    .apiPackage(swaggerConfigVO.getApiPackage())
+                    .modelPackage(swaggerConfigVO.getModelPackage())
+                    .targetProject(targetProject)
+                    .lang(swaggerConfigVO.getLang())
+                    .library(swaggerConfigVO.getLibrary())
+                    .generateSupportingFiles(false)
                     .build().generatorController();
 
-            Generator.builder()
-                    .swaggerJson("file:///" + swaggerFile.getPath())
-                    .targetProject(axios)
-                    .build().generatorAxiosClient();
+//            Generator.builder()
+//                    .swaggerJson("file:///" + swaggerFile.getPath())
+//                    .targetProject(axios)
+//                    .build().generatorAxiosClient();
 
             return Response.success(l + "");
         } catch (Exception e) {
+            e.printStackTrace();
             return Response.error("生成失败:" + e.getMessage());
         }
     }

@@ -167,38 +167,51 @@ const router = new Router({
 			redirect: '/code/generator/settings',
 			component: () => import('../pages/generator/index.vue'),
 			children: [{
-				path: '/code/generator/mybatis',
-				name: 'codeGeneratorMbatis',
+				path: '/code/generator/settings',
+				name: 'codeGeneratorSetting',
 				meta: {
-					menuActive: '/code/generator/mybatis'
+					menuActive: '/code/generator',
+					subMenuActive: '/code/generator/settings'
+				},
+				component: () => import('../pages/generator/settings/settings.vue')
+			}, {
+				path: '/code/generator/mybatis',
+				name: 'codeGeneratorMybatis',
+				meta: {
+					menuActive: '/code/generator',
+					subMenuActive: '/code/generator/mybatis'
 				},
 				component: () => import('../pages/generator/mybatis/mybatis.vue')
+			}, {
+				path: '/code/generator/mybatis/table',
+				name: 'codeGeneratorMybatisTable',
+				meta: {
+					menuActive: '/code/generator',
+					subMenuActive: '/code/generator/mybatis'
+				},
+				component: () => import('../pages/generator/mybatis/table.vue')
 			}, {
 				path: '/code/generator/swagger',
 				name: 'codeGeneratorSwagger',
 				meta: {
-					menuActive: '/code/generator/swagger'
+					menuActive: '/code/generator',
+					subMenuActive: '/code/generator/swagger'
 				},
 				component: () => import('../pages/generator/swagger/swagger.vue')
-			}, {
-				path: '/code/generator/settings',
-				name: 'codeGeneratorSetting',
-				meta: {
-					menuActive: '/code/generator/setting'
-				},
-				component: () => import('../pages/generator/settings/settings.vue')
 			}, {
 				path: '/code/generator/vue',
 				name: 'codeGeneratorVue',
 				meta: {
-					menuActive: '/code/generator/vue'
+					menuActive: '/code/generator',
+					subMenuActive: '/code/generator/vue'
 				},
 				component: () => import('../pages/generator/swagger/vue.vue')
 			}, {
 				path: '/code/generator/vuetest',
 				name: 'codeGeneratorVueTest',
 				meta: {
-					menuActive: '/code/generator/vuetest'
+					menuActive: '/code/generator',
+					subMenuActive: '/code/generator/vuetest'
 				},
 				component: () => import('../pages/generator/swagger/vueTest.vue')
 			}]

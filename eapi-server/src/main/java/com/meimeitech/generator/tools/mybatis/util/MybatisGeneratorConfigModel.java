@@ -41,6 +41,12 @@ public class MybatisGeneratorConfigModel {
      */
     @Builder.Default
     private String javaClientGeneratorFlag = "true";
+    /**
+     * 是否使用lombok
+     */
+    @Builder.Default
+    private String lombokFlag = "false";
+
     private String targetPackage;
     private String targetProject;
 
