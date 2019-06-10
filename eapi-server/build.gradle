@@ -1,20 +1,20 @@
 project.ext {
-	httpclientVersion = '4.5.3'
-	fastjsonVersion = '1.2.0'
-	springfoxVersion = '2.7.0'
-	javaxMailVersion = '1.4.7'
-	freemarkerVersion = '2.3.28'
+    httpclientVersion = '4.5.3'
+    fastjsonVersion = '1.2.0'
+    springfoxVersion = '2.7.0'
+    javaxMailVersion = '1.4.7'
+    freemarkerVersion = '2.3.28'
 }
 buildscript {
-	ext {
-		springBootVersion = '2.0.1.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    ext {
+        springBootVersion = '2.0.1.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
 apply plugin: 'java'
@@ -28,62 +28,63 @@ sourceCompatibility = 1.8
 
 repositories {
 //	mavenCentral()
-	maven {
-		url "http://maven.aliyun.com/nexus/content/repositories/central"
-	}
+    maven {
+        url "http://maven.aliyun.com/nexus/content/repositories/central"
+    }
 
 }
 configurations {
 
-	all*.exclude group: 'org.springframework.boot',module: 'spring-boot-starter-logging'
+    all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 }
 dependencies {
 //	compile('com.alibaba:druid-spring-boot-starter:1.1.2')
-	compile "com.alibaba:fastjson:$fastjsonVersion"
+    compile "com.alibaba:fastjson:$fastjsonVersion"
 
-	compile('io.jsonwebtoken:jjwt:0.7.0')
-	compile "io.springfox:springfox-swagger2:$springfoxVersion"
-	compile 'io.swagger:swagger-parser:1.0.33'
+    compile('io.jsonwebtoken:jjwt:0.7.0')
+    compile "io.springfox:springfox-swagger2:$springfoxVersion"
+    compile 'io.swagger:swagger-parser:1.0.33'
 
-	compile "javax.mail:mail:$javaxMailVersion"
+    compile "javax.mail:mail:$javaxMailVersion"
 
-	compile "org.apache.httpcomponents:httpclient:$httpclientVersion"
-	compile "org.apache.commons:commons-lang3:3.6"
+    compile "org.apache.httpcomponents:httpclient:$httpclientVersion"
+    compile "org.apache.commons:commons-lang3:3.6"
 
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework.boot:spring-boot-starter-freemarker')
-	compile('org.springframework.boot:spring-boot-starter-mail')
-	compile("org.springframework.boot:spring-boot-starter-security")
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.boot:spring-boot-starter-log4j2')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-freemarker')
+    compile('org.springframework.boot:spring-boot-starter-mail')
+    compile("org.springframework.boot:spring-boot-starter-security")
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-log4j2')
 
-	compile ("com.h2database:h2:1.4.197")
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile("com.h2database:h2:1.4.197")
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 
-	// https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core
-	compile group: 'org.mybatis.generator', name: 'mybatis-generator-core', version: '1.3.5'
-	// https://mvnrepository.com/artifact/tk.mybatis/mapper-generator
-	compile group: 'tk.mybatis', name: 'mapper-generator', version: '1.1.5'
-	// https://mvnrepository.com/artifact/io.swagger/swagger-codegen
-	compile group: 'io.swagger', name: 'swagger-codegen', version: '2.4.4'
-	// https://mvnrepository.com/artifact/io.airlift/airline
-	compile group: 'io.airlift', name: 'airline', version: '0.7'
-	// https://mvnrepository.com/artifact/com.googlecode.lambdaj/lambdaj
-	compile group: 'com.googlecode.lambdaj', name: 'lambdaj', version: '2.3.3'
-	// https://mvnrepository.com/artifact/commons-io/commons-io
-	compile group: 'commons-io', name: 'commons-io', version: '2.6'
-	// https://mvnrepository.com/artifact/mysql/mysql-connector-java
-	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.47'
-	// https://mvnrepository.com/artifact/org.apache.commons/commons-text
-	compile group: 'org.apache.commons', name: 'commons-text', version: '1.6'
-	// https://mvnrepository.com/artifact/org.apache.commons/commons-compress
-	compile group: 'org.apache.commons', name: 'commons-compress', version: '1.18'
+    // https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core
+    compile group: 'org.mybatis.generator', name: 'mybatis-generator-core', version: '1.3.5'
+    // https://mvnrepository.com/artifact/tk.mybatis/mapper-generator
+    compile group: 'tk.mybatis', name: 'mapper-generator', version: '1.1.5'
+    // https://mvnrepository.com/artifact/io.swagger/swagger-codegen
+    compile group: 'io.swagger', name: 'swagger-codegen', version: '2.4.4'
+    // https://mvnrepository.com/artifact/io.airlift/airline
+    compile group: 'io.airlift', name: 'airline', version: '0.7'
+    // https://mvnrepository.com/artifact/com.googlecode.lambdaj/lambdaj
+    compile group: 'com.googlecode.lambdaj', name: 'lambdaj', version: '2.3.3'
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.47'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-text
+    compile group: 'org.apache.commons', name: 'commons-text', version: '1.6'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-compress
+    compile group: 'org.apache.commons', name: 'commons-compress', version: '1.18'
 
-	// https://mvnrepository.com/artifact/org.projectlombok/lombok
-	annotationProcessor 'org.projectlombok:lombok:1.18.8'
-	compileOnly 'org.projectlombok:lombok:1.18.8'
-	testAnnotationProcessor 'org.projectlombok:lombok:1.18.8'
-	testCompileOnly 'org.projectlombok:lombok:1.18.8'
-
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.8'
+    testCompileOnly 'org.projectlombok:lombok:1.18.8'
+    //Beetl 代码生成使用
+    compile group: 'com.ibeetl', name: 'beetl', version: '2.9.9'
 
 }

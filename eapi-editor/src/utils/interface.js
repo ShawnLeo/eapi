@@ -146,3 +146,7 @@ export const generatorDatabaseDownload = (data, callback) => fetch(GENERATOR + '
 export const generatorSwaggerGen = (data, callback) => fetch(GENERATOR + '/swagger/gen', {callback, reqBody: data}, 'POST');
 
 export const generatorSwaggerDownload = (data, callback) => fetch(GENERATOR + '/swagger/gen', {callback, reqParams: data}, 'GET','blob');
+
+export const generateTable = (name, rowNum, data, callback) => fetch(GENERATOR + `/vue/table/${name}/${rowNum}`, {callback, reqBody: data}, 'POST');
+
+export const getEntityData = (data,callback) => fetch(GENERATOR + `/vue/json`, {callback, reqParams: data}, 'POST');
