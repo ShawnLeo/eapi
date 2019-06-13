@@ -764,38 +764,42 @@
 						key: 'action',
 						width: 60,
 						align: 'center',
-//						renderHeader: (h, params) => {
-//							return h('div', [
-//								h('Button', {
-//									props: {
-////                    type: 'ghost',
-//										shape: 'circle',
-//										size: 'small',
-//										icon: 'md-add'
-//									},
-//									style: {
-//										//                    marginRight: '5px'
-//									},
-//									on: {
-//										click: () => {
-//											this.interfaceItem.body.push({
-//												paramIn: 'body',
-//												interfaceId: this.interfaceItem.id,
-//												dataModel: {
-//													name: '',
-//													description: '',
-//													dataType: 'string',
-//													example: '',
-//													required: false,
-//													children: [],
-//													_expanded: false
-//												}
-//											});
-//										}
-//									}
-//								})
-//							]);
-//						},
+						renderHeader: (h, params) => {
+							return h('div', [
+								h('Button', {
+									props: {
+//                    type: 'ghost',
+										shape: 'circle',
+										size: 'small',
+										icon: 'md-add'
+									},
+									style: {
+										//                    marginRight: '5px'
+									},
+									on: {
+										click: () => {
+											if (this.interfaceItem.body.length > 0) {
+												this.$Message.warning("为配合生成代码，请最多设置一个RequestBody")
+												return;
+											}
+											this.interfaceItem.body.push({
+												paramIn: 'body',
+												interfaceId: this.interfaceItem.id,
+												dataModel: {
+													name: '',
+													description: '',
+													dataType: 'string',
+													example: '',
+													required: false,
+													children: [],
+													_expanded: false
+												}
+											});
+										}
+									}
+								})
+							]);
+						},
 						render: (h, params) => {
 							return h('div', [
 								h('Button', {
