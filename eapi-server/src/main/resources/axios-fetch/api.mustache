@@ -1,0 +1,15 @@
+import {fetch} from '../utils/fetch';
+
+{{#operations}}
+{{#operation}}
+/**
+ * {{summary}}
+ * {{#allParams}}
+ * @param {{paramName}}{{/allParams}}
+ * @param callback
+ */
+export const {{operationId}} = (callback{{#hasQueryParams}}, params{{/hasQueryParams}}{{#hasBodyParam}}, body{{/hasBodyParam}}{{#hasPathParams}}, paths{{/hasPathParams}}) => fetch('{{{path}}}'{{#pathParams}}.replace('{' + '{{baseName}}' + '}', encodeURIComponent(String(paths.{{paramName}}))){{/pathParams}}, {callback{{#hasQueryParams}}, reqParams: params{{/hasQueryParams}}{{#hasBodyParam}},reqBody: body {{/hasBodyParam}}}, '{{httpMethod}}');
+
+{{/operation}}
+
+{{/operations}}

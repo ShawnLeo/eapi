@@ -19,7 +19,7 @@
 				<FormItem label="模板" prop="lang">
 					<Select v-model="swaggerConfig.lang" placeholder="请选择" @on-change="langChange">
 						<Option value="meimeitechSpring">meimeitechSpring</Option>
-						<!--<Option value="typescript-axios">typescript-axios</Option>-->
+						<Option value="axios-fetch">axios-fetch</Option>
 					</Select>
 				</FormItem>
 				<FormItem label="library" prop="library" v-if="springShow">
