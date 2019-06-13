@@ -9,7 +9,7 @@ const EHR = '/mmt-ehr-rest';
  * @param {{paramName}}{{/allParams}}
  * @param callback
  */
-export const {{operationId}} = ({{#hasQueryParams}}params, {{/hasQueryParams}}{{#hasBodyParam}}body, {{/hasBodyParam}}{{#hasPathParams}}paths, {{/hasPathParams}}callback) => fetch('{{{path}}}'{{#pathParams}}.replace('{' + '{{baseName}}' + '}', encodeURIComponent(String(paths.{{paramName}}))){{/pathParams}}, {callback{{#hasQueryParams}}, reqParams: params{{/hasQueryParams}}{{#hasBodyParam}},reqBody: body {{/hasBodyParam}}}, '{{httpMethod}}');
+export const {{operationId}} = ({{#hasQueryParams}}params, {{/hasQueryParams}}{{#hasBodyParam}}body, {{/hasBodyParam}}{{#hasPathParams}}paths, {{/hasPathParams}}callback) => fetch(EHR + '{{{path}}}'{{#pathParams}}.replace('{' + '{{baseName}}' + '}', encodeURIComponent(String(paths.{{paramName}}))){{/pathParams}}, {callback{{#hasQueryParams}}, reqParams: params{{/hasQueryParams}}{{#hasBodyParam}},reqBody: body {{/hasBodyParam}}}, '{{httpMethod}}');
 
 {{/operation}}
 
