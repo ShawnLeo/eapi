@@ -189,6 +189,10 @@ public class Swagger2Eapi {
                 // 响应参数
                 Map<String, Response> responses = operation.getResponses();
 
+                if (responses == null) {
+                    continue;
+                }
+
                 for (Map.Entry<String, Response> responseEntry : responses.entrySet()) {
                     Response response = responseEntry.getValue();
 
