@@ -760,10 +760,10 @@
 							]);
 						}
 					},
-//					{
-//						key: 'action',
-//						width: 60,
-//						align: 'center',
+					{
+						key: 'action',
+						width: 60,
+						align: 'center',
 //						renderHeader: (h, params) => {
 //							return h('div', [
 //								h('Button', {
@@ -796,35 +796,29 @@
 //								})
 //							]);
 //						},
-//						render: (h, params) => {
-//							return h('div', [
-//								h('Button', {
-//									props: {
-////                    type: 'ghost',
-//										shape: 'circle',
-//										size: 'small',
-//										icon: 'md-remove'
-//									},
-//									style: {
-//										marginRight: '5px'
-//									},
-//									on: {
-//										click: () => {
-//											this.interfaceItem.body.splice(params.index, 1);
-////                      if (this.interfaceItem.body[params.index].dataModel.id) {
-////                        this.deleteRequestInfo([params.row], () => {
-////                          this.interfaceItem.body.splice(params.index, 1);
-////                        });
-////                        this.deleteDataModel([params.row], params.index);
-////                      } else {
-////                        this.interfaceItem.body.splice(params.index, 1);
-////                      }
-//										}
-//									}
-//								})
-//							]);
-//						}
-//					}
+						render: (h, params) => {
+							return h('div', [
+								h('Button', {
+									props: {
+//                    type: 'ghost',
+										shape: 'circle',
+										size: 'small',
+										icon: 'md-remove'
+									},
+									style: {
+										marginRight: '5px'
+									},
+									on: {
+										click: () => {
+											if (this.interfaceItem.body.length > 0) {
+												this.interfaceItem.body.splice(params.index, 1);
+											}
+										}
+									}
+								})
+							]);
+						}
+					}
 				]
 			};
 		},
