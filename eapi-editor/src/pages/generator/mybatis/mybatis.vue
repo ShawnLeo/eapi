@@ -9,7 +9,7 @@
 					</FormItem>
 
 					<FormItem prop="search">
-						<Input type="text" placeholder="名称搜索" v-model="searchModel" @on-keyup="searchData"/>
+						<Input type="text" placeholder="表名搜索" v-model="searchModel" @on-keyup="searchData"/>
 					</FormItem>
 				</Form>
 			</i-col>
