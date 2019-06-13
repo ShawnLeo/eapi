@@ -1,7 +1,7 @@
 <template>
 	<div class="request">
 		<FormItem label="方法路径" prop="method" style="width: 30%;float:left;">
-			<Select v-model="interfaceItem.method" require="true">
+			<Select v-model="interfaceItem.method" require="true" @on-change="changeMethod">
 				<Option value="get">GET</Option>
 				<Option value="post">POST</Option>
 				<Option value="put">PUT</Option>
@@ -832,8 +832,9 @@
 				setTimeout(() => {
 					if (this.interfaceItem.name) {
 						this.initPathParams();
-						this.initBody();
+//						this.initBody();
 						this.requestType = this.interfaceItem.requestType;
+						this.showRequsts = this.interfaceItem.method !== 'get';
 					} else {
 						this.init(); // 迭代
 					}
@@ -972,13 +973,8 @@
 //        if (deleteParams.length > 0) {
 //          this.deleteRequestInfo(deleteParams);
 //        }
-			}
-		},
-		mounted() {
-			this.init();
-		},
-		watch: {
-			'interfaceItem.method'(val, oldVal) {
+			},
+			changeMethod(val) {
 				if (val.toLowerCase() === 'get') {
 					this.interfaceItem.formDatas = [];
 					this.interfaceItem.body = [];
@@ -990,7 +986,16 @@
 					this.initBody();
 				}
 			}
+		},
+		mounted() {
+			this.init();
 		}
+//		,
+//		watch: {
+//			'interfaceItem.method'(val, oldVal) {
+//
+//			}
+//		}
 	};
 </script>
 
