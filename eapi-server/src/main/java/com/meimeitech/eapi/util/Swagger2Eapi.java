@@ -191,6 +191,13 @@ public class Swagger2Eapi {
 
                 for (Map.Entry<String, Response> responseEntry : responses.entrySet()) {
                     Response response = responseEntry.getValue();
+
+                    Property property = response.getSchema();
+
+                    if (property == null) {
+                        continue;
+                    }
+
                     ResponseInfo responseInfo = new ResponseInfo();
                     responseInfo.setResponseIn(ResponseInConsts.schema.name());
                     responseInfo.setDescription(response.getDescription());
@@ -206,9 +213,12 @@ public class Swagger2Eapi {
                     dataModel.setDescription(responseInfo.getDescription());
                     dataModel.setType(UNIT_TYPE);
 
-                    Property property = response.getSchema();
+                    String name = responseEntry.getKey();
 
-                    property.setName(responseEntry.getKey());
+                    if (name.equals("200")) {
+                        name = "default";
+                    }
+                    property.setName(name);
 
                     dataModel.setDataType(property.getType());
                     dataModel.setRequired(property.getRequired());

@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.spring.web.json.Json;
 import springfox.documentation.spring.web.json.JsonSerializer;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
@@ -36,7 +35,6 @@ public class Swagger2Controller {
     @Autowired
     private JsonSerializer jsonSerializer;
 
-
     /**
      * 生成swagger.json文档
      *
@@ -49,7 +47,8 @@ public class Swagger2Controller {
             value = DEFAULT_URL,
             method = RequestMethod.GET,
             produces = { APPLICATION_JSON_VALUE, HAL_MEDIA_TYPE })
-    public ResponseEntity<Json> getDocumentation(@PathVariable("projectId") String projectId,  @RequestParam(name = "type",required = false) Swagger2Service.BuildType buildType) {
+    public ResponseEntity<Json> getDocumentation(@PathVariable("projectId") String projectId,
+                                                 @RequestParam(name = "type",required = false) Swagger2Service.BuildType buildType) {
         if (buildType == null) {
             buildType = Swagger2Service.BuildType.SWAGGER_UI;
         }
@@ -61,14 +60,12 @@ public class Swagger2Controller {
      * 导出swagger.json文档
      *
      * @param projectId
-     * @param swaggerGroup
      * @param response
      * @return
      */
     @ResponseBody
     @RequestMapping(value = EXPORT_URL,method = RequestMethod.GET)
-    public void export(@PathVariable("projectId") String projectId,
-                       @RequestParam(value = "group",required = false) String swaggerGroup, HttpServletResponse response)
+    public void export(@PathVariable("projectId") String projectId, HttpServletResponse response)
             throws IOException {
 
         Swagger swagger = swagger2Service.buildSwagger(projectId, Swagger2Service.BuildType.SWAGGER_JSON);
@@ -77,7 +74,6 @@ public class Swagger2Controller {
         response.getOutputStream().write(json.value().getBytes());
 
     }
-
 
     /**
      * 文件导入swagger.json文档
@@ -108,6 +104,5 @@ public class Swagger2Controller {
         swagger2Service.importSwaggerFromUrl(swaggerUrl, projectId);
         return Response.success("success");
     }
-
 
 }
