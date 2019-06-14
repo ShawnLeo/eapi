@@ -779,7 +779,7 @@
 									on: {
 										click: () => {
 											if (this.interfaceItem.body.length > 0) {
-												this.$Message.warning("为配合生成代码，请最多设置一个RequestBody")
+												this.$Message.warning("为配合生成代码，请最多设置一个RequestBody");
 												return;
 											}
 											this.interfaceItem.body.push({

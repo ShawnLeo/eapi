@@ -5,7 +5,7 @@
 			<i-col span="24">
 				<Form ref="formInline" inline style="float: right;">
 					<FormItem>
-						<Button @click="init" type="primary" icon="md-refresh" >刷新</Button>
+						<Button @click="init" type="primary" icon="md-refresh">刷新</Button>
 					</FormItem>
 
 					<FormItem prop="search">
@@ -19,7 +19,8 @@
 			<Table :loading="loading" border :columns="tableColumns" :data="filterTables" ref="table"></Table>
 		</Row>
 
-		<mybatis-gen v-model="modalVisible" :table="table" :columns="columns" @on-cancel="modalVisible=false" @on-ok="modalVisible = false"></mybatis-gen>
+		<mybatis-gen v-model="modalVisible" :table="table" :columns="columns" @on-cancel="modalVisible=false"
+			@on-ok="modalVisible = false"></mybatis-gen>
 	</div>
 </template>
 
@@ -27,15 +28,16 @@
 	import {generatorDatabaseAll} from "../../../utils/interface";
 	import {setStore, getStore} from "../../../utils/storage";
 	import * as consts from '../../../utils/const';
+	import {camel} from '../../../utils/utils';
 	import mybatisGen from '../../../components/generator/mybatisGen.vue';
-//	import mybatisFragment from "./mybatisFragment.vue";
-
+	//	import mybatisFragment from "./mybatisFragment.vue";
 	export default {
 		name: "codeGeneratorMbatis",
 		components: {mybatisGen},
 		data() {
 			return {
 				tables: [], // 表单数据
+				filterTables: [],
 				columnMaps: {},
 				searchModel: '',
 				table: {},
@@ -101,7 +103,25 @@
 									},
 									"生成"
 								),
-
+								h(
+									"Button",
+									{
+										props: {
+											type: "primary",
+											size: "small",
+											icon: "ios-create-outline"
+										},
+										style: {
+											marginRight: "5px"
+										},
+										on: {
+											click: () => {
+												this.copy(params.row);
+											}
+										}
+									},
+									"导出模型JSON"
+								)
 							]);
 						}
 					}
@@ -133,6 +153,23 @@
 				this.table = v;
 				this.modalVisible = true;
 				this.columns = this.columnMaps[v.tableName];
+			},
+			copy(v) {
+				let dataModel = [];
+				let columns = this.columnMaps[v.tableName];
+				columns.forEach(column => {
+					dataModel.push({
+						name: camel(column.actualColumnName),
+						description: column.remarks
+//						dataType: 'string',
+					});
+				});
+				console.log(dataModel);
+				this.$copyText(JSON.stringify(dataModel)).then(() => {
+						this.$Message.success('复制成功');
+					}, () => {
+						this.$Message.error('复制成功');
+					});
 			},
 			see(v) {
 				this.$router.push({

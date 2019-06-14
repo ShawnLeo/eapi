@@ -12,32 +12,7 @@
 		</Row>
 
 		<mybatis-gen v-model="modalVisible" :table="table" @on-cancel="modalVisible=false" @on-ok="modalVisible = false"></mybatis-gen>
-		<!--<Modal :title="modalTitle" v-model="modalVisible" :mask-closable='false' :width="500" :styles="{top: '30px'}">-->
-			<!--<Form ref="form" :model="form" :label-width="80" :rules="formValidate">-->
-				<!--<FormItem label="表名" prop="tableName">-->
-					<!--<Input v-model="form.tableName" disabled/>-->
-				<!--</FormItem>-->
-				<!--<FormItem label="JAVA类名" prop="domainObjectName">-->
-					<!--<Input v-model="form.domainObjectName"/>-->
-				<!--</FormItem>-->
-				<!--<FormItem label="包名" prop="targetPackage">-->
-					<!--<Input v-model="form.targetPackage"/>-->
-				<!--</FormItem>-->
-				<!--<FormItem label="自增列" prop="generatedKey">-->
-					<!--<Input v-model="form.generatedKey"/>-->
-				<!--</FormItem>-->
-				<!--<FormItem label="模板" prop="templateName">-->
-					<!--<Select v-model="form.templateName" placeholder="请选择">-->
-						<!--<Option value="generatorConfig-mysql.ftl">generatorConfig-mysql.ftl</Option>-->
-						<!--<Option value="tk-generatorConfig-mysql.ftl">tk-generatorConfig-mysql.ftl</Option>-->
-					<!--</Select>-->
-				<!--</FormItem>-->
-			<!--</Form>-->
-			<!--<div slot="footer">-->
-				<!--<Button type="text" @click="modalVisible=false">取消</Button>-->
-				<!--<Button type="primary" :loading="submitLoading" @click="handelSubmit">生成并下载</Button>-->
-			<!--</div>-->
-		<!--</Modal>-->
+
 	</div>
 
 </template>

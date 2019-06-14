@@ -91,3 +91,28 @@ export const coverJsonToDatamodel = (jsonObject, children) => {
 		// console.log(key,":",jsonObject[key]);
 	}
 };
+
+export const coverArrayJsonToDatamodel = (arrayJSON, children) => {
+	arrayJSON.forEach(jsonObj => {
+		let item = {
+			name: jsonObj.name,
+			description: jsonObj.description,
+			dataType: 'string',
+			example: jsonObj.example,
+			children: [],
+			required: false,
+			_expanded: false
+		};
+		children.push(item);
+	})
+};
+
+export const camel = (str) => { // 下划线转驼峰
+	return str.replace(/\_(\w)/g, function (all, letter) {
+		return letter.toUpperCase();
+	});
+};
+
+export const firstUpper = (str) => { // 首字母大写
+	return str.replace(str[0], str[0].toUpperCase());
+};

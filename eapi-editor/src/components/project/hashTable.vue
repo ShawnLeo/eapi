@@ -20,7 +20,23 @@
              title="从JSON导入"
              @on-ok="asyncOKImportFromJSON"
              width="720">
-        <ace-editor v-model="jsonContent" lang="json"  height="250" width="100%; border: 1px solid #e9eaec;"></ace-editor>
+        <Tabs :value="importTab" @on-click="(name) => {this.importTab = name}">
+          <TabPane label="K-V对象" name="object" >
+            <Alert show-icon>
+              key将作为名称，value作为默认值。
+              <template slot="desc">例如：{"id":"1001", "name":"eapi"}</template>
+            </Alert>
+            <ace-editor v-model="jsonContent" lang="json" height="250" width="100%; border: 1px solid #e9eaec;"></ace-editor>
+          </TabPane>
+          <TabPane label="模型数组" name="array">
+            <Alert show-icon>
+              模型数组可以在数据库代码生成处导出。
+              <template slot="desc">例如：[{"name":"id","description":"主键"},{"name":"name","description":"名称"}]</template>
+            </Alert>
+            <ace-editor v-model="modelJsonContent" lang="json" height="250" width="100%; border: 1px solid #e9eaec;"></ace-editor>
+          </TabPane>
+        </Tabs>
+
       </Modal>
     </div>
 </template>
@@ -28,7 +44,7 @@
   import expandRow from './hashTable.vue';
   import expandArrayRow from './arrayTable.vue';
   import { deleteDataModelInBatch } from '../../utils/interface';
-	import { reverse, coverJsonToDatamodel } from '../../utils/utils';
+	import { reverse, coverJsonToDatamodel, coverArrayJsonToDatamodel } from '../../utils/utils';
   import {getStore} from '../../utils/storage';
 	import aceEditor from 'vue2-ace-editor';
 	import 'brace/theme/chrome';
@@ -47,6 +63,8 @@
       data() {
         return {
 					jsonContent: '',
+					modelJsonContent: '',
+					importTab: 'object',
 					importFromDatamodel: false,
 					importFromJSON: false,
 					searchModel: '',
@@ -354,11 +372,17 @@
 					if (datamodels.length === 1 && !datamodels[0].name) {
 						datamodels.splice(0, 1);
 					}
-
-					if (!this.jsonContent) {
-						return;
-					}
-					coverJsonToDatamodel(JSON.parse(this.jsonContent), datamodels);
+					if(this.importTab === 'object'){
+						if (!this.jsonContent) {
+							return;
+						}
+						coverJsonToDatamodel(JSON.parse(this.jsonContent), datamodels);
+          } else {
+						if (!this.modelJsonContent) {
+							return;
+						}
+						coverArrayJsonToDatamodel(JSON.parse(this.modelJsonContent), datamodels);
+          }
 					reverse(datamodels);
 					this.$emit('childrenChange', datamodels);
 				},

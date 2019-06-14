@@ -2,6 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 
 import iView from 'iview';
+import VueClipboard from 'vue-clipboard2';
 import store from './store/store';
 import i18n from './locale';
 
@@ -18,6 +19,7 @@ Vue.config.productionTip = false;
 
 Vue.use(iView);
 Vue.use(animated);
+Vue.use(VueClipboard);
 
 new Vue({
   i18n,
