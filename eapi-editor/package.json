@@ -9,7 +9,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "animate.css": "^3.7.0",
+    "animate.css": "^3.7.2",
     "axios": "^0.18.0",
     "iview": "^3.4.2",
     "swagger-ui": "^3.18.3",

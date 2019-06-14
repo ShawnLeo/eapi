@@ -30,7 +30,7 @@
 	import * as consts from '../../../utils/const';
 	import {camel} from '../../../utils/utils';
 	import mybatisGen from '../../../components/generator/mybatisGen.vue';
-	//	import mybatisFragment from "./mybatisFragment.vue";
+
 	export default {
 		name: "codeGeneratorMbatis",
 		components: {mybatisGen},
@@ -69,9 +69,9 @@
 									"Button",
 									{
 										props: {
-											type: "primary",
+											type: "info",
 											size: "small",
-											icon: "ios-create-outline"
+											icon: "md-eye"
 										},
 										style: {
 											marginRight: "5px"
@@ -88,9 +88,9 @@
 									"Button",
 									{
 										props: {
-											type: "primary",
+											type: "success",
 											size: "small",
-											icon: "ios-create-outline"
+											icon: "md-cloud-download"
 										},
 										style: {
 											marginRight: "5px"
@@ -109,7 +109,7 @@
 										props: {
 											type: "primary",
 											size: "small",
-											icon: "ios-create-outline"
+											icon: "md-copy"
 										},
 										style: {
 											marginRight: "5px"
@@ -120,7 +120,7 @@
 											}
 										}
 									},
-									"导出模型JSON"
+									"复制"
 								)
 							]);
 						}
@@ -161,14 +161,12 @@
 					dataModel.push({
 						name: camel(column.actualColumnName),
 						description: column.remarks
-//						dataType: 'string',
 					});
 				});
-				console.log(dataModel);
 				this.$copyText(JSON.stringify(dataModel)).then(() => {
 						this.$Message.success('复制成功');
 					}, () => {
-						this.$Message.error('复制成功');
+						this.$Message.error('复制失败');
 					});
 			},
 			see(v) {

@@ -8,6 +8,8 @@ public class SwaggerConfigVO implements Serializable {
 
     private String targetProject;
 
+    private String targetProjectId;
+
     private String apiPackage;
 
     private String modelPackage;
@@ -28,6 +30,14 @@ public class SwaggerConfigVO implements Serializable {
 
     public void setTargetProject(String targetProject) {
         this.targetProject = targetProject;
+    }
+
+    public String getTargetProjectId() {
+        return targetProjectId;
+    }
+
+    public void setTargetProjectId(String targetProjectId) {
+        this.targetProjectId = targetProjectId;
     }
 
     public String getApiPackage() {

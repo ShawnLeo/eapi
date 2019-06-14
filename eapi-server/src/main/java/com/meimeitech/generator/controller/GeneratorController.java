@@ -1,25 +1,19 @@
 package com.meimeitech.generator.controller;
 
 import com.meimeitech.common.vo.Response;
-import com.meimeitech.eapi.service.Swagger2Service;
 import com.meimeitech.generator.tools.ZipFileUtil;
 import com.meimeitech.generator.tools.mybatis.util.DatabaseUtil;
 import com.meimeitech.generator.tools.mybatis.util.MyBatisGeneratorUtil;
 import com.meimeitech.generator.tools.mybatis.util.MybatisGeneratorConfigModel;
 import com.meimeitech.generator.tools.swagger.Generator;
 import com.meimeitech.generator.tools.swagger.vo.SwaggerConfigVO;
-import io.swagger.models.Swagger;
 import org.apache.commons.io.FileUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.spring.web.json.Json;
-import springfox.documentation.spring.web.json.JsonSerializer;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -101,29 +95,17 @@ public class GeneratorController {
 
 
     @RequestMapping(value = "/database/gen", method = RequestMethod.GET)
-    public ResponseEntity download(@RequestParam Long uuid, HttpServletResponse response) throws IOException {
-        return zip(uuid, response);
+    public ResponseEntity download(@RequestParam String uuid) throws IOException {
+        return zip(uuid);
     }
-
-    @Autowired
-    private Swagger2Service swagger2Service;
-    @Autowired
-    private JsonSerializer jsonSerializer;
 
     @RequestMapping(value = "/swagger/gen", method = RequestMethod.POST)
     public Response swagger(@RequestBody SwaggerConfigVO swaggerConfigVO) {
         try {
-            long l = System.currentTimeMillis();
-            String root = codeGenerateLocation() + File.separator + l;
-//            File swaggerFile = new File(root + File.separator + "Swagger.json");
+            String root = codeGenerateLocation() + File.separator + swaggerConfigVO.getTargetProjectId();
             String targetProject = root + File.separator + swaggerConfigVO.getLang();
-//            String axios = root + File.separator + "Axios"+ File.separator + "gen";
 
-//            Swagger swagger = swagger2Service.buildSwagger(swaggerConfigVO.getTargetProject(), Swagger2Service.BuildType.SWAGGER_JSON);
-//            Json json = jsonSerializer.toJson(swagger);
-
-//            FileUtils.writeStringToFile(swaggerFile, json.value(), "UTF-8");
-//            String swaggerFile = swaggerConfigVO.getTargetProject();
+            FileUtils.deleteDirectory(new File(root));
 
             Generator.builder()
                     .swaggerJson(swaggerConfigVO.getTargetProject())
@@ -135,41 +117,47 @@ public class GeneratorController {
                     .generateSupportingFiles(false)
                     .build().generatorController();
 
-//            Generator.builder()
-//                    .swaggerJson("file:///" + swaggerFile.getPath())
-//                    .targetProject(axios)
-//                    .build().generatorAxiosClient();
+            // 根据项目Id压缩一份
+            ZipFileUtil.compressFiles2Zip(root);
 
-            return Response.success(l + "");
+            return Response.success("success");
         } catch (Exception e) {
             e.printStackTrace();
             return Response.error("生成失败:" + e.getMessage());
         }
     }
 
-
     @RequestMapping(value = "/swagger/gen", method = RequestMethod.GET)
-    public ResponseEntity swaggerDownload(@RequestParam Long uuid, HttpServletResponse response) throws IOException {
-        return zip(uuid, response);
+    public ResponseEntity swaggerDownload(@RequestParam String targetProjectId) throws IOException {
+        // 直接下载zip
+        String codePath = codeGenerateLocation() + File.separator + targetProjectId  + ".zip";
+
+        HttpHeaders headers = new HttpHeaders();
+        File file = new File(codePath);
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentDispositionFormData("attachment", targetProjectId + ".zip");
+
+        return new ResponseEntity<>(FileUtils.readFileToByteArray(file),
+                headers, HttpStatus.CREATED);
     }
 
-    private static ResponseEntity zip(Long uuid, HttpServletResponse response) throws IOException {
+    private static ResponseEntity zip(String uuid) throws IOException {
         String codePath = codeGenerateLocation() + File.separator + uuid;
         File testFile = new File(codePath);
         if (!(testFile.exists() && testFile.isDirectory())) {
             throw new IllegalArgumentException();
         }
-        String zipFilePath = ZipFileUtil.compressFiles2Zip(testFile.getPath());
+        ZipFileUtil.compressFiles2Zip(testFile.getPath());
         HttpHeaders headers = new HttpHeaders();
-        File file = new File(zipFilePath);
+        File file = new File(testFile.getPath() + ".zip");
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         headers.setContentDispositionFormData("attachment", uuid + ".zip");
         try {
-            return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),
+            return new ResponseEntity<>(FileUtils.readFileToByteArray(file),
                     headers, HttpStatus.CREATED);
         } finally {
             file.delete();
-            testFile.delete();
+            FileUtils.deleteDirectory(testFile);
         }
     }
 

@@ -38,7 +38,7 @@
 			</Form>
 			<div slot="footer">
 				<Button type="text" @click="modalVisible=false">取消</Button>
-				<Button type="primary" :loading="submitLoading" @click="gen">生成并下载</Button>
+				<Button type="primary" :loading="submitLoading" @click="gen">生成</Button>
 			</div>
 		</Modal>
 	</div>
@@ -176,9 +176,18 @@
 				let download = this.download;
 				setStore(consts.SWAGGER_CONFIG + this.swaggerConfig.targetProjectId, this.swaggerConfig);
 				generatorSwaggerGen(this.swaggerConfig, (data) => {
-					this.$Message.success("生成成功");
-					generatorSwaggerDownload({uuid: data.body}, (response) => {
-						download(response);
+					this.modalVisible = false;
+					this.$Modal.confirm({
+						title: '生成成功',
+						okText: '确定',
+						iconType: 'success',
+						cancelText: '取消',
+						content: '<p>点击确定下载</p>',
+						onOk: () => {
+							generatorSwaggerDownload({targetProjectId: this.swaggerConfig.targetProjectId}, (response) => {
+								download(response);
+							});
+						}
 					});
 				});
 			},
