@@ -82,12 +82,28 @@ public class GeneratorController {
     @RequestMapping(value = "/database/gen", method = RequestMethod.POST)
     public Response gen(@RequestBody MybatisGeneratorConfigModel mysqlGeneratorModel) {
         try {
-            long l = System.currentTimeMillis();
-            mysqlGeneratorModel.setTargetProject(codeGenerateLocation() + File.separator + l);
-            FileUtils.forceMkdir(new File(mysqlGeneratorModel.getTargetProject()));
+            // TODO 可能多个数据源，可根据数据库名称配置
+            String databaseName = "mybatis";
+
+            String root = codeGenerateLocation() + File.separator + databaseName;
+
+            mysqlGeneratorModel.setTargetProject(root);
+
+            File genFolder = new File(root);
+
+            // 删除源文件
+            FileUtils.deleteDirectory(genFolder);
+
+            // 创建文件夹
+            FileUtils.forceMkdir(genFolder);
 
             MyBatisGeneratorUtil.generator(mysqlGeneratorModel);
-            return Response.success(l + "");
+
+            // 根据项目l压缩一份
+            ZipFileUtil.compressFiles2Zip(root);
+
+            return Response.success(databaseName);
+
         } catch (Exception e) {
             return Response.error("生成失败:" + e.getMessage());
         }
@@ -95,8 +111,8 @@ public class GeneratorController {
 
 
     @RequestMapping(value = "/database/gen", method = RequestMethod.GET)
-    public ResponseEntity download(@RequestParam String uuid) throws IOException {
-        return zip(uuid);
+    public ResponseEntity download(@RequestParam String databaseName) throws IOException {
+        return zip(databaseName);
     }
 
     @RequestMapping(value = "/swagger/gen", method = RequestMethod.POST)
@@ -129,36 +145,39 @@ public class GeneratorController {
 
     @RequestMapping(value = "/swagger/gen", method = RequestMethod.GET)
     public ResponseEntity swaggerDownload(@RequestParam String targetProjectId) throws IOException {
+        return zip(targetProjectId);
+    }
+
+    private static ResponseEntity zip(String name) throws IOException {
+
         // 直接下载zip
-        String codePath = codeGenerateLocation() + File.separator + targetProjectId  + ".zip";
+        String codePath = codeGenerateLocation() + File.separator + name  + ".zip";
 
         HttpHeaders headers = new HttpHeaders();
         File file = new File(codePath);
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        headers.setContentDispositionFormData("attachment", targetProjectId + ".zip");
+        headers.setContentDispositionFormData("attachment", name + ".zip");
 
         return new ResponseEntity<>(FileUtils.readFileToByteArray(file),
                 headers, HttpStatus.CREATED);
-    }
 
-    private static ResponseEntity zip(String uuid) throws IOException {
-        String codePath = codeGenerateLocation() + File.separator + uuid;
-        File testFile = new File(codePath);
-        if (!(testFile.exists() && testFile.isDirectory())) {
-            throw new IllegalArgumentException();
-        }
-        ZipFileUtil.compressFiles2Zip(testFile.getPath());
-        HttpHeaders headers = new HttpHeaders();
-        File file = new File(testFile.getPath() + ".zip");
-        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        headers.setContentDispositionFormData("attachment", uuid + ".zip");
-        try {
-            return new ResponseEntity<>(FileUtils.readFileToByteArray(file),
-                    headers, HttpStatus.CREATED);
-        } finally {
-            file.delete();
-            FileUtils.deleteDirectory(testFile);
-        }
+//        String codePath = codeGenerateLocation() + File.separator + uuid;
+//        File testFile = new File(codePath);
+//        if (!(testFile.exists() && testFile.isDirectory())) {
+//            throw new IllegalArgumentException();
+//        }
+//        ZipFileUtil.compressFiles2Zip(testFile.getPath());
+//        HttpHeaders headers = new HttpHeaders();
+//        File file = new File(testFile.getPath() + ".zip");
+//        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+//        headers.setContentDispositionFormData("attachment", uuid + ".zip");
+//        try {
+//            return new ResponseEntity<>(FileUtils.readFileToByteArray(file),
+//                    headers, HttpStatus.CREATED);
+//        } finally {
+//            file.delete();
+//            FileUtils.deleteDirectory(testFile);
+//        }
     }
 
 }

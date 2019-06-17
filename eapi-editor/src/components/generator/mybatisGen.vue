@@ -31,6 +31,7 @@
 	import {generatorDatabaseGen, generatorDatabaseDownload} from "../../utils/interface";
 	import {setStore, getStore} from '../../utils/storage';
 	import * as consts from '../../utils/const';
+	import {camel, firstUpper, download} from '../../utils/utils';
 
 	export default {
 		name: 'mybatis-gen',
@@ -70,21 +71,21 @@
 				this.visible = false;
 				this.$emit('on-cancel');
 			},
-			download(data) {
-				if (!data) {
-					return;
-				}
-				let url = window.URL.createObjectURL(new Blob([data]));
-				let link = document.createElement('a');
-				link.style.display = 'none';
-				link.href = url;
-				link.setAttribute('download', 'MybatisCodeGen.zip');
-				document.body.appendChild(link);
-				link.click();
-			},
+//			download(data) {
+//				if (!data) {
+//					return;
+//				}
+//				let url = window.URL.createObjectURL(new Blob([data]));
+//				let link = document.createElement('a');
+//				link.style.display = 'none';
+//				link.href = url;
+//				link.setAttribute('download', 'MybatisCodeGen.zip');
+//				document.body.appendChild(link);
+//				link.click();
+//			},
 			intConfig() {
 				this.mybatisConfig.tableName = this.table.tableName;
-				this.mybatisConfig.domainObjectName = this.camelUpper(this.table.tableName);
+				this.mybatisConfig.domainObjectName = firstUpper(camel(this.table.tableName));
 
 				const db = getStore(consts.GENERATOR_CONFIG);
 				if (!db) {
@@ -127,12 +128,24 @@
 					model.tableList.push(table);
 
 					generatorDatabaseGen(model, (data) => {
-						this.$Message.success("生成成功");
+
+						this.submitLoading = false;
+//						this.$Message.success("生成成功");
 						this.$emit('on-ok');
-						generatorDatabaseDownload({uuid: data.body}, (response) => {
-							this.download(response);
-							this.submitLoading = false;
+
+						this.$Modal.confirm({
+							title: '生成成功',
+							okText: '确定',
+							iconType: 'success',
+							cancelText: '取消',
+							content: '<p>点击确定下载</p>',
+							onOk: () => {
+								generatorDatabaseDownload({databaseName: data.body}, (response) => {
+									download(response, 'MybatisCodeGen.zip');
+								});
+							}
 						});
+
 					});
 				});
 			}

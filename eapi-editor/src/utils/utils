@@ -116,3 +116,16 @@ export const camel = (str) => { // 下划线转驼峰
 export const firstUpper = (str) => { // 首字母大写
 	return str.replace(str[0], str[0].toUpperCase());
 };
+
+export const download = (data, filename) => {
+	if (!data) {
+		return;
+	}
+	let url = window.URL.createObjectURL(new Blob([data]));
+	let link = document.createElement('a');
+	link.style.display = 'none';
+	link.href = url;
+	link.setAttribute('download', filename);
+	document.body.appendChild(link);
+	link.click();
+};

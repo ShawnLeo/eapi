@@ -309,7 +309,6 @@
                 return h('div', [
                   h('Button', {
                     props: {
-//                      type: 'ghost',
                       shape: 'circle',
                       size: 'small',
                       icon: 'md-remove'
@@ -320,11 +319,6 @@
                     on: {
                       click: () => {
 												this.rows.splice(params.index, 1);
-//                        if (params.row.id) {
-//                          this.deleteDataModel([params.row], params.index);
-//                        } else {
-//                          this.rows.splice(params.index, 1);
-//                        }
                       }
                     }
                   })
