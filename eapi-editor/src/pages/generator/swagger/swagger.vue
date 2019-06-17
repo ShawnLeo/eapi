@@ -184,7 +184,7 @@
 						cancelText: '取消',
 						content: '<p>点击确定下载</p>',
 						onOk: () => {
-							generatorSwaggerDownload({targetProjectId: this.swaggerConfig.targetProjectId}, (response) => {
+							generatorSwaggerDownload({id: this.swaggerConfig.targetProjectId}, (response) => {
 								download(response);
 							});
 						}

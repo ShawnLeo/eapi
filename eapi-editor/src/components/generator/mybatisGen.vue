@@ -140,7 +140,7 @@
 							cancelText: '取消',
 							content: '<p>点击确定下载</p>',
 							onOk: () => {
-								generatorDatabaseDownload({databaseName: data.body}, (response) => {
+								generatorDatabaseDownload({id: data.body}, (response) => {
 									download(response, 'MybatisCodeGen.zip');
 								});
 							}

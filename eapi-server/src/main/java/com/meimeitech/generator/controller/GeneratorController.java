@@ -111,8 +111,8 @@ public class GeneratorController {
 
 
     @RequestMapping(value = "/database/gen", method = RequestMethod.GET)
-    public ResponseEntity download(@RequestParam String databaseName) throws IOException {
-        return zip(databaseName);
+    public ResponseEntity download(@RequestParam String id) throws IOException {
+        return zip(id);
     }
 
     @RequestMapping(value = "/swagger/gen", method = RequestMethod.POST)
@@ -144,8 +144,8 @@ public class GeneratorController {
     }
 
     @RequestMapping(value = "/swagger/gen", method = RequestMethod.GET)
-    public ResponseEntity swaggerDownload(@RequestParam String targetProjectId) throws IOException {
-        return zip(targetProjectId);
+    public ResponseEntity swaggerDownload(@RequestParam String id) throws IOException {
+        return zip(id);
     }
 
     private static ResponseEntity zip(String name) throws IOException {
