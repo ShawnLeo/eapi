@@ -10,9 +10,8 @@ import io.swagger.models.Model;
 import io.swagger.models.ModelImpl;
 import io.swagger.models.RefModel;
 import io.swagger.models.parameters.*;
-import io.swagger.models.properties.ObjectProperty;
-import io.swagger.models.properties.Property;
-import io.swagger.models.properties.PropertyBuilder;
+import io.swagger.models.properties.*;
+import org.apache.commons.lang3.StringUtils;
 
 import static com.meimeitech.eapi.consts.DataModelType.UNIT_TYPE;
 
@@ -45,7 +44,24 @@ public class Parameters {
             }
             ((BodyParameter) parameter).setSchema(model);
         } else {
-            ((AbstractSerializableParameter) parameter).setType(requestInfo.getDataModel().getDataType());
+
+            String type = requestInfo.getDataModel().getDataType();
+
+            if(type.equals("long")){
+                ((AbstractSerializableParameter) parameter).setType("integer");
+                ((AbstractSerializableParameter) parameter).setFormat("int64");
+            } else if(type.equals("date")) {
+                ((AbstractSerializableParameter) parameter).setType("string");
+                ((AbstractSerializableParameter) parameter).setFormat("date");
+            } else if(type.equals("float")) {
+                ((AbstractSerializableParameter) parameter).setType("number");
+                ((AbstractSerializableParameter) parameter).setFormat("float");
+            } else if(type.equals("double")) {
+                ((AbstractSerializableParameter) parameter).setType("number");
+                ((AbstractSerializableParameter) parameter).setFormat("double");
+            } else {
+                ((AbstractSerializableParameter) parameter).setType(requestInfo.getDataModel().getDataType());
+            }
         }
 
         parameter.setIn(requestInfo.getParamIn());
@@ -77,9 +93,24 @@ public class Parameters {
             BodyParameter bodyParameter = (BodyParameter) parameter;
             Model model = bodyParameter.getSchema();
 
-            if(model instanceof ModelImpl) {
-               ModelImpl modelImpl = (ModelImpl) model;
-               dataModel.setDataType(modelImpl.getType());
+            if (model instanceof ModelImpl) {
+                ModelImpl modelImpl = (ModelImpl) model;
+                String type = modelImpl.getType();
+                String format = modelImpl.getFormat();
+
+                if (StringUtils.isEmpty(format)) {
+                    dataModel.setDataType(type);
+                } else if (type.equals("integer") && format.equals("int64")) {
+                    dataModel.setDataType("long");
+                } else if (type.equals("string") && format.equals("date")) {
+                    dataModel.setDataType("date");
+                } else if (type.equals("number") && format.equals("float")) {
+                    dataModel.setDataType("float");
+                } else if (type.equals("number") && format.equals("double")) {
+                    dataModel.setDataType("double");
+                } else {
+                    dataModel.setDataType(type);
+                }
             }
 
             if (model instanceof ArrayModel) {
@@ -100,7 +131,24 @@ public class Parameters {
 
         } else {
             AbstractSerializableParameter abstractSerializableParameter =  (AbstractSerializableParameter) parameter;
-            dataModel.setDataType(abstractSerializableParameter.getType());
+
+            String type =  abstractSerializableParameter.getType();
+            String format =  abstractSerializableParameter.getFormat();
+
+            if (StringUtils.isEmpty(format)) {
+                dataModel.setDataType(abstractSerializableParameter.getType());
+            } else if(type.equals("integer") && format.equals("int64")){
+                dataModel.setDataType("long");
+            } else if(type.equals("string") && format.equals("date")) {
+                dataModel.setDataType("date");
+            } else if(type.equals("number") && format.equals("float")) {
+                dataModel.setDataType("float");
+            } else if(type.equals("number") && format.equals("double")) {
+                dataModel.setDataType("double");
+            } else {
+                dataModel.setDataType(abstractSerializableParameter.getType());
+            }
+
         }
         requestInfo.setDataModel(dataModel);
 

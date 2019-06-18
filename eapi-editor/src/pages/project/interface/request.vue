@@ -181,6 +181,9 @@
 						options.push(h('Option', {props: {value: 'string'}}, 'string'));
 						options.push(h('Option', {props: {value: 'boolean'}}, 'boolean'));
 						options.push(h('Option', {props: {value: 'integer'}}, 'integer'));
+						options.push(h('Option', {props: {value: 'long'}}, 'long'));
+						options.push(h('Option', {props: {value: 'double'}}, 'double'));
+						options.push(h('Option', {props: {value: 'number'}}, 'bigdecimal'));
 						return h('div', [
 							h('Select', {
 								attrs: {
@@ -322,7 +325,7 @@
 						options.push(h('Option', {props: {value: 'integer'}}, 'integer'));
 						options.push(h('Option', {props: {value: 'long'}}, 'long'));
 						options.push(h('Option', {props: {value: 'double'}}, 'double'));
-						options.push(h('Option', {props: {value: 'bigdecimal'}}, 'bigdecimal'));
+						options.push(h('Option', {props: {value: 'number'}}, 'bigdecimal'));
 						return h('div', [
 							h('Select', {
 								attrs: {

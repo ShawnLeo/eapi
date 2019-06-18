@@ -187,7 +187,17 @@ public class Properties {
       dataModel.setDescription(property.getDescription());
       dataModel.setRequired(property.getRequired());
 
-      dataModel.setDataType(property.getType());
+      if (property instanceof LongProperty) {
+        dataModel.setDataType("long");
+      } else if (property instanceof DateProperty) {
+        dataModel.setDataType("date");
+      } else  if (property instanceof FloatProperty) {
+        dataModel.setDataType("float");
+      } else if (property instanceof DoubleProperty) {
+        dataModel.setDataType("double");
+      } else {
+        dataModel.setDataType(property.getType());
+      }
 
       if (property.getExample() != null) {
         dataModel.setExample(property.getExample().toString());
