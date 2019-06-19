@@ -1,5 +1,6 @@
 package {{package}};
 
+import com.meimeitech.common.util.Executor;
 import com.meimeitech.common.vo.Response;
 import com.meimeitech.ehr.controller.BaseController;
 {{#imports}}import {{import}};
@@ -8,7 +9,7 @@ import {{servicePackage}}.{{classname}}Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,8 +22,6 @@ import java.util.List;
 @RestController
 {{#operations}}
 public class {{classname}}Controller extends BaseController{
-
-    private static final Logger logger = LoggerFactory.getLogger({{classname}}Controller.class);
 
     @Autowired
     private {{classname}}Service delegate;
@@ -40,11 +39,18 @@ public class {{classname}}Controller extends BaseController{
         produces = { {{#produces}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/produces}} }, {{/hasProduces}}{{#hasConsumes}}
         consumes = { {{#consumes}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/consumes}} },{{/hasConsumes}}{{/singleContentTypes}}
         method = RequestMethod.{{httpMethod}})
-    public Response {{operationId}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{#hasMore}},{{/hasMore}}{{/allParams}}) {
-        logRequest("{{operationId}}" {{#hasParams}}, {{#allParams}}"{{paramName}}", {{paramName}} {{#hasMore}}, {{/hasMore}}{{/allParams}}{{/hasParams}});
-        Response response = delegate.{{operationId}}({{#allParams}}{{paramName}}{{#hasMore}} ,{{/hasMore}}{{/allParams}});
-        logResponse("{{operationId}}", response);
-        return response;
+    public ResponseEntity {{operationId}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{#hasMore}},{{/hasMore}}{{/allParams}}) {
+
+        return Executor.execute(new Executor() {
+            @Override
+            protected Response execute() {
+                logRequest("{{operationId}}" {{#hasParams}}, {{#allParams}}"{{paramName}}", {{paramName}} {{#hasMore}}, {{/hasMore}}{{/allParams}}{{/hasParams}});
+                Response response = delegate.{{operationId}}({{#allParams}}{{paramName}}{{#hasMore}} ,{{/hasMore}}{{/allParams}});
+                logResponse("{{operationId}}", response);
+                return response;
+            }
+        });
+
     }
 {{/operation}}
 }
