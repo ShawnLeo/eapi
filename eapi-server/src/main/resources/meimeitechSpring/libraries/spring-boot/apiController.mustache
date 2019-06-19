@@ -43,7 +43,7 @@ public class {{classname}}Controller extends BaseController{
 
         return Executor.execute(new Executor() {
             @Override
-            protected Response execute() {
+            public Response execute() {
                 logRequest("{{operationId}}" {{#hasParams}}, {{#allParams}}"{{paramName}}", {{paramName}} {{#hasMore}}, {{/hasMore}}{{/allParams}}{{/hasParams}});
                 Response response = delegate.{{operationId}}({{#allParams}}{{paramName}}{{#hasMore}} ,{{/hasMore}}{{/allParams}});
                 logResponse("{{operationId}}", response);
