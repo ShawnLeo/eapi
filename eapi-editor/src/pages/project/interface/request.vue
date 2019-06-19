@@ -77,6 +77,7 @@
 
 <script type="text/ecmascript-6">
 	import hashTable from '../../../components/project/hashTable.vue';
+	import arrayTable from '../../../components/project/arrayTable.vue';
 	import importData from '../../../components/project/importData.vue';
 	import {deleteRequestInBatch} from '../../../utils/interface';
 	import {pathParam} from '../../../utils/utils';
@@ -609,7 +610,7 @@
 					width: -1,
 //              className: 'expand-td',
 					render: (h, params) => {
-						return h(hashTable, {
+						return h(params.row.dataModel.dataType === 'array'? arrayTable : hashTable, {
 							props: {
 								rows: params.row.dataModel.children,
 								name: this.name,

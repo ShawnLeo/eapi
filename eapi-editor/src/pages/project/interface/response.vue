@@ -12,6 +12,7 @@
 
 <script type="text/ecmascript-6">
   import hashTable from '../../../components/project/hashTable.vue';
+	import arrayTable from '../../../components/project/arrayTable.vue';
   import { deleteResponseInBatch } from '../../../utils/interface';
   import {getStore} from '../../../utils/storage';
   export default {
@@ -147,7 +148,7 @@
           width: -1,
 //              className: 'expand-td',
           render: (h, params) => {
-            return h(hashTable, {
+            return h(params.row.dataModel.dataType === 'array'? arrayTable : hashTable, {
               props: {
                 rows: params.row.dataModel.children,
                 name: this.name,

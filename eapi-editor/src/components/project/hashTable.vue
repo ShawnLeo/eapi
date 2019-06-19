@@ -393,7 +393,7 @@
 				}
 			},
       mounted() {
-        this.init();
+//        this.init();
       }
   };
 </script>
