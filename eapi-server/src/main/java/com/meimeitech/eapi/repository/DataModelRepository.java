@@ -11,4 +11,6 @@ public interface DataModelRepository extends JpaRepository<DataModel, String>,Jp
     List<DataModel> findByTypeOrderByName(String system);
 
     List<DataModel> findByTypeAndProjectIdOrderByName(String type, String projectId);
+
+    DataModel findByTypeAndProjectIdAndName(String customType, String projectId, String name);
 }

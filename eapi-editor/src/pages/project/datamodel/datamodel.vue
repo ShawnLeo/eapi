@@ -152,11 +152,11 @@
       }
     }
     .form-in-table {
-      width: 901px;
+      width: 93%;
       background: #f8f8f9;
       position: absolute;
       z-index: 2;
-      height: 39px;
+      height: 38px;
       line-height: 35px;
       left: 60px;
       top: 127px;

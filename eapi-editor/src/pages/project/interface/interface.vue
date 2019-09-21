@@ -14,9 +14,10 @@
 			<Button @click="deleteInterface" size="small">删除</Button>
 			<Button @click="editStatus = true;" size="small">设置状态</Button>
 			<Button @click="showCopyModal" size="small" v-if="singleSelect">复制</Button>
+			<Button @click="exportSelect" size="small">导出选中</Button>
 			<!--<Button size="small">设置标签</Button>-->
 		</Form>
-		<Table stripe ref="selection" :columns="columns" :loading="loading" :data="filterInterfaces" @on-selection-change="onCelectionChange"></Table>
+		<Table stripe ref="selection" :columns="columns" :loading="loading" :data="filterInterfaces" @on-selection-change="onSelectionChange"></Table>
 
 		<Modal v-model="addInterfaceModal" title="新建接口" width="700" :mask-closable=false>
 			<Form ref="interfaceItem" :model="interfaceItem" :label-width=80 :rules="ruleValidate">
@@ -119,9 +120,11 @@
 		deleteInterfaceInBatch,
 		checkInterfaceExists,
 		updateInterface,
-		changeStatus
+		changeStatus,
+		exportByInterfaceIds
 	} from '../../../utils/interface';
 	import {getStore} from '../../../utils/storage';
+	import {download} from '../../../utils/utils';
 
 	export default {
 		data() {
@@ -456,7 +459,7 @@
 					}
 				});
 			},
-			onCelectionChange(selection) {
+			onSelectionChange(selection) {
 				this.showEditMenus = selection.length !== 0;
 				this.singleSelect = selection.length === 1;
 				this.selection = selection;
@@ -479,6 +482,15 @@
 					onCancel: () => {
 						this.$Message.success("取消删除！");
 					}
+				});
+			},
+			exportSelect() {
+				let projectId = this.state.projectId || getStore('projectId');
+				let selectIds = [];
+				this.selection.forEach( selected => selectIds.push(selected.id));
+				console.log(JSON.stringify(selectIds));
+				exportByInterfaceIds({projectId: projectId, interfaceIds: selectIds}, (response) => {
+					download(response, 'swagger.json');
 				});
 			},
 			newInterface() {
@@ -538,7 +550,7 @@
 			background: #f8f8f9;
 			position: absolute;
 			z-index: 2;
-			height: 39px;
+			height: 38px;
 			line-height: 38px;
 			left: 60px;
 			top: 127px;
