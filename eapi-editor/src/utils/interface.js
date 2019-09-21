@@ -31,14 +31,21 @@ export const deleteProjectById = (data, callback) => fetch(PROJECT + '/' + data.
 // 发布项目
 export const publishProject = (data, callback) => fetch(PROJECT + '/publish', {callback, reqBody: data}, 'POST');
 // url导入Swagger项目
-export const importFromSwaggerUrl = (data, callback) => fetch('/swagger/import/url/' + data.projectId, {callback, reqParams: {
-	swaggerUrl: data.swaggerUrl
-}}, 'POST');
+export const importFromSwaggerUrl = (data, callback) => fetch('/swagger/import/url/' + data.projectId, {
+	callback, reqParams: {
+		swaggerUrl: data.swaggerUrl
+	}
+}, 'POST');
 export const exportSwaggerJson = (data, callback) => fetch('/swagger/export/' + data.projectId, {callback}, 'GET', 'blob');
 //  根据接口ID导出Swagger项目
 export const exportByInterfaceIds = (data, callback) => fetch('/swagger/export/byinteface/' + data.projectId, {
 	callback, reqBody: data.interfaceIds
 }, 'POST', 'blob');
+
+//  根据接口ID导出Swagger项目
+export const getByInterfaceIds = (data, callback) => fetch('/swagger/get/byinteface/' + data.projectId, {
+	callback, reqBody: data.interfaceIds
+}, 'POST');
 /** ******* 项目-start ******** **/
 
 /** ******* 接口-start ******** **/
@@ -51,7 +58,10 @@ export const getInterfaceById = (data, callback) => fetch(INTERFACE + '/' + data
 // 根据ID删除接口
 export const deleteInterfaceById = (data, callback) => fetch(INTERFACE + '/' + data.id, {callback}, 'DELETE');
 // 批量删除接口
-export const deleteInterfaceInBatch = (data, callback) => fetch(INTERFACE + '/batch', {callback, reqBody: data}, 'DELETE');
+export const deleteInterfaceInBatch = (data, callback) => fetch(INTERFACE + '/batch', {
+	callback,
+	reqBody: data
+}, 'DELETE');
 // 获取接口列表
 export const getInterfaceList = (data, callback) => fetch(INTERFACE + '/list', {callback, reqParams: data}, 'GET');
 // 创建接口
@@ -61,9 +71,15 @@ export const copyInterface = (data, callback) => fetch(INTERFACE + '/copy', {cal
 // 检查接口名称是否已存在
 export const checkInterfaceExists = (data, callback) => fetch(INTERFACE + '/check', {callback, reqBody: data}, 'POST');
 // 批量删除请求数据
-export const deleteRequestInBatch = (data, callback) => fetch(INTERFACE + '/request/batch', {callback, reqBody: data}, 'DELETE');
+export const deleteRequestInBatch = (data, callback) => fetch(INTERFACE + '/request/batch', {
+	callback,
+	reqBody: data
+}, 'DELETE');
 // 批量删除相应数据
-export const deleteResponseInBatch = (data, callback) => fetch(INTERFACE + '/response/batch', {callback, reqBody: data}, 'DELETE');
+export const deleteResponseInBatch = (data, callback) => fetch(INTERFACE + '/response/batch', {
+	callback,
+	reqBody: data
+}, 'DELETE');
 // 根据ID获取接口请求参数
 // export const getRequestInfos = (data, callback) => fetch(INTERFACE + '/request/infos/' + data.id, {callback}, 'GET');
 /** ******* 接口-end **********/
@@ -74,10 +90,16 @@ export const updateDataModel = (data, callback) => fetch(DATAMODEL + '/update', 
 // 根据ID获取数据模型
 export const getDataModelById = (data, callback) => fetch(DATAMODEL + '/' + data.id, {callback}, 'GET');
 // 根据ID删除数据模型
-export const deleteDataModelInBatch = (data, callback) => fetch(DATAMODEL + '/batch', {callback, reqBody: data}, 'DELETE');
+export const deleteDataModelInBatch = (data, callback) => fetch(DATAMODEL + '/batch', {
+	callback,
+	reqBody: data
+}, 'DELETE');
 // 获取数据模型
 export const getDataModelList = (data, callback) => fetch(DATAMODEL + '/' + data.type + '/list', {callback}, 'GET');
-export const getCustomDataModelList = (data, callback) => fetch(DATAMODEL + '/custom/list', {callback, reqParams: data}, 'GET');
+export const getCustomDataModelList = (data, callback) => fetch(DATAMODEL + '/custom/list', {
+	callback,
+	reqParams: data
+}, 'GET');
 // 创建数据模型
 export const createDataModel = (data, callback) => fetch(DATAMODEL + '/create', {callback, reqBody: data}, 'POST');
 // 检查数据名称是否已存在
@@ -103,9 +125,16 @@ export const getLoginUser = (callback) => fetch(USER + '/info', {callback}, 'GET
 // 注册
 export const register = (data, callback) => fetch(USER + '/register', {callback, reqBody: data}, 'POST');
 // 激活邮件
-export const emailActivate = (data, callback) => fetch(USER + '/email/activate', {callback, reqBody: data, doNotToast: true}, 'POST');
+export const emailActivate = (data, callback) => fetch(USER + '/email/activate', {
+	callback,
+	reqBody: data,
+	doNotToast: true
+}, 'POST');
 // 发送激活邮件
-export const emailActivateSend = (data, callback) => fetch(USER + '/email/activate/send', {callback, reqBody: data}, 'POST');
+export const emailActivateSend = (data, callback) => fetch(USER + '/email/activate/send', {
+	callback,
+	reqBody: data
+}, 'POST');
 // 发送重置邮件
 export const emailResetSend = (data, callback) => fetch(USER + '/email/reset/send', {callback, reqBody: data}, 'POST');
 // 重置密码
@@ -134,19 +163,40 @@ export const groupUserQuit = (data, callback) => fetch('/group/user/quit', {call
 // 退出项目组
 export const groupUserUpdate = (data, callback) => fetch('/group/user/update', {callback, reqBody: data}, 'POST');
 // 查询用户
-export const groupUserQuery = (data, callback) => fetch('/group/user/query/' + data.username, {callback, reqParams: {groupId: data.groupId}}, 'GET');
+export const groupUserQuery = (data, callback) => fetch('/group/user/query/' + data.username, {
+	callback,
+	reqParams: {groupId: data.groupId}
+}, 'GET');
 // 当前用户在某项目组下的角色
 export const getCurrUserRole = (data, callback) => fetch('/group/user/role', {callback, reqParams: data}, 'GET');
 /** ******* 项目组-end ******** **/
 
-export const generatorDatabaseAll = (data, callback) => fetch(GENERATOR + '/database/all', {callback, reqBody: data}, 'POST');
+export const generatorDatabaseAll = (data, callback) => fetch(GENERATOR + '/database/all', {
+	callback,
+	reqBody: data
+}, 'POST');
 
-export const generatorDatabaseTest = (data, callback) => fetch(GENERATOR + '/database/test', {callback, reqBody: data}, 'POST');
+export const generatorDatabaseTest = (data, callback) => fetch(GENERATOR + '/database/test', {
+	callback,
+	reqBody: data
+}, 'POST');
 
-export const generatorDatabaseGen = (data, callback) => fetch(GENERATOR + '/database/gen', {callback, reqBody: data}, 'POST');
+export const generatorDatabaseGen = (data, callback) => fetch(GENERATOR + '/database/gen', {
+	callback,
+	reqBody: data
+}, 'POST');
 
-export const generatorDatabaseDownload = (data, callback) => fetch(GENERATOR + '/database/gen', {callback, reqParams: data}, 'GET','blob');
+export const generatorDatabaseDownload = (data, callback) => fetch(GENERATOR + '/database/gen', {
+	callback,
+	reqParams: data
+}, 'GET', 'blob');
 
-export const generatorSwaggerGen = (data, callback) => fetch(GENERATOR + '/swagger/gen', {callback, reqBody: data}, 'POST');
+export const generatorSwaggerGen = (data, callback) => fetch(GENERATOR + '/swagger/gen', {
+	callback,
+	reqBody: data
+}, 'POST');
 
-export const generatorSwaggerDownload = (data, callback) => fetch(GENERATOR + '/swagger/gen', {callback, reqParams: data}, 'GET','blob');
+export const generatorSwaggerDownload = (data, callback) => fetch(GENERATOR + '/swagger/gen', {
+	callback,
+	reqParams: data
+}, 'GET', 'blob');
