@@ -218,6 +218,7 @@ const router = new Router({
 		}]
 	}, {
 		path: '/swagger',
+		name: 'swaggerUI',
 		component: () => import('../pages/swagger/ui.vue')
 	}]
 });
