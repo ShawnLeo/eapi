@@ -116,9 +116,30 @@
 											}
 										}
 									},
-									"生成"
+									"项目生成"
 								),
-
+								h(
+									"Button",
+									{
+										props: {
+											type: "primary",
+											size: "small",
+											icon: "ios-create-outline"
+										},
+										style: {
+											marginRight: "5px"
+										},
+										on: {
+											click: () => {
+												this.modalVisible = true;
+												this.swaggerConfig.targetProjectId = params.row.id;
+												this.swaggerConfig.targetProject = baseUrl + '/v2/api-docs/' +params.row.id + '?type=SWAGGER_JSON';
+												this.packageInitFromDb() || this.packageInitFromConfig();
+											}
+										}
+									},
+									"接口生成"
+								)
 							]);
 						}
 					}

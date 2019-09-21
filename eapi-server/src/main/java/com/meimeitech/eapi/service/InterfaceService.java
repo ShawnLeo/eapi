@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
@@ -74,7 +73,7 @@ public class InterfaceService {
             predicates.add(criteriaBuilder.equal(root.get("path"), interfaceVo.getPath()));
             predicates.add(criteriaBuilder.equal(root.get("method"), interfaceVo.getMethod()));
             predicates.add(criteriaBuilder.equal(root.get("projectId"), interfaceVo.getProjectId()));
-            if ( interfaceVo.getId() != null ) {
+            if (interfaceVo.getId() != null) {
                 predicates.add(criteriaBuilder.notEqual(root.get("id"), interfaceVo.getId()));
             }
             return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
@@ -175,7 +174,7 @@ public class InterfaceService {
     @Transactional
     public Response copy(InterfaceVo interfaceVo) {
 
-        if(StringUtils.isEmpty(interfaceVo.getId())) {
+        if (StringUtils.isEmpty(interfaceVo.getId())) {
             return Response.response(RetCode.VALIDATEERROR);
         }
 
@@ -205,4 +204,5 @@ public class InterfaceService {
 
         return Response.success("");
     }
+
 }

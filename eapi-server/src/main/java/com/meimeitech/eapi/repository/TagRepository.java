@@ -6,7 +6,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 
-public interface TagRepository extends JpaRepository<Tag, String>,JpaSpecificationExecutor<Tag> {
+public interface TagRepository extends JpaRepository<Tag, String>, JpaSpecificationExecutor<Tag> {
 
     List<Tag> findAllByProjectId(String projectId);
+
 }

@@ -29,9 +29,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig  extends WebSecurityConfigurerAdapter {
-
-
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -46,7 +44,8 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers("/login", "/user/register", "/user/email/**", "/v2/api-docs/**", "/virtserver/**", "/generator/**").permitAll()
+                .antMatchers("/login", "/user/register", "/user/email/**", "/v2/api-docs/**", "/virtserver/**", "/generator/**",
+                        "/index.html", "/static/**", "/favicon.ico").permitAll()
                 // 登陆拦截
                 .anyRequest().authenticated()
                 // 认证拦截，response返回
@@ -55,7 +54,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 .and().exceptionHandling().accessDeniedHandler(accessAuthenticationEntryPoint)
                 // 不需要创建session
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                // 退出登陆成功 Handler
+        // 退出登陆成功 Handler
 //                .and().logout().logoutSuccessHandler(myLogoutSuccessHandler)
 
 //                .and().rememberMe().rememberMeServices(rememberMeServicesBean()).key(REMEMBER_KEY);
