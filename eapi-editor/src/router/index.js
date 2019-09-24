@@ -199,6 +199,14 @@ const router = new Router({
 				},
 				component: () => import('../pages/generator/swagger/swagger.vue')
 			}, {
+				path: '/code/generator/swagger/interface',
+				name: 'codeGeneratorSwaggerInterface',
+				meta: {
+					menuActive: '/code/generator',
+					subMenuActive: '/code/generator/swagger'
+				},
+				component: () => import('../pages/generator/swagger/interface.vue')
+			}, {
 				path: '/code/generator/vue',
 				name: 'codeGeneratorVue',
 				meta: {

@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers("/login", "/user/register", "/user/email/**", "/v2/api-docs/**", "/virtserver/**", "/generator/**",
+                .antMatchers("/login", "/user/register", "/user/email/**", "/v2/api-docs/**", "/swagger/export/byinteface/**", "/virtserver/**", "/generator/**",
                         "/index.html", "/static/**", "/favicon.ico").permitAll()
                 // 登陆拦截
                 .anyRequest().authenticated()
