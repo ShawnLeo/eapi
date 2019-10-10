@@ -502,6 +502,7 @@
 				let selectIds = [];
 				this.selection.forEach(selected => selectIds.push(selected.id));
 				this.$router.push({name: 'swaggerUI', query: {projectId: this.projectId, interfaceIds: selectIds}});
+//				window.open('#/swagger?projectId=' + this.projectId + '&interfaceIds=' + selectIds, '_blank');
 			},
 			newInterface() {
 				this.addInterfaceModal = true;

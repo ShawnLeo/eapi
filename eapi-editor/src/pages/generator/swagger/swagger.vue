@@ -77,18 +77,27 @@
 				loading: false,
 				submitLoading: false,
 				columnDef: [
+//					{
+//						type: "index",
+//						width: 60,
+//						align: "center"
+//					},
 					{
-						type: "index",
-						width: 60,
-						align: "center"
-					},
-					{
-						title: "id",
+						title: "项目Id",
 						key: "id"
 					},
 					{
-						title: "title",
-						key: "title"
+						title: "项目名称",
+						key: "title",
+						render: (h, params) => {
+							return h('a', {
+								on: {
+									click: () => {
+										this.$router.push({path: '/code/generator/swagger/interface', query: {projectId: params.row.id}});
+									}
+								}
+							}, params.row.title);
+						}
 					},
 					{
 						title: "操作",
@@ -116,29 +125,7 @@
 											}
 										}
 									},
-									"项目生成"
-								),
-								h(
-									"Button",
-									{
-										props: {
-											type: "primary",
-											size: "small",
-											icon: "ios-create-outline"
-										},
-										style: {
-											marginRight: "5px"
-										},
-										on: {
-											click: () => {
-												this.modalVisible = true;
-												this.swaggerConfig.targetProjectId = params.row.id;
-												this.swaggerConfig.targetProject = baseUrl + '/v2/api-docs/' +params.row.id + '?type=SWAGGER_JSON';
-												this.packageInitFromDb() || this.packageInitFromConfig();
-											}
-										}
-									},
-									"接口生成"
+									"全量生成"
 								)
 							]);
 						}
@@ -177,8 +164,10 @@
 					return false;
 				}
 				let model = JSON.parse(db);
-				this.swaggerConfig.apiPackage = model.targetPackage + '.swagger.controller';
-				this.swaggerConfig.modelPackage = model.targetPackage + '.swagger.model';
+				this.swaggerConfig.apiPackage = model.artifactId + '.' + model.groupId + '.gen.swagger.controller';
+				this.swaggerConfig.modelPackage = model.artifactId + '.' + model.groupId + '.gen.swagger.model';
+				this.swaggerConfig.artifactId = model.artifactId;
+				this.swaggerConfig.groupId = model.groupId;
 				return true;
 			},
 			download(data) {

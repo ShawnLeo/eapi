@@ -39,13 +39,13 @@ export const importFromSwaggerUrl = (data, callback) => fetch('/swagger/import/u
 export const exportSwaggerJson = (data, callback) => fetch('/swagger/export/' + data.projectId, {callback}, 'GET', 'blob');
 //  根据接口ID导出Swagger项目
 export const exportByInterfaceIds = (data, callback) => fetch('/swagger/export/byinteface/' + data.projectId, {
-	callback, reqBody: data.interfaceIds
-}, 'POST', 'blob');
+	callback, reqParams: {interfaceIds: data.interfaceIds}
+}, 'GET', 'blob');
 
 //  根据接口ID导出Swagger项目
-export const getByInterfaceIds = (data, callback) => fetch('/swagger/get/byinteface/' + data.projectId, {
-	callback, reqBody: data.interfaceIds
-}, 'POST');
+// export const getByInterfaceIds = (data, callback) => fetch('/swagger/get/byinteface/' + data.projectId, {
+// 	callback, reqBody: data.interfaceIds
+// }, 'POST');
 /** ******* 项目-start ******** **/
 
 /** ******* 接口-start ******** **/

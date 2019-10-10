@@ -119,11 +119,14 @@ public class Swagger2Controller {
      * @throws IOException
      */
     @ResponseBody
-    @RequestMapping(value = EXPORT_BYINTERFACE_URL, method = RequestMethod.POST)
-    public void export(@PathVariable("projectId") String projectId, @RequestBody List<String> interfaceIds,
+    @RequestMapping(value = EXPORT_BYINTERFACE_URL, method = RequestMethod.GET)
+    public void export(@PathVariable("projectId") String projectId, @RequestParam("interfaceIds[]") List<String> interfaceIds,
+                       @RequestParam(name = "type", required = false) Swagger2Service.BuildType buildType,
                        HttpServletResponse response) throws IOException {
-
-        Swagger swagger = swagger2Service.buildSwagger(projectId, interfaceIds, Swagger2Service.BuildType.SWAGGER_JSON);
+        if (buildType == null) {
+            buildType = Swagger2Service.BuildType.SWAGGER_UI;
+        }
+        Swagger swagger = swagger2Service.buildSwagger(projectId, interfaceIds, buildType);
         Json json = jsonSerializer.toJson(swagger);
         response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("swagger.json", "utf-8"));
         response.getOutputStream().write(json.value().getBytes());
@@ -136,6 +139,7 @@ public class Swagger2Controller {
      * @param interfaceIds
      * @throws IOException
      */
+    @Deprecated
     @ResponseBody
     @RequestMapping(value = GET_BYINTERFACE_URL, method = RequestMethod.POST)
     public Response export(@PathVariable("projectId") String projectId, @RequestBody List<String> interfaceIds) {

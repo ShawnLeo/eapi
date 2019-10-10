@@ -82,7 +82,8 @@
 
 				<div class="wrapper-content box clearfix">
 					<p>说明:</p>
-					<p style="text-indent:2em;">开启通用响应，选择通用数据模型，在接口文档和Mock服务中所有 <b>自定义的响应数据模型</b> 会自动添加在 <b>通用数据模型</b> result字段中。</p>
+					<p style="text-indent:2em;">开启通用响应，选择通用数据模型，所有的 <b>接口返回值</b>都会变成<b>通用响应模型的数据结构</b>。
+							导出的swagger.json不会受影响</p>
 
 					<Form :model="project" :label-width=90 style="margin-top: 15px;">
 						<FormItem label="通用响应"  >

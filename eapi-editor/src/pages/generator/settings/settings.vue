@@ -26,9 +26,19 @@
 					<h2 class="title-border">其他配置</h2>
 				</div>
 				<div class="wrapper-content box">
-					<FormItem label="包名：" prop="targetPackage">
-						<Input type="text" v-model="database.targetPackage" placeholder="包名"/>
+
+					<FormItem label="artifactId：" prop="artifactId">
+						<Input type="text" v-model="database.artifactId" placeholder="artifactId"/>
 					</FormItem>
+
+					<FormItem label="groupId：" prop="groupId">
+						<Input type="text" v-model="database.groupId" placeholder="groupId"/>
+					</FormItem>
+
+					<!--<FormItem label="包名：" prop="targetPackage">-->
+						<!--<Input type="text" v-model="database.targetPackage" placeholder="包名"/>-->
+					<!--</FormItem>-->
+
 				</div>
 			</i-col>
 
@@ -60,8 +70,10 @@
 					// 表单验证规则
 					dbConnectionURL: [{required: true, message: "不能为空", trigger: "blur"}],
 					dbUsername: [{required: true, message: "不能为空", trigger: "blur"}],
+					artifactId: [{required: true, message: "不能为空", trigger: "blur"}],
+					groupId: [{required: true, message: "不能为空", trigger: "blur"}]
 //					dbPassword: [{required: true, message: "不能为空", trigger: "blur"}],
-					targetPackage: [{required: true, message: "不能为空", trigger: "blur"}]
+//					targetPackage: [{required: true, message: "不能为空", trigger: "blur"}]
 				},
 			};
 		},
