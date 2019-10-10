@@ -16,6 +16,10 @@ public class SwaggerConfigVO implements Serializable {
 
     private String library;
 
+    private String artifactId;
+
+    private String groupId;
+
     public String getLang() {
         return lang;
     }
@@ -62,5 +66,21 @@ public class SwaggerConfigVO implements Serializable {
 
     public void setLibrary(String library) {
         this.library = library;
+    }
+
+    public String getArtifactId() {
+        return artifactId;
+    }
+
+    public void setArtifactId(String artifactId) {
+        this.artifactId = artifactId;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 }

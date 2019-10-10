@@ -164,8 +164,10 @@
 					return false;
 				}
 				let model = JSON.parse(db);
-				this.swaggerConfig.apiPackage = model.targetPackage + '.swagger.controller';
-				this.swaggerConfig.modelPackage = model.targetPackage + '.swagger.model';
+				this.swaggerConfig.apiPackage = model.artifactId + '.' + model.groupId + '.gen.swagger.controller';
+				this.swaggerConfig.modelPackage = model.artifactId + '.' + model.groupId + '.gen.swagger.model';
+				this.swaggerConfig.artifactId = model.artifactId;
+				this.swaggerConfig.groupId = model.groupId;
 				return true;
 			},
 			download(data) {

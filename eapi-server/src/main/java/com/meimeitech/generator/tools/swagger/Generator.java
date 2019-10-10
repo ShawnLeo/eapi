@@ -11,24 +11,22 @@ import org.apache.commons.lang3.StringUtils;
  */
 @Builder
 public class Generator {
-    /**
-     *  http://127.0.0.1:7050/v2/api-docs/402835816a34a2d3016a34a482760002
-     *  file:///F:/tools/mybatis-generator/src/test/resources/user.json
-     */
+
     private String swaggerJson;
-    private String targetProject;
+    private String output;
     private String apiPackage;
     private String modelPackage;
     private String lang;
     private String library;
     private  Boolean generateSupportingFiles;
+    private String groupId;
+    private String artifactId;
 
     public void generatorController() {
         StringBuilder sb = new StringBuilder();
 
         sb.append("generate -i ").append(swaggerJson).append(" -l ").append(lang);
 
-//                .append(" --library  ").append(library)
         if (StringUtils.isNoneEmpty(apiPackage)) {
             sb.append(" --api-package=").append(apiPackage);
         }
@@ -38,8 +36,14 @@ public class Generator {
         if (StringUtils.isNoneEmpty(library)) {
              sb.append(" --library ").append(library);
         }
-        if (StringUtils.isNoneEmpty(targetProject)) {
-            sb.append(" -o ").append(targetProject);
+        if (StringUtils.isNoneEmpty(output)) {
+            sb.append(" -o ").append(output);
+        }
+        if (StringUtils.isNoneEmpty(groupId)) {
+            sb.append(" --group-id ").append(groupId);
+        }
+        if (StringUtils.isNoneEmpty(artifactId)) {
+            sb.append(" --artifact-id ").append(artifactId);
         }
 
         sb.append("  --additional-properties hideGenerationTimestamp=true,useBeanValidation=false");

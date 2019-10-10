@@ -139,6 +139,7 @@ public class Swagger2Controller {
      * @param interfaceIds
      * @throws IOException
      */
+    @Deprecated
     @ResponseBody
     @RequestMapping(value = GET_BYINTERFACE_URL, method = RequestMethod.POST)
     public Response export(@PathVariable("projectId") String projectId, @RequestBody List<String> interfaceIds) {

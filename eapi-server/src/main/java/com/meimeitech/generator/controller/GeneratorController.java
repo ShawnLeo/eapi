@@ -119,7 +119,7 @@ public class GeneratorController {
     public Response swagger(@RequestBody SwaggerConfigVO swaggerConfigVO) {
         try {
             String root = codeGenerateLocation() + File.separator + swaggerConfigVO.getTargetProjectId();
-            String targetProject = root + File.separator + swaggerConfigVO.getLang();
+            String output = root + File.separator + swaggerConfigVO.getLang();
 
             FileUtils.deleteDirectory(new File(root));
 
@@ -127,10 +127,12 @@ public class GeneratorController {
                     .swaggerJson(swaggerConfigVO.getTargetProject())
                     .apiPackage(swaggerConfigVO.getApiPackage())
                     .modelPackage(swaggerConfigVO.getModelPackage())
-                    .targetProject(targetProject)
+                    .output(output)
                     .lang(swaggerConfigVO.getLang())
                     .library(swaggerConfigVO.getLibrary())
                     .generateSupportingFiles(false)
+                    .artifactId(swaggerConfigVO.getArtifactId())
+                    .groupId(swaggerConfigVO.getGroupId())
                     .build().generatorController();
 
             // 根据项目Id压缩一份
