@@ -271,7 +271,7 @@
 					return false;
 				}
 				let model = JSON.parse(db);
-				this.mybatisConfig.targetPackage = model.targetPackage + '.mybatis';
+				this.mybatisConfig.targetPackage = model.artifactId + '.' + model.groupId + '.gen.mybatis';
 				this.selection.forEach(item => {
 
 					item.domainObjectName = firstUpper(camel(item.tableName));
