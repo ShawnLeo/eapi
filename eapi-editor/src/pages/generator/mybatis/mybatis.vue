@@ -1,6 +1,5 @@
 <template>
 	<div class="mybatis">
-		<!--<mybatis-fragment v-if="currView=='see'" @close="currView='index'" :column="column" :table="table" style="min-height: 400px"/>-->
 		<Row>
 			<i-col span="24">
 				<Form ref="formInline" inline style="float: right;">
