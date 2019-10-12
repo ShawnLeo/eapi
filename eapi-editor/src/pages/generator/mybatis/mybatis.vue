@@ -266,12 +266,12 @@
 //				this.singleSelect = selection.length === 1;
 				this.selection = selection;
 
-				const db = getStore(consts.GENERATOR_CONFIG);
-				if (!db) {
-					return false;
-				}
-				let model = JSON.parse(db);
-				this.mybatisConfig.targetPackage = model.artifactId + '.' + model.groupId + '.gen.mybatis';
+//				const db = getStore(consts.GENERATOR_CONFIG);
+//				if (!db) {
+//					return false;
+//				}
+//				let model = JSON.parse(db);
+//				this.mybatisConfig.targetPackage = model.artifactId + '.' + model.groupId + '.gen.mybatis';
 				this.selection.forEach(item => {
 
 					item.domainObjectName = firstUpper(camel(item.tableName));
@@ -301,7 +301,9 @@
 					this.loading = false;
 					return;
 				}
-				generatorDatabaseAll(JSON.parse(db), (data) => {
+				let model = JSON.parse(db);
+				this.mybatisConfig.targetPackage = model.artifactId + '.' + model.groupId + '.gen.mybatis';
+				generatorDatabaseAll(model, (data) => {
 					this.columnMaps = data.body.column;
 					this.tables = data.body.table;
 					this.filterTables = data.body.table;
@@ -341,16 +343,11 @@
 			handelSubmit() {
 				this.submitLoading = true;
 
-
 				const db = getStore(consts.GENERATOR_CONFIG);
-
 				let model = JSON.parse(db);
-
 				model.javaVoGeneratorFlag = this.mybatisConfig.javaVoGeneratorFlag;
 				model.targetPackage = this.mybatisConfig.targetPackage;
-
 				model.tableList = [];
-
 				this.selection.forEach((item) => {
 					let table = {};
 					table.tableName = item.tableName;
