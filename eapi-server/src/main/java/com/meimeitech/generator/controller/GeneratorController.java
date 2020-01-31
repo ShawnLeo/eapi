@@ -85,6 +85,8 @@ public class GeneratorController {
             // TODO 可能多个数据源，可根据数据库名称配置
             String databaseName = "mybatis";
 
+            mysqlGeneratorModel.setJavaVoGeneratorFlag("false");
+
             String root = codeGenerateLocation() + File.separator + databaseName;
 
             mysqlGeneratorModel.setTargetProject(root);

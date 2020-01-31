@@ -67,8 +67,7 @@ public class MybatisGeneratorConfigModel {
 
     public void genCheck() {
         boolean yes = false;
-        if ("true".equals(this.javaVoGeneratorFlag) ||
-                "true".equals(this.sqlMapGeneratorFlag) ||
+        if ("true".equals(this.sqlMapGeneratorFlag) ||
                 "true".equals(this.javaClientGeneratorFlag) ||
                 "true".equals(this.javaModelGeneratorFlag)
                 ) {
