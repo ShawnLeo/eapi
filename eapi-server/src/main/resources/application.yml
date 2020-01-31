@@ -59,12 +59,13 @@ spring:
   profiles: prod
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:file:~/.h2/swagger;AUTO_SERVER=TRUE
+#    url: jdbc:h2:file:~/.h2/swagger-ziroom;AUTO_SERVER=TRUE
+    url: jdbc:h2:tcp://127.0.0.1:9092/~/.h2/swagger-ziroom
     username: sa
     password: sa
     data: classpath:sql/data.sql
 host:
-  server: http://10.133.255.201:5001/pc/swagger-editor/index.html
+  server: http://118.25.0.116:7051/index.html
 swagger:
-  host: 10.133.255.201:7050
+  host: 118.25.0.116:7051
   contact-email: easyapi@163.com
