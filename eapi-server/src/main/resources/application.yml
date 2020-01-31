@@ -57,6 +57,15 @@ swagger:
 ---
 spring:
   profiles: prod
+  h2:
+    server:
+      enabled: true
+      args: -tcp -web
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
   datasource:
     driver-class-name: org.h2.Driver
 #    url: jdbc:h2:file:~/.h2/swagger-ziroom;AUTO_SERVER=TRUE
