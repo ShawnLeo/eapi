@@ -1,16 +1,17 @@
 <template>
   <div class="project-list main-content">
-    <Card class="fl left-content">
-      <a href="#" slot="extra" class="add-group" @click="addGroupModal = true"><Icon type="logo-googleplus" /> 添加</a>
-      <Menu ref="groupMenus" theme="light" :active-name="groupId" width="152px" @on-select="selectMenu">
-        <MenuGroup title="项目组">
-          <Menu-Item name="all">全部项目组</Menu-Item>
-          <Menu-Item :name="group.id" v-for="(group, index) in groups" :key="index">{{group.name}} </Menu-Item>
-        </MenuGroup>
-      </Menu>
-    </Card>
+    <!--<Card class="fl left-content">-->
+      <!--<a href="#" slot="extra" class="add-group" @click="addGroupModal = true"><Icon type="logo-googleplus" /> 添加</a>-->
+      <!--<Menu ref="groupMenus" theme="light" :active-name="groupId" width="152px" @on-select="selectMenu">-->
+        <!--<MenuGroup title="项目组">-->
+          <!--<Menu-Item name="all">全部项目组</Menu-Item>-->
+          <!--<Menu-Item :name="group.id" v-for="(group, index) in groups" :key="index">{{group.name}} </Menu-Item>-->
+        <!--</MenuGroup>-->
+      <!--</Menu>-->
+    <!--</Card>-->
 
-    <Card class="fr right-content">
+    <!--<Card class="fr right-content">-->
+    <Card class="">
       <Tabs v-model="tabSelect">
         <TabPane label="项目管理" name="pm">
           <Spin size="large" fix v-if="loading"></Spin>
@@ -24,7 +25,8 @@
                 <h3>{{project.title}}</h3>
               </div>
             </Card>
-            <Card style="width:220px;margin: 15px;text-align: center;cursor: pointer;" v-if="groupId !=='all'">
+            <!--<Card style="width:220px;margin: 15px;text-align: center;cursor: pointer;" v-if="groupId !=='all'">-->
+            <Card style="width:220px;margin: 15px;text-align: center;cursor: pointer;">
               <div style="text-align:center;line-height: 10;" @click="newProject">
                 <Icon type="md-add" size="100"></Icon>
               </div>
@@ -35,18 +37,18 @@
           </div>
         </TabPane>
 
-        <TabPane label="成员管理" name="um" style="padding: 10px 20px" v-if="groupId !== 'all'">
-          <member :groupId="groupId" :currUserRole="currUserRole" :group="selectGroup" v-on:change="getCurrUserRole(groupId)" v-on:quit="quitGroup()"></member>
-        </TabPane>
+        <!--<TabPane label="成员管理" name="um" style="padding: 10px 20px" v-if="groupId !== 'all'">-->
+          <!--<member :groupId="groupId" :currUserRole="currUserRole" :group="selectGroup" v-on:change="getCurrUserRole(groupId)" v-on:quit="quitGroup()"></member>-->
+        <!--</TabPane>-->
 
-        <TabPane label="设置" name="gs" style="padding: 10px 20px" v-if="groupId !== 'all'">
-          <group :groupId="groupId" :currUserRole="currUserRole" :group="selectGroup" v-on:update="getGroupList()" v-on:quit="quitGroup()"></group>
-        </TabPane>
+        <!--<TabPane label="设置" name="gs" style="padding: 10px 20px" v-if="groupId !== 'all'">-->
+          <!--<group :groupId="groupId" :currUserRole="currUserRole" :group="selectGroup" v-on:update="getGroupList()" v-on:quit="quitGroup()"></group>-->
+        <!--</TabPane>-->
 
-        <!--创建者 和 管理员 才显示-->
-        <TabPane label="权限控制" name="ac" style="padding: 10px 20px" v-if="groupId !== 'all' && (currUserRole === '1' || currUserRole === '2')">
-          <permission :groupId="groupId" :group="selectGroup"></permission>
-        </TabPane>
+        <!--&lt;!&ndash;创建者 和 管理员 才显示&ndash;&gt;-->
+        <!--<TabPane label="权限控制" name="ac" style="padding: 10px 20px" v-if="groupId !== 'all' && (currUserRole === '1' || currUserRole === '2')">-->
+          <!--<permission :groupId="groupId" :group="selectGroup"></permission>-->
+        <!--</TabPane>-->
       </Tabs>
     </Card>
 
@@ -258,7 +260,7 @@
       display: -webkit-flex;
       flex-wrap:wrap;
       .project-item{
-        width:220px;
+        width:260px;
         margin: 15px;
         cursor: pointer;
         background: url(../../assets/img/project_item.png) no-repeat;

@@ -34,7 +34,7 @@
             <property name="useToStringFromRoot" value="true"/>
         </plugin>
         <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
-        <plugin type="com.meimeitech.generator.tools.mybatis.plugin.VOPlugin">
+        <plugin type="com.shawn.generator.tools.mybatis.plugin.VOPlugin">
             <property name="targetProject" value="${targetProject}"/>
             <property name="targetPackage" value="${targetPackage}.VO"/>
             <property name="classSuffix" value="VO"/>
@@ -47,7 +47,7 @@
              <property name="replaceString" value="Example"/>
          </plugin>-->
 
-        <commentGenerator type="com.meimeitech.generator.tools.mybatis.generator.CommentGeneratorHelper">
+        <commentGenerator type="com.shawn.generator.tools.mybatis.generator.CommentGeneratorHelper">
             <property name="suppressAllComments" value="fase"/>
             <property name="suppressDate" value="true"/>
         </commentGenerator>

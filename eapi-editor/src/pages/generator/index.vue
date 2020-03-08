@@ -14,12 +14,12 @@
 					<Menu-Item name="/code/generator/swagger">
 						Swagger生成
 					</Menu-Item>
-					<Menu-Item name="/code/generator/vue">
-						Vue生成
-					</Menu-Item>
-					<Menu-Item name="/code/generator/vuetest">
-						Vue测试
-					</Menu-Item>
+					<!--<Menu-Item name="/code/generator/vue">-->
+						<!--Vue生成-->
+					<!--</Menu-Item>-->
+					<!--<Menu-Item name="/code/generator/vuetest">-->
+						<!--Vue测试-->
+					<!--</Menu-Item>-->
 				</Menu>
 				<div class="clearfix"></div>
 			</div>

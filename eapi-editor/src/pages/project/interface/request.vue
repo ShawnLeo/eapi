@@ -488,7 +488,7 @@
 						options.push(h('Option', {props: {value: 'integer'}}, 'integer'));
 						options.push(h('Option', {props: {value: 'long'}}, 'long'));
 						options.push(h('Option', {props: {value: 'double'}}, 'double'));
-						options.push(h('Option', {props: {value: 'bigdecimal'}}, 'bigdecimal'));
+						options.push(h('Option', {props: {value: 'number'}}, 'bigdecimal'));
 						options.push(h('Option', {props: {value: 'file'}}, 'file'));
 						return h('div', [
 							h('Select', {

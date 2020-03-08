@@ -4,19 +4,19 @@ server:
   port: 7050
 logging:
   level:
-    com.meimeitech: debug
+    com.shawn: debug
 spring:
   jpa:
     hibernate:
       ddl-auto: update
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
-        physical-strategy: com.meimeitech.eapi.util.ImprovedNamingStrategy
+        physical-strategy: com.shawn.eapi.util.ImprovedNamingStrategy
     show-sql: true
     database-platform: org.hibernate.dialect.H2Dialect
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://127.0.0.1:9092/~/.h2/swagger-ziroom
+    url: jdbc:h2:tcp://127.0.0.1:9092/~/.h2/swagger
     username: sa
     password: sa
     data: classpath:sql/data.sql

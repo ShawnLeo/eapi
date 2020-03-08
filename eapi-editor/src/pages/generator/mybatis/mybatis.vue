@@ -211,25 +211,25 @@
 									},
 									"查看"
 								),
-								h(
-									"Button",
-									{
-										props: {
-											type: "success",
-											size: "small",
-											icon: "md-cloud-download"
-										},
-										style: {
-											marginRight: "5px"
-										},
-										on: {
-											click: () => {
-												this.gen(params.row);
-											}
-										}
-									},
-									"生成"
-								),
+//								h(
+//									"Button",
+//									{
+//										props: {
+//											type: "success",
+//											size: "small",
+//											icon: "md-cloud-download"
+//										},
+//										style: {
+//											marginRight: "5px"
+//										},
+//										on: {
+//											click: () => {
+//												this.gen(params.row);
+//											}
+//										}
+//									},
+//									"生成"
+//								),
 								h(
 									"Button",
 									{

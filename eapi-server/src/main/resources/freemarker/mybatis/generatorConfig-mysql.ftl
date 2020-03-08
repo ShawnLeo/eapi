@@ -10,7 +10,7 @@
     <property name="javaFileEncoding" value="UTF-8"/>
 
     <#if javaVoGeneratorFlag == "true">
-        <plugin type="com.meimeitech.generator.tools.mybatis.plugin.VOPlugin">
+        <plugin type="com.shawn.generator.tools.mybatis.plugin.VOPlugin">
           <property name="targetProject" value="${targetProject}"/>
           <property name="targetPackage" value="${targetPackage}.vo"/>
           <property name="classSuffix" value="VO"/>
@@ -18,10 +18,10 @@
     </#if>
 
     <#if lombokFlag == "true">
-        <plugin type="com.meimeitech.generator.tools.mybatis.plugin.LombokPlugin"></plugin>
+        <plugin type="com.shawn.generator.tools.mybatis.plugin.LombokPlugin"></plugin>
     </#if>
 
-    <plugin type="com.meimeitech.generator.tools.mybatis.plugin.JsonPlugin">
+    <plugin type="com.shawn.generator.tools.mybatis.plugin.JsonPlugin">
       <property name="targetProject" value="${targetProject}"/>
     </plugin>
     <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
@@ -31,7 +31,7 @@
       <property name="useToStringFromRoot" value="true"/>
     </plugin>
 
-    <commentGenerator type="com.meimeitech.generator.tools.mybatis.generator.CommentGeneratorHelper">
+    <commentGenerator type="com.shawn.generator.tools.mybatis.generator.CommentGeneratorHelper">
       <property name="suppressAllComments" value="fase"/>
       <property name="suppressDate" value="true"/>
     </commentGenerator>

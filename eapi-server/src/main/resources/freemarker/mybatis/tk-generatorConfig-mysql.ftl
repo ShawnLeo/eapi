@@ -10,15 +10,15 @@
         <property name="useMapperCommentGenerator" value="true"/>
 
     <#if javaVoGeneratorFlag == "true">
-        <plugin type="com.meimeitech.generator.tools.mybatis.plugin.VOPlugin">
+        <plugin type="com.shawn.generator.tools.mybatis.plugin.VOPlugin">
             <property name="targetProject" value="${targetProject}"/>
             <property name="targetPackage" value="${targetPackage}.VO"/>
             <property name="classSuffix" value="VO"/>
         </plugin>
     </#if>
-        <plugin type="com.meimeitech.generator.tools.mybatis.plugin.FlatModelRulesPlugin"/>
+        <plugin type="com.shawn.generator.tools.mybatis.plugin.FlatModelRulesPlugin"/>
 
-        <plugin type="com.meimeitech.generator.tools.mybatis.plugin.JsonPlugin">
+        <plugin type="com.shawn.generator.tools.mybatis.plugin.JsonPlugin">
             <property name="targetProject" value="${targetProject}"/>
         </plugin>
 

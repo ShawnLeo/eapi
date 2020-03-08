@@ -183,6 +183,7 @@
 				link.click();
 			},
 			gen(row) {
+				debugger
 				let download = this.download;
 				setStore(consts.SWAGGER_CONFIG + this.swaggerConfig.targetProjectId, this.swaggerConfig);
 				generatorSwaggerGen(this.swaggerConfig, (data) => {

@@ -1,4 +1,4 @@
-com.meimeitech.generator.tools.swagger.gen.PaulSpringCodegen
-com.meimeitech.generator.tools.swagger.gen.MeimeitechSpringCodegen
-com.meimeitech.generator.tools.swagger.gen.TypeScriptAxiosClientCodegen
-com.meimeitech.generator.tools.swagger.gen.AxiosFetchCodegen
+com.shawn.generator.tools.swagger.gen.PaulSpringCodegen
+com.shawn.generator.tools.swagger.gen.MeimeitechSpringCodegen
+com.shawn.generator.tools.swagger.gen.TypeScriptAxiosClientCodegen
+com.shawn.generator.tools.swagger.gen.AxiosFetchCodegen

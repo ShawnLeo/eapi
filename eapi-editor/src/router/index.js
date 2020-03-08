@@ -9,20 +9,20 @@ Vue.use(Router);
 const router = new Router({
 	routes: [{
 		path: '/',
-		redirect: '/project/index',
+		redirect: '/project/list',
 		component: layout,
 		children: [{
 			path: '/project',
 			name: 'project',
 			component: () => import('../pages/index.vue'),
 			children: [{
-				path: '/project/index',
-				name: 'projectIndex',
-				meta: {
-					menuActive: '/project/index'
-				},
-				component: () => import('../pages/project/index.vue')
-			}, {
+			// 	path: '/project/index',
+			// 	name: 'projectIndex',
+			// 	meta: {
+			// 		menuActive: '/project/index'
+			// 	},
+			// 	component: () => import('../pages/project/index.vue')
+			// }, {
 				path: '/project/list',
 				name: 'projectList',
 				meta: {

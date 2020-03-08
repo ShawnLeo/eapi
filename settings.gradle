@@ -1,0 +1,4 @@
+rootProject.name = 'eapi'
+
+include 'eapi-editor'
+include 'eapi-server'

@@ -140,6 +140,7 @@
 						title: '类型',
 						key: 'dataType',
 						render: (h, params) => {
+//							debugger
 							let systemDataModel = JSON.parse(getStore('systemDataModel'));
 							let customDataModel = JSON.parse(getStore('customDataModel'));
 							let options = [];

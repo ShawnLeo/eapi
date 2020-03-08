@@ -38,7 +38,7 @@
              <property name="replaceString" value="Example"/>
          </plugin>-->
 
-        <commentGenerator type="com.meimeitech.generator.tools.mybatis.generator.CommentGeneratorHelper">
+        <commentGenerator type="com.shawn.generator.tools.mybatis.generator.CommentGeneratorHelper">
             <property name="suppressAllComments" value="fase"/>
             <property name="suppressDate" value="true"/>
         </commentGenerator>
@@ -77,7 +77,7 @@
             targetPackage：生成的类要放的包，真实的包受enableSubPackages属性控制；
             targetProject：目标项目，指定一个存在的目录下，生成的内容会放到指定目录中，如果目录不存在，MBG不会自动建目录
         -->
-        <javaModelGenerator targetPackage="com.meimeitech.video.rest.dao.PO"
+        <javaModelGenerator targetPackage="com.shawn.video.rest.dao.PO"
                             targetProject="F:\shipin\mmt-video-rest\src\main\java">
             <property name="enableSubPackages" value="true"/>
             <!-- 设置是否在getter方法中，对String类型字段调用trim()方法 -->
@@ -91,7 +91,7 @@
         targetPackage/targetProject:同javaModelGenerator
         -->
 
-        <sqlMapGenerator targetPackage="com.meimeitech.video.rest.dao.mapper"
+        <sqlMapGenerator targetPackage="com.shawn.video.rest.dao.mapper"
                          targetProject="F:\shipin\mmt-video-rest\src\main\java">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
@@ -105,7 +105,7 @@
             注意，如果context是MyBatis3Simple：只支持ANNOTATEDMAPPER和XMLMAPPER
         -->
         <javaClientGenerator type="MIXEDMAPPER"
-                             targetPackage="com.meimeitech.video.rest.dao"
+                             targetPackage="com.shawn.video.rest.dao"
                              targetProject="F:\shipin\mmt-video-rest\src\main\java">
             <!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
             <property name="enableSubPackages" value="true"/>
