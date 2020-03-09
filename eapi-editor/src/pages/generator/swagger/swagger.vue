@@ -22,18 +22,22 @@
 						<Option value="axios-fetch">axios-fetch</Option>
 					</Select>
 				</FormItem>
-				<FormItem label="library" prop="library" v-if="springShow">
-					<Select v-model="swaggerConfig.library" placeholder="请选择">
-						<Option value="spring-boot">spring-boot</Option>
-					</Select>
-				</FormItem>
 
-				<FormItem label="Api包名" prop="apiPackage" v-if="springShow">
-					<Input v-model="swaggerConfig.apiPackage"/>
-				</FormItem>
-				<FormItem label="Model包名" prop="modelPackage" v-if="springShow">
-					<Input v-model="swaggerConfig.modelPackage"/>
-				</FormItem>
+				<spring-boot :swaggerConfig="swaggerConfig" v-if="swaggerConfig.lang == 'meimeitechSpring'"></spring-boot>
+				<axios :swaggerConfig="swaggerConfig" v-if="swaggerConfig.lang === 'axios-fetch'"></axios>
+
+				<!--<FormItem label="library" prop="library" v-if="swaggerConfig.lang === 'meimeitechSpring'">-->
+					<!--<Select v-model="swaggerConfig.library" placeholder="请选择">-->
+						<!--<Option value="spring-boot">spring-boot</Option>-->
+					<!--</Select>-->
+				<!--</FormItem>-->
+
+				<!--<FormItem label="Api包名" prop="apiPackage" v-if="swaggerConfig.lang === 'meimeitechSpring'">-->
+					<!--<Input v-model="swaggerConfig.apiPackage"/>-->
+				<!--</FormItem>-->
+				<!--<FormItem label="Model包名" prop="modelPackage" v-if="swaggerConfig.lang === 'meimeitechSpring'">-->
+					<!--<Input v-model="swaggerConfig.modelPackage"/>-->
+				<!--</FormItem>-->
 
 			</Form>
 			<div slot="footer">
@@ -45,14 +49,19 @@
 </template>
 
 <script  type="text/ecmascript-6">
-
 	import {getProjectList, generatorSwaggerGen, generatorSwaggerDownload} from '../../../utils/interface';
 	import {setStore, getStore} from '../../../utils/storage';
 	import * as consts from '../../../utils/const';
 	import {baseUrl} from '../../../utils/env';
+	import springBoot from '../../../components/generator/config/spring-boot';
+	import axios from '../../../components/generator/config/axios';
 
 	export default {
 		name: "codeGeneratorSwagger",
+    components: {
+      'spring-boot': springBoot,
+      'axios': axios
+    },
 		data() {
 			return {
 				projects: [],
@@ -133,16 +142,16 @@
 				]
 			};
 		},
-		computed: {
-			springShow() {
-				// TODO 显示配置服务器获取
-				return this.swaggerConfig.lang === 'meimeitechSpring';
-			}
-		},
+		// computed: {
+		// 	springShow() {
+		// 		// TODO 显示配置服务器获取
+		// 		return ;
+		// 	}
+		// },
 		methods: {
 			langChange() {
 				this.swaggerConfig.library =  '';
-				if (!this.springShow) {
+				if (this.swaggerConfig.lang != 'meimeitechSpring') {
 					this.swaggerConfig.apiPackage =  '';
 					this.swaggerConfig.modelPackage =  '';
 				} else {
