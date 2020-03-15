@@ -13,13 +13,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.spring.web.json.JsonSerializer;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 @RequestMapping("/generator")
@@ -182,6 +181,156 @@ public class GeneratorController {
 //            file.delete();
 //            FileUtils.deleteDirectory(testFile);
 //        }
+    }
+
+    @RequestMapping(value = "/vue/table/{vueName}/{rowNum}", method = RequestMethod.POST)
+    public Response<String> generateTable(@PathVariable String vueName,
+                                        @PathVariable Integer rowNum,
+                                        @RequestBody List<Field> fields) throws IOException {
+
+        try {
+            String result = generate("table.btl", vueName, rowNum, fields);
+            return Response.success(result);
+        }catch (IllegalArgumentException e){
+            return Response.error(e.getMessage());
+        }
+    }
+
+    public String generate(String template, String vueName, Integer rowNum, List<Field> fields) throws IOException {
+        // 模板路径
+        ClasspathResourceLoader resourceLoader = new ClasspathResourceLoader("\\beetl\\vue","utf-8");
+        Configuration cfg = Configuration.defaultConfiguration();
+        GroupTemplate gt = new GroupTemplate(resourceLoader, cfg);
+
+        Template tableTemplate = gt.getTemplate(template);
+        // 排序
+        Collections.sort(fields, Comparator.comparing(Field::getSortOrder));
+        // 绑定变量
+        tableTemplate.binding("vueName", vueName);
+        tableTemplate.binding("fields", fields);
+        // 判断有无upload和日期范围搜索
+        Boolean upload = false;
+        for(Field f:fields){
+            if("upload".equals(f.getType())){
+                upload = true;
+            }
+        }
+        tableTemplate.binding("upload", upload);
+        if("table.btl".equals(template)){
+            // 判断有无upload和日期范围搜索
+            Boolean daterangeSearch = false;
+            for(Field f:fields){
+                if(f.getSearchable()&&"daterange".equals(f.getSearchType())){
+                    daterangeSearch = true;
+                }
+            }
+            tableTemplate.binding("daterangeSearch", daterangeSearch);
+            // 统计搜索栏个数 判断是否隐藏搜索栏
+            Boolean hideSearch = false;
+            List<Field> firstTwo = new ArrayList<>();
+            List<Field> rest = new ArrayList<>();
+            Integer count = 0;
+            for(Field f:fields){
+                if(f.getSearchable()){
+                    count++;
+                    if(count<=2){
+                        firstTwo.add(f);
+                    }else{
+                        rest.add(f);
+                    }
+                }
+            }
+            if(count>=4){
+                hideSearch = true;
+                tableTemplate.binding("firstTwo", firstTwo);
+                tableTemplate.binding("rest", rest);
+            }
+            tableTemplate.binding("searchSize", count);
+            tableTemplate.binding("hideSearch", hideSearch);
+            // 获取默认排序字段
+            String defaultSort = "", defaultSortType = "";
+            for(Field f:fields){
+                if(f.getDefaultSort()){
+                    defaultSort = f.getField();
+                    defaultSortType = f.getDefaultSortType();
+                    break;
+                }
+            }
+            tableTemplate.binding("defaultSort", defaultSort);
+            tableTemplate.binding("defaultSortType", defaultSortType);
+        }
+        // 一行几列
+        tableTemplate.binding("rowNum", rowNum);
+        if(rowNum==1){
+            tableTemplate.binding("modalWidth", 500);
+            tableTemplate.binding("width", "100%");
+            tableTemplate.binding("editWidth", "100%");
+            tableTemplate.binding("itemWidth", "");
+            tableTemplate.binding("span", "9");
+        }else if(rowNum==2){
+            tableTemplate.binding("modalWidth", 770);
+            tableTemplate.binding("width", "250px");
+            tableTemplate.binding("editWidth", "250px");
+            tableTemplate.binding("itemWidth", "350px");
+            tableTemplate.binding("span", "17");
+        }else if(rowNum==3){
+            tableTemplate.binding("modalWidth", 980);
+            tableTemplate.binding("width", "200px");
+            tableTemplate.binding("editWidth", "200px");
+            tableTemplate.binding("itemWidth", "300px");
+            tableTemplate.binding("span", "17");
+        }else if(rowNum==4){
+            tableTemplate.binding("modalWidth", 1130);
+            tableTemplate.binding("width", "160px");
+            tableTemplate.binding("editWidth", "160px");
+            tableTemplate.binding("itemWidth", "260px");
+            tableTemplate.binding("span", "17");
+        }else{
+            throw new IllegalArgumentException("rowNum仅支持数字1-4");
+        }
+        // 生成代码
+        String result = tableTemplate.render();
+        System.out.println(result);
+        return result;
+    }
+
+    @RequestMapping(value = "/vue/json", method = RequestMethod.POST)
+    public Response<String> getEntityData(String json) {
+        Map parse = null;
+        try {
+            parse = JSON.parseObject(json, Map.class);
+        }catch (Exception e){
+            return Response.error("JSON格式错误");
+        }
+        return Response.success(gengerateEntityData(parse));
+    }
+
+    public String gengerateEntityData(Map json){
+        List<Map> result = new ArrayList<Map>();
+        final AtomicInteger index = new AtomicInteger(1);
+        json.forEach((key,value)->{
+            String field_json = "\n        {\n" +
+                    "            \"sortOrder\": " + index.getAndIncrement() + ",\n" +
+                    "            \"field\": \"" + key + "\",\n" +
+                    "            \"name\": \"" + value + "\",\n" +
+                    "            \"level\": \"2\",\n" +
+                    "            \"tableShow\": true,\n" +
+                    "            \"editable\": true,\n" +
+                    "            \"type\": \"text\",\n" +
+                    "            \"searchType\": \"text\",\n" +
+                    "            \"searchLevel\": \"2\",\n" +
+                    "            \"validate\": false,\n" +
+                    "            \"searchable\": true,\n" +
+                    "            \"sortable\": false,\n" +
+                    "            \"defaultSort\": false,\n" +
+                    "            \"defaultSortType\": \"desc\"\n" +
+                    "        }";
+            result.add(JSON.parseObject(field_json, Map.class));
+        });
+
+        Map<String,Object> map= new HashMap<>();
+        map.put("data",result);
+        return JSON.toJSONString(map);
     }
 
 }

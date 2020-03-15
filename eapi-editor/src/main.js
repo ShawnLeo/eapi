@@ -14,8 +14,10 @@ import './assets/css/common.less';
 import './assets/css/layout.less';
 
 import router from './router';
-
+import VueClipboard from 'vue-clipboard2';
 Vue.config.productionTip = false;
+
+Vue.use(VueClipboard);
 
 Vue.use(iView);
 Vue.use(animated);

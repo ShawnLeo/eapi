@@ -101,11 +101,12 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.apache.commons/commons-compress
 	compile group: 'org.apache.commons', name: 'commons-compress', version: '1.18'
 
-	// https://mvnrepository.com/artifact/org.projectlombok/lombok
-	annotationProcessor 'org.projectlombok:lombok:1.18.8'
-	compileOnly 'org.projectlombok:lombok:1.18.8'
-	testAnnotationProcessor 'org.projectlombok:lombok:1.18.8'
-	testCompileOnly 'org.projectlombok:lombok:1.18.8'
-
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.8'
+    testCompileOnly 'org.projectlombok:lombok:1.18.8'
+    //Beetl 代码生成使用
+    compile group: 'com.ibeetl', name: 'beetl', version: '2.9.9'
 
 }
