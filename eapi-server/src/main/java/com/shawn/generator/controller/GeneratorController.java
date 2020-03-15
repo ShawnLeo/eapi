@@ -134,7 +134,7 @@ public class GeneratorController {
                     .library(swaggerConfigVO.getLibrary())
                     .generateSupportingFiles(false)
                     .artifactId(swaggerConfigVO.getArtifactId())
-                    .groupId(swaggerConfigVO.getGroupId())
+                    .groupId(swaggerConfigVO.getGroupId()).context(swaggerConfigVO.getContext())
                     .build().generatorController();
 
             // 根据项目Id压缩一份

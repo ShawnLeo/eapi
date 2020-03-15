@@ -20,6 +20,8 @@ public class SwaggerConfigVO implements Serializable {
 
     private String groupId;
 
+    private String context;
+
     public String getLang() {
         return lang;
     }
@@ -82,5 +84,13 @@ public class SwaggerConfigVO implements Serializable {
 
     public void setGroupId(String groupId) {
         this.groupId = groupId;
+    }
+
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
     }
 }

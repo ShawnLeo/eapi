@@ -21,6 +21,7 @@ public class Generator {
     private  Boolean generateSupportingFiles;
     private String groupId;
     private String artifactId;
+    private String context;
 
     public void generatorController() {
         StringBuilder sb = new StringBuilder();
@@ -47,6 +48,10 @@ public class Generator {
         }
 
         sb.append("  --additional-properties hideGenerationTimestamp=true,useBeanValidation=false");
+
+        if (StringUtils.isNoneEmpty(context)) {
+            sb.append(",context=").append(context);
+        }
 
         if (generateSupportingFiles) {
             sb.append(",isGenerateSupportingFiles=true");

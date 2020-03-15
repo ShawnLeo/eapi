@@ -57,6 +57,7 @@ public class AxiosFetchCodegen extends DefaultCodegen implements CodegenConfig {
         if (swagger == null || swagger.getPaths() == null){
             return;
         }
+//        swagger.setVendorExtension("x-context", "/catmax");
         for (String pathname : swagger.getPaths().keySet()) {
             Path path = swagger.getPath(pathname);
             if (path.getOperations() == null){
