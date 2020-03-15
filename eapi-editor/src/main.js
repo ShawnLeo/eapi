@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 
 import iView from 'iview';
-import VueClipboard from 'vue-clipboard2';
+// import VueClipboard from 'vue-clipboard2';
 import store from './store/store';
 import i18n from './locale';
 

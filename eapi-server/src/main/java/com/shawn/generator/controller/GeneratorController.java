@@ -1,5 +1,7 @@
 package com.shawn.generator.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.meimeitech.generator.model.Field;
 import com.shawn.common.vo.Response;
 import com.shawn.generator.tools.ZipFileUtil;
 import com.shawn.generator.tools.mybatis.util.DatabaseUtil;
@@ -8,6 +10,10 @@ import com.shawn.generator.tools.mybatis.util.MybatisGeneratorConfigModel;
 import com.shawn.generator.tools.swagger.Generator;
 import com.shawn.generator.tools.swagger.vo.SwaggerConfigVO;
 import org.apache.commons.io.FileUtils;
+import org.beetl.core.Configuration;
+import org.beetl.core.GroupTemplate;
+import org.beetl.core.Template;
+import org.beetl.core.resource.ClasspathResourceLoader;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -198,7 +204,7 @@ public class GeneratorController {
 
     public String generate(String template, String vueName, Integer rowNum, List<Field> fields) throws IOException {
         // 模板路径
-        ClasspathResourceLoader resourceLoader = new ClasspathResourceLoader("\\beetl\\vue","utf-8");
+        ClasspathResourceLoader resourceLoader = new ClasspathResourceLoader("/beetl/vue","utf-8");
         Configuration cfg = Configuration.defaultConfiguration();
         GroupTemplate gt = new GroupTemplate(resourceLoader, cfg);
 

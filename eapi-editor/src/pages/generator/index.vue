@@ -14,12 +14,12 @@
 					<Menu-Item name="/code/generator/swagger">
 						Swagger生成
 					</Menu-Item>
-					<!--<Menu-Item name="/code/generator/vue">-->
-						<!--Vue生成-->
-					<!--</Menu-Item>-->
-					<!--<Menu-Item name="/code/generator/vuetest">-->
-						<!--Vue测试-->
-					<!--</Menu-Item>-->
+					<Menu-Item name="/code/generator/vue">
+						Vue生成
+					</Menu-Item>
+					<Menu-Item name="/code/generator/vuetest">
+						Vue测试
+					</Menu-Item>
 				</Menu>
 				<div class="clearfix"></div>
 			</div>
@@ -29,8 +29,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-	import {getStore} from '../../utils/storage';
-	import {publishProject, getProjectById, getCustomDataModelList, getDataModelList} from '../../utils/interface';
+	// import {getStore} from '../../utils/storage';
+	// import {publishProject, getProjectById, getCustomDataModelList, getDataModelList} from '../../utils/interface';
 
 	export default {
 		data() {
