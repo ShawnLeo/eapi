@@ -1,3 +1,11 @@
+plugins {
+	id 'org.springframework.boot' version '2.2.5.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+//	id "at.comm_unity.gradle.plugins.jpamodelgen" version "1.1.4"
+//	id "de.undercouch.download" version "3.4.3"
+	id 'java'
+}
+
 project.ext {
 	httpclientVersion = '4.5.3'
 	fastjsonVersion = '1.2.0'
@@ -5,22 +13,36 @@ project.ext {
 	javaxMailVersion = '1.4.7'
 	freemarkerVersion = '2.3.28'
 }
-buildscript {
-	ext {
-		springBootVersion = '2.0.1.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+sourceSets {
+	main {
+		java {
+			srcDir 'src/main/java'
+		}
+		resources {
+			srcDir 'src/main/resources'
+			srcDir "src/main/java"
+			excludes["**/*.java"]
+		}
 	}
 }
+//buildscript {
+//	ext {
+//		springBootVersion = '2.0.1.RELEASE'
+//	}
+//	repositories {
+//		maven {
+//			url "http://maven.aliyun.com/nexus/content/groups/public/"
+//		}
+//	}
+//	dependencies {
+//		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+//	}
+//}
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
+//apply plugin: 'java'
+//apply plugin: 'eclipse'
+//apply plugin: 'org.springframework.boot'
+//apply plugin: 'io.spring.dependency-management'
 
 group = 'com.eagle'
 version = '0.0.1-SNAPSHOT'
