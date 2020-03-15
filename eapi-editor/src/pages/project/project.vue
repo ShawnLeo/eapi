@@ -2,7 +2,11 @@
   <div class="project">
 
     <div class="title">
-      <h2> <Icon type="ios-bookmarks-outline" />  <router-link :to="{path:'/project/list'}"> {{state.project.groupName}}</router-link> / {{state.project.title}}</h2>
+      <h2>
+        <Icon type="ios-bookmarks-outline" />
+        <!--<router-link :to="{path:'/project/list'}"> {{state.project.groupName}}</router-link> -->
+         {{state.project.title}}
+      </h2>
       <!--<h2> <Icon type="ios-bookmarks-outline" />  <router-link :to="{path:'/project/list',query:{groupId:state.project.groupId}}"> {{state.project.groupName}}</router-link> / {{state.project.title}}</h2>-->
       <div></div>
     </div>

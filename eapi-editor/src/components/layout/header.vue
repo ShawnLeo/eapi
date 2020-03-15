@@ -5,15 +5,15 @@
 				<router-link class="fl logo" style="margin-right: 25px;" :to="{path: '/project/list'}">
 					<img width="150" height="50" src="@/assets/img/logo1.png">
 				</router-link>
-				<div class="fl search-input">
-					<Form ref="formInline" inline v-bind:class="{ 'search-input-select': searchSelect }">
-						<FormItem prop="user">
-							<i-input type="text" placeholder="搜索项目或项目组"
-								@on-search="searchSelectFn()"
-								@on-focus="searchSelect = true" @on-blur="searchSelect = false" search></i-input>
-						</FormItem>
-					</Form>
-				</div>
+				<!--<div class="fl search-input">-->
+					<!--<Form ref="formInline" inline v-bind:class="{ 'search-input-select': searchSelect }">-->
+						<!--<FormItem prop="user">-->
+							<!--<i-input type="text" placeholder="搜索项目或项目组"-->
+								<!--@on-search="searchSelectFn()"-->
+								<!--@on-focus="searchSelect = true" @on-blur="searchSelect = false" search></i-input>-->
+						<!--</FormItem>-->
+					<!--</Form>-->
+				<!--</div>-->
 
 				<Menu ref="mainMenus" mode="horizontal" theme="dark" :active-name="$route.meta.menuActive" class="fl"
 					@on-select="selectFn">

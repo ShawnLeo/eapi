@@ -12,6 +12,7 @@
     "animate.css": "^3.7.2",
     "axios": "^0.18.1",
     "iview": "^3.5.4",
+    "monaco-editor": "^0.20.0",
     "swagger-ui": "^3.24.3",
     "vue": "^2.6.11",
     "vue-clipboard2": "^0.3.1",

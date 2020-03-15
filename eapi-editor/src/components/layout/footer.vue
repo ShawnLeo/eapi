@@ -1,6 +1,6 @@
 <template>
     <Footer class="layout-footer-center">
-      2018-2019 &copy; <a>EagleApi</a>
+      2018-2020 &copy; <a>Shawn</a>
     </Footer>
 </template>
 

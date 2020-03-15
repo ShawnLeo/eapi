@@ -52,10 +52,10 @@ public class ProjectService {
     private DataModelService dataModelService;
 
     public Response list(String groupId) {
-        UserSession user = UserContextHolder.getContext();
+//        UserSession user = UserContextHolder.getContext();
         List<Project> projects;
         if ("all".equals(groupId)) {
-            projects = projectRepository.findAllGroups(user.getId().toString());
+            projects = projectRepository.findAllGroups();
         } else {
             projects = projectRepository.findByGroupId(groupId);
         }
@@ -115,11 +115,11 @@ public class ProjectService {
 
         BeanUtils.copyProperties(project, projectVo);
 
-        Group group = groupRepository.findById(project.getGroupId()).get();
-
-        if(group != null) {
-            projectVo.setGroupName(group.getName());
-        }
+//        Group group = groupRepository.findById(project.getGroupId()).get();
+//
+//        if(group != null) {
+//            projectVo.setGroupName(group.getName());
+//        }
 
         return Response.success(projectVo);
     }

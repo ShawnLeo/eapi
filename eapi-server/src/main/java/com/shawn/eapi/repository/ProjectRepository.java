@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface ProjectRepository extends JpaRepository<Project, String>,JpaSpecificationExecutor<Project> {
 
-    @Query("select p from Project p where p.groupId in ( select gu.groupId from GroupUser gu where gu.userId = ?1) ")
-    List<Project> findAllGroups(String userId);
+    @Query("select p from Project p")
+    List<Project> findAllGroups();
 
     List<Project> findByGroupId(String groupId);
 }

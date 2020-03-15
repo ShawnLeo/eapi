@@ -49,7 +49,7 @@ spring:
       settings:
         web-allow-others: true
 host:
-  server: http://localhost:8080
+  server: http://localhost:7060
 swagger:
   host: localhost:7050
   contact-email: easyapi@163.com
@@ -74,7 +74,7 @@ spring:
     password: sa
     data: classpath:sql/data.sql
 host:
-  server: http://118.25.0.116:7051/index.html
+  server: http://193.112.105.8/static/eapi-editor/latest/index.html
 swagger:
-  host: 118.25.0.116:7051
+  host: 193.112.105.8:7050
   contact-email: easyapi@163.com
