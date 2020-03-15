@@ -1,7 +1,7 @@
 package com.shawn.generator.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.meimeitech.generator.model.Field;
+import com.shawn.generator.model.Field;
 import com.shawn.common.vo.Response;
 import com.shawn.generator.tools.ZipFileUtil;
 import com.shawn.generator.tools.mybatis.util.DatabaseUtil;
@@ -19,7 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.spring.web.json.JsonSerializer;
 
 import java.io.File;
 import java.io.IOException;

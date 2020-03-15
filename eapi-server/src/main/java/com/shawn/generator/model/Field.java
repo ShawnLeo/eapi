@@ -1,4 +1,4 @@
-package com.meimeitech.generator.model;
+package com.shawn.generator.model;
 
 import lombok.Data;
 
