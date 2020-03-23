@@ -222,15 +222,23 @@ const router = new Router({
           subMenuActive: '/code/generator/vuetest'
         },
         component: () => import('../pages/generator/swagger/vueTest.vue')
-      }, {
-        path: '/code/generator/template',
-        name: 'codeGeneratorTemplate',
-        meta: {
-          menuActive: '/code/generator',
-          subMenuActive: '/code/generator/template'
-        },
-        component: () => import('../pages/generator/template/edit.vue')
       }]
+    }, {
+      path: '/template/list',
+      name: 'template-list',
+      meta: {
+        menuActive: '/template/list'
+        // subMenuActive: '/code/generator/template'
+      },
+      component: () => import('../pages/template/list.vue')
+    }, {
+      path: '/template/edit',
+      name: 'template-edit',
+      meta: {
+        menuActive: '/template/list'
+        // subMenuActive: '/code/generator/template'
+      },
+      component: () => import('../pages/template/edit.vue')
     }]
   }, {
     path: '/swagger',

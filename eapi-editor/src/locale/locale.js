@@ -15,7 +15,8 @@ export default {
       index: '首页',
       projects: '项目管理',
       document: '文档',
-			codegen: '代码生成'
+			codegen: '代码生成',
+      template: '模板管理'
     },
     switchLangTitle: '切换语言',
 		login: {
@@ -131,7 +132,10 @@ export default {
     },
     menus: {
       index: '首頁',
-      projects: '項目管理'
+      projects: '項目管理',
+      document: '文档',
+      codegen: '代码生成',
+      template: '模板管理'
     },
     switchLangTitle: '切換語言'
   },
@@ -150,7 +154,8 @@ export default {
       index: 'INDEX',
       projects: 'PROJECT',
 			document: 'DOCUMENT',
-			codegen: 'CODEGEN'
+			codegen: 'CODEGEN',
+      template: 'TEMPLATE'
     },
     switchLangTitle: 'Switch Lang'
   }

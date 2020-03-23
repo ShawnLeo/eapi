@@ -22,7 +22,7 @@ public class DataModelController {
      * @param dataModel
      * @return
      */
-    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     public Response update(@RequestBody DataModel dataModel) {
         return dataModelService.update(dataModel);
     }

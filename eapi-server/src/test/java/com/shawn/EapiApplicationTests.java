@@ -1,15 +1,13 @@
-package com.shawn.eapi;
+package com.shawn;
 
+import java.io.IOException;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class EapiApplicationTests {
 
@@ -19,6 +17,11 @@ public class EapiApplicationTests {
 	private MailProperties mailProperties;
 
 	@Test
+	public void fileTree() throws IOException {
+
+
+
+	}
 	public void contextLoads() {
 
 		SimpleMailMessage message = new SimpleMailMessage();

@@ -56,6 +56,7 @@
 
 <style lang="less">
 	.project {
+		min-height: 700px;
 		.title {
 			margin-bottom: 15px;
 		}

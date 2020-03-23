@@ -22,13 +22,18 @@
 					<!--{{ $t("menus.index") }}-->
 					<!--</Menu-Item>-->
 					<Menu-Item name="/project/list">
-						<Icon type="ios-paper"/>
+						<Icon type="md-apps" />
 						{{ $t("menus.projects") }}
 					</Menu-Item>
 
 					<Menu-Item name="/code/generator">
 						<Icon type="md-archive"/>
 						{{ $t("menus.codegen") }}
+					</Menu-Item>
+
+					<Menu-Item name="/template/list">
+						<Icon type="ios-paper"/>
+						{{ $t("menus.template") }}
 					</Menu-Item>
 
 					<Menu-Item name="https://github.com/ShawnLeo/eapi">
