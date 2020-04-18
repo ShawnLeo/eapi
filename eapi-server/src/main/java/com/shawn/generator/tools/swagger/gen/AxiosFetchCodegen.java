@@ -1,8 +1,10 @@
 package com.shawn.generator.tools.swagger.gen;
 
 import io.swagger.codegen.*;
+import io.swagger.models.Model;
 import io.swagger.models.Operation;
 import io.swagger.models.Path;
+import io.swagger.models.RefModel;
 import io.swagger.models.Swagger;
 import io.swagger.models.parameters.BodyParameter;
 import io.swagger.models.parameters.FormParameter;
@@ -79,8 +81,11 @@ public class AxiosFetchCodegen extends DefaultCodegen implements CodegenConfig {
                     String contentType =  operation.getConsumes() == null || operation.getConsumes().isEmpty() ? defaultContentType : operation.getConsumes().get(0);
                     operation.setVendorExtension("x-contentType", contentType);
                 }
-//                String accepts = getAccept(operation);
-//                operation.setVendorExtension("x-accepts", accepts);
+                Model aDefault = operation.getResponses().get("default").getResponseSchema();
+
+                if (aDefault instanceof RefModel && ((RefModel)aDefault).getSimpleRef().equals("file")) {
+                    operation.setVendorExtension("x-file-response", true);
+                }
             }
         }
 
