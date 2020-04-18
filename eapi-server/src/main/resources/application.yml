@@ -2,6 +2,8 @@ spring.profiles.active: dev
 
 server:
   port: 7050
+  servlet:
+    context-path: /eapi
 logging:
   level:
     com.shawn: debug
