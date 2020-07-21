@@ -15,47 +15,57 @@
                 <%
                 if(item.searchType=="text"){
                 %>
-                <Form-item label="${item.name}" prop="${item.field}">
-                  <Input type="text" v-model="searchForm.${item.field}" placeholder="请输入${item.name}" clearable style="width: 200px"/>
-                </Form-item>
+                <i-col span="8">
+                  <Form-item label="${item.name}" prop="${item.field}">
+                    <Input type="text" v-model="searchForm.${item.field}" placeholder="请输入${item.name}" clearable style="width: 200px"/>
+                  </Form-item>
+                </i-col>
                 <%
                 }
                 %>
                 <%
                 if(item.searchType=="select"){
                 %>
-                <Form-item label="${item.name}" prop="${item.field}">
-                  <Select v-model="searchForm.${item.field}" placeholder="请选择" clearable style="width: 200px">
-                    <Option value="0">请自行编辑下拉菜单</Option>
-                  </Select>
-                </Form-item>
+                <i-col span="8">
+                  <Form-item label="${item.name}" prop="${item.field}">
+                    <Select v-model="searchForm.${item.field}" placeholder="请选择" clearable style="width: 200px">
+                      <Option value="0">请自行编辑下拉菜单</Option>
+                    </Select>
+                  </Form-item>
+                </i-col>
                 <%
                 }
                 %>
                 <%
                 if(item.searchType=="date"){
                 %>
-                <Form-item label="${item.name}" prop="${item.field}">
-                  <DatePicker type="date" v-model="searchForm.${item.field}" placeholder="请选择" clearable style="width: 200px"></DatePicker>
-                </Form-item>
+                <i-col span="8">
+                  <Form-item label="${item.name}" prop="${item.field}">
+                    <DatePicker type="date" v-model="searchForm.${item.field}" placeholder="请选择" clearable style="width: 200px"></DatePicker>
+                  </Form-item>
+                </i-col>
                 <%
                 }
                 %>
                 <%
                 if(item.searchType=="daterange"){
                 %>
-                <Form-item label="${item.name}" prop="${item.field}">
-                  <DatePicker v-model="selectDate" type="daterange" format="yyyy-MM-dd" clearable @on-change="selectDateRange" placeholder="选择起始时间" style="width: 200px"></DatePicker>
-                </Form-item>
+                <i-col span="8">
+                  <Form-item label="${item.name}" prop="${item.field}">
+                    <DatePicker v-model="selectDate" type="daterange" format="yyyy-MM-dd" clearable @on-change="selectDateRange" placeholder="选择起始时间" style="width: 200px"></DatePicker>
+                  </Form-item>
+                </i-col>
                 <%
                 }
                 %>
                 <%
                 if(item.searchType=="area"){
                 %>
-                <Form-item label="${item.name}" prop="${item.field}">
-                  <al-cascader v-model="searchForm.${item.field}" data-type="code" level="${item.searchLevel}" style="width:200px"/>
-                </Form-item>
+                <i-col span="8">
+                  <Form-item label="${item.name}" prop="${item.field}">
+                    <al-cascader v-model="searchForm.${item.field}" data-type="code" level="${item.searchLevel}" style="width:200px"/>
+                  </Form-item>
+                </i-col>
                 <%
                 }
                 %>
@@ -63,10 +73,12 @@
               }
             }
             %>
-              <Form-item style="margin-left:-35px;" class="br">
-                <Button @click="handleSearch" type="primary" icon="ios-search">搜索</Button>
-                <Button @click="handleReset">重置</Button>
-              </Form-item>
+              <i-col span="7">
+                <Form-item style="margin-left:-35px;" class="br">
+                  <Button @click="handleSearch" type="primary" icon="ios-search">搜索</Button>&nbsp;
+                  <Button @click="handleReset">重置</Button>
+                </Form-item>
+              </i-col>
             </Form>
           </Row>
           <%
@@ -83,101 +95,121 @@
               <%
               if(item.searchType=="text"){
               %>
-              <Form-item label="${item.name}" prop="${item.field}">
-                <Input type="text" v-model="searchForm.${item.field}" placeholder="请输入${item.name}" clearable style="width: 200px"/>
-              </Form-item>
+              <i-col span="8">
+                <Form-item label="${item.name}" prop="${item.field}">
+                  <Input type="text" v-model="searchForm.${item.field}" placeholder="请输入${item.name}" clearable style="width: 200px"/>
+                </Form-item>
+              </i-col>
               <%
               }
               %>
               <%
               if(item.searchType=="select"){
               %>
-              <Form-item label="${item.name}" prop="${item.field}">
-                <Select v-model="searchForm.${item.field}" placeholder="请选择" clearable style="width: 200px">
-                  <Option value="0">请自行编辑下拉菜单</Option>
-                </Select>
-              </Form-item>
+              <i-col span="8">
+                <Form-item label="${item.name}" prop="${item.field}">
+                  <Select v-model="searchForm.${item.field}" placeholder="请选择" clearable style="width: 200px">
+                    <Option value="0">请自行编辑下拉菜单</Option>
+                  </Select>
+                </Form-item>
+              </i-col>
               <%
               }
               %>
               <%
               if(item.searchType=="date"){
               %>
-              <Form-item label="${item.name}" prop="${item.field}">
-                <DatePicker type="date" v-model="searchForm.${item.field}" placeholder="请选择" clearable style="width: 200px"></DatePicker>
-              </Form-item>
+              <i-col span="8">
+                <Form-item label="${item.name}" prop="${item.field}">
+                  <DatePicker type="date" v-model="searchForm.${item.field}" placeholder="请选择" clearable style="width: 200px"></DatePicker>
+                </Form-item>
+              </i-col>
               <%
               }
               %>
               <%
               if(item.searchType=="daterange"){
               %>
-              <Form-item label="${item.name}" prop="${item.field}">
-                <DatePicker v-model="selectDate" type="daterange" format="yyyy-MM-dd" clearable @on-change="selectDateRange" placeholder="选择起始时间" style="width: 200px"></DatePicker>
-              </Form-item>
+              <i-col span="8">
+                <Form-item label="${item.name}" prop="${item.field}">
+                  <DatePicker v-model="selectDate" type="daterange" format="yyyy-MM-dd" clearable @on-change="selectDateRange" placeholder="选择起始时间" style="width: 200px"></DatePicker>
+                </Form-item>
+              </i-col>
               <%
               }
               %>
               <%
               if(item.searchType=="area"){
               %>
-              <Form-item label="${item.name}" prop="${item.field}">
-                <al-cascader v-model="searchForm.${item.field}" data-type="code" level="${item.searchLevel}" style="width:200px"/>
-              </Form-item>
+              <i-col span="8">
+                <Form-item label="${item.name}" prop="${item.field}">
+                  <al-cascader v-model="searchForm.${item.field}" data-type="code" level="${item.searchLevel}" style="width:200px"/>
+                </Form-item>
+              </i-col>
               <%
               }
               %>
             <%
             }
             %>
-              <span v-if="drop">
+              <span v-if="show">
               <%
               for(item in rest){
               %>
                 <%
                 if(item.searchType=="text"){
                 %>
-                <Form-item label="${item.name}" prop="${item.field}">
-                  <Input type="text" v-model="searchForm.${item.field}" placeholder="请输入${item.name}" clearable style="width: 200px"/>
-                </Form-item>
+                <i-col span="8">
+                  <Form-item label="${item.name}" prop="${item.field}">
+                    <Input type="text" v-model="searchForm.${item.field}" placeholder="请输入${item.name}" clearable style="width: 200px"/>
+                  </Form-item>
+                </i-col>
                 <%
                 }
                 %>
                 <%
                 if(item.searchType=="select"){
                 %>
-                <Form-item label="${item.name}" prop="${item.field}">
-                  <Select v-model="searchForm.${item.field}" placeholder="请选择" clearable style="width: 200px">
-                    <Option value="0">请自行编辑下拉菜单</Option>
-                  </Select>
-                </Form-item>
+                <i-col span="8">
+                  <Form-item label="${item.name}" prop="${item.field}">
+                    <Select v-model="searchForm.${item.field}" placeholder="请选择" clearable style="width: 200px">
+                      <Option value="0">请自行编辑下拉菜单</Option>
+                    </Select>
+                  </Form-item>
+                </i-col>
                 <%
                 }
                 %>
                 <%
                 if(item.searchType=="date"){
                 %>
-                <Form-item label="${item.name}" prop="${item.field}">
-                  <DatePicker type="date" v-model="searchForm.${item.field}" placeholder="请选择" clearable style="width: 200px"></DatePicker>
-                </Form-item>
+                <i-col span="8">
+                  <Form-item label="${item.name}" prop="${item.field}">
+                    <DatePicker type="date" v-model="searchForm.${item.field}" placeholder="请选择" clearable style="width: 200px"></DatePicker>
+                  </Form-item>
+                </i-col>
                 <%
                 }
                 %>
                 <%
                 if(item.searchType=="daterange"){
                 %>
-                <Form-item label="${item.name}" prop="${item.field}">
-                  <DatePicker v-model="selectDate" type="daterange" format="yyyy-MM-dd" clearable @on-change="selectDateRange" placeholder="选择起始时间" style="width: 200px"></DatePicker>
-                </Form-item>
+                <i-col span="8">
+                  <Form-item label="${item.name}" prop="${item.field}">
+                    <DatePicker v-model="selectDate" type="daterange" format="yyyy-MM-dd" clearable @on-change="selectDateRange" placeholder="选择起始时间" style="width: 200px"></DatePicker>
+                  </Form-item>
+                </i-col>
                 <%
                 }
                 %>
                 <%
                 if(item.searchType=="area"){
                 %>
-                <Form-item label="${item.name}" prop="${item.field}">
-                  <al-cascader v-model="searchForm.${item.field}" data-type="code" level="${item.searchLevel}" style="width:200px"/>
-                </Form-item>
+                <i-col span="8">
+                  <Form-item label="${item.name}" prop="${item.field}">
+                    <al-cascader v-model="searchForm.${item.field}" data-type="code" level="${item.searchLevel}" style="width:200px"/>
+                  </Form-item>
+                </i-col>
                 <%
                 }
                 %>
@@ -185,23 +217,29 @@
               }
               %>
               </span>
-              <Form-item style="margin-left:-35px;" class="br">
-                <Button @click="handleSearch" type="primary" icon="ios-search">搜索</Button>
-                <Button @click="handleReset">重置</Button>
-                <a class="drop-down" @click="dropDown">
-                  {{dropDownContent}}
-                  <Icon :type="dropDownIcon"></Icon>
+              <i-col span="8">
+                <Form-item style="margin-left:-35px;" class="br">
+                  <Button @click="handleSearch" type="primary" icon="ios-search">搜索</Button>&nbsp;
+                  <Button @click="handleReset">重置</Button>
+                </Form-item>
+              </i-col>
+
+              <i-col span="24" style="text-align: center;">
+                <a class="expend" @click="show = !show">
+                  <span v-if="!show">展开</span><span v-if="show">合并</span>筛选
+                  <Icon type="ios-arrow-down" v-if="!show"/>
+                  <Icon type="ios-arrow-up" v-if="show"/>
                 </a>
-              </Form-item>
+              </i-col>
             </Form>
           </Row>
           <%
           }
           %>
           <Row class="operation">
-            <Button @click="add" type="primary" icon="md-add">添加</Button>
-            <Button @click="delAll" icon="md-trash">批量删除</Button>
-            <Button @click="getDataList" icon="md-refresh">刷新</Button>
+            <Button @click="add" type="primary" icon="md-add">添加</Button>&nbsp;
+            <Button @click="delAll" icon="md-trash">批量删除</Button>&nbsp;
+            <Button @click="getDataList" icon="md-refresh">刷新</Button>&nbsp;
             <circleLoading v-if="operationLoading"/>
           </Row>
           <Row>
@@ -351,14 +389,12 @@ export default {
       modalVisible: false, // 添加或编辑显示
       modalTitle: "", // 添加或编辑标题
       <% if(hideSearch) { %>
-      drop: false,
-      dropDownContent: "展开",
-      dropDownIcon: "ios-arrow-down",
+      show: false,
       <% } %>
       searchForm: { // 搜索框初始化对象
         currentPage: 1, // 当前页数
-        pageSize: 10, // 页面大小
-        sort: "createTime", // 默认排序字段
+        pageSize: 20, // 页面大小
+        sort: "create_time", // 默认排序字段
         order: "desc", // 默认排序方式
         search:{},
         <% if(daterangeSearch){ %>
@@ -504,7 +540,7 @@ export default {
       ],
       data: [], // 表单数据
       currentPage: 1, // 当前页数
-      pageSize: 10, // 页面大小
+      pageSize: 20, // 页面大小
       total: 0 // 表单数据总数
     };
   },
@@ -523,21 +559,21 @@ export default {
     },
     handleSearch() {
       this.searchForm.currentPage = 1;
-      this.searchForm.pageSize = 10;
+      this.searchForm.pageSize = 20;
       this.getDataList();
     },
     handleReset() {
       this.$refs.searchForm.resetFields();
       this.searchForm.currentPage = 1;
-      this.searchForm.pageSize = 10;
+      this.searchForm.pageSize = 20;
       <% if(daterangeSearch){ %>
       this.selectDate = null;
       this.searchForm.startDate = "";
       this.searchForm.endDate = "";
       this.searchForm = {
         currentPage: 1, // 当前页数
-        pageSize: 10, // 页面大小
-        sort: "createTime", // 默认排序字段
+        pageSize: 20, // 页面大小
+        sort: "create_time", // 默认排序字段
         order: "desc", // 默认排序方式
       };
       <% } %>
@@ -567,18 +603,6 @@ export default {
       }
     },
     <% } %>
-    <% if(hideSearch){ %>
-    dropDown() {
-      if (this.drop) {
-        this.dropDownContent = "展开";
-        this.dropDownIcon = "ios-arrow-down";
-      } else {
-        this.dropDownContent = "收起";
-        this.dropDownIcon = "ios-arrow-up";
-      }
-      this.drop = !this.drop;
-    },
-    <% } %>
     getDataList() {
       this.loading = true;
 
@@ -589,8 +613,7 @@ export default {
       //   this.total = Number.parseInt(res.data.total, 10);
       // });
       // 以下为模拟数据
-      //this.data = [
-      //];
+      //this.data = [];
       this.total = this.data.length;
       this.loading = false;
     },
@@ -601,13 +624,11 @@ export default {
           if (this.modalType === 0) {
             // 添加 避免编辑后传入id等数据 记得删除
             delete this.form.id;
-            // this.postRequest("请求地址", this.form).then(res => {
-            //   this.submitLoading = false;
-            //   if (res.success === true) {
+            // postRequest(this.form, (res) => {
+            //     this.submitLoading = false;
             //     this.$Message.success("新增成功");
             //     this.getDataList();
             //     this.modalVisible = false;
-            //   }
             // });
             // 模拟请求成功
             this.submitLoading = false;
@@ -616,13 +637,11 @@ export default {
             this.modalVisible = false;
           } else {
             // 编辑
-            // this.postRequest("请求地址", this.form).then(res => {
+            // postRequest(this.form, (res) => {
             //   this.submitLoading = false;
-            //   if (res.success === true) {
-            //     this.$Message.success("更新成功");
-            //     this.getDataList();
-            //     this.modalVisible = false;
-            //   }
+            //   this.$Message.success("更新成功");
+            //   this.getDataList();
+            //   this.modalVisible = false;
             // });
             // 模拟更新成功
             this.submitLoading = false;
@@ -663,13 +682,11 @@ export default {
         onOk: () => {
           // 删除
           // this.operationLoading = true;
-          // this.deleteRequest("请求地址，如/deleteByIds/" + v.id).then(res => {
-          // this.operationLoading = false;
-          //   if (res.success === true) {
-          //     this.$Message.success("删除成功");
-          //     this.clearSelectAll();
-          //     this.getDataList();
-          //   }
+          // deleteById({id: v.id}, (res) => {
+          //   this.operationLoading = false;
+          //   this.$Message.success("删除成功");
+          //   this.clearSelectAll();
+          //   this.getDataList();
           // });
           // 模拟删除成功
           this.$Message.success("模拟删除成功");
@@ -693,13 +710,11 @@ export default {
           ids = ids.substring(0, ids.length - 1);
           // 批量删除
           // this.operationLoading = true;
-          // this.deleteRequest("请求地址，如/deleteByIds/" + ids).then(res => {
-          // this.operationLoading = false;
-          //   if (res.success === true) {
-          //     this.$Message.success("批量删除成功");
-          //     this.clearSelectAll();
-          //     this.getDataList();
-          //   }
+          // deleteByIds({ids: ids}, () => {
+          //   this.operationLoading = false;
+          //   this.$Message.success("批量删除成功");
+          //   this.clearSelectAll();
+          //   this.getDataList();
           // });
           // 模拟删除成功
           this.$Message.success("模拟删除成功");
@@ -729,10 +744,6 @@ export default {
     }
     .page {
         margin-top: 2vh;
-    }
-    .drop-down {
-        font-size: 13px;
-        margin-left: 5px;
     }
 }
 </style>

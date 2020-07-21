@@ -268,8 +268,8 @@ public class GeneratorController {
         tableTemplate.binding("rowNum", rowNum);
         if(rowNum==1){
             tableTemplate.binding("modalWidth", 500);
-            tableTemplate.binding("width", "100%");
-            tableTemplate.binding("editWidth", "100%");
+            tableTemplate.binding("width", "90%");
+            tableTemplate.binding("editWidth", "90%");
             tableTemplate.binding("itemWidth", "");
             tableTemplate.binding("span", "9");
         }else if(rowNum==2){
