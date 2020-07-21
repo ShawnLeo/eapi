@@ -539,6 +539,7 @@
 					tagIds.push(tag.id);
 				});
 				this.copyInterfaceItem.tagIds = tagIds;
+				this.copyInterfaceItem.status = 100;
 			}
 		},
 		mounted() {
