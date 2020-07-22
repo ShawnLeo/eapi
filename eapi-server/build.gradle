@@ -1,27 +1,27 @@
 plugins {
-	id 'org.springframework.boot' version '2.2.5.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-	id 'java'
+    id 'org.springframework.boot' version '2.2.5.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
 }
 
 project.ext {
-	httpclientVersion = '4.5.3'
-	fastjsonVersion = '1.2.0'
-	springfoxVersion = '2.7.0'
-	javaxMailVersion = '1.4.7'
-	freemarkerVersion = '2.3.28'
+    httpclientVersion = '4.5.3'
+    fastjsonVersion = '1.2.0'
+    springfoxVersion = '2.7.0'
+    javaxMailVersion = '1.4.7'
+    freemarkerVersion = '2.3.28'
 }
 sourceSets {
-	main {
-		java {
-			srcDir 'src/main/java'
-		}
-		resources {
-			srcDir 'src/main/resources'
-			srcDir "src/main/java"
-			excludes["**/*.java"]
-		}
-	}
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+            srcDir "src/main/java"
+            excludes["**/*.java"]
+        }
+    }
 }
 
 group = 'com.eagle'
@@ -30,55 +30,52 @@ sourceCompatibility = 1.8
 
 repositories {
 //	mavenCentral()
-	maven {
-		url "http://maven.aliyun.com/nexus/content/repositories/central"
-	}
+    maven {
+        url "http://maven.aliyun.com/nexus/content/repositories/central"
+    }
 
 }
 configurations {
-	all*.exclude group: 'org.springframework.boot',module: 'spring-boot-starter-logging'
+    all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 }
 dependencies {
 
-	if(new File(project(':').projectDir, 'eapi-editor').exists()){
-		runtime project(":eapi-editor")
-	}
-	compile "com.alibaba:fastjson:$fastjsonVersion"
-	compile ("com.h2database:h2:1.4.197")
-	compile('io.jsonwebtoken:jjwt:0.7.0')
-	compile ("io.springfox:springfox-swagger2:$springfoxVersion"){
-		exclude group: 'org.slf4j'
-	}
-	compile ('io.swagger:swagger-codegen:2.4.4'){
-		exclude group: 'org.slf4j'
-	}
+    compile project(":eapi-web")
+    compile "com.alibaba:fastjson:$fastjsonVersion"
+    compile("com.h2database:h2:1.4.197")
+    compile('io.jsonwebtoken:jjwt:0.7.0')
+    compile("io.springfox:springfox-swagger2:$springfoxVersion") {
+        exclude group: 'org.slf4j'
+    }
+    compile('io.swagger:swagger-codegen:2.4.4') {
+        exclude group: 'org.slf4j'
+    }
 
-	compile "javax.mail:mail:$javaxMailVersion"
-	compile 'io.airlift:airline:0.7'
-	compile 'com.googlecode.lambdaj:lambdaj:2.3.3'
-	compile 'commons-io:commons-io:2.6'
-	compile 'mysql:mysql-connector-java:5.1.47'
+    compile "javax.mail:mail:$javaxMailVersion"
+    compile 'io.airlift:airline:0.7'
+    compile 'com.googlecode.lambdaj:lambdaj:2.3.3'
+    compile 'commons-io:commons-io:2.6'
+    compile 'mysql:mysql-connector-java:5.1.47'
 
-	compile 'tk.mybatis:mapper-generator:1.1.5'
-	compile 'org.apache.commons:commons-text:1.6'
-	compile 'org.apache.commons:commons-compress:1.18'
-	compile "org.apache.commons:commons-lang3:3.6"
-	compile "org.apache.httpcomponents:httpclient:$httpclientVersion"
-	compile 'org.mybatis.generator:mybatis-generator-core:1.3.5'
+    compile 'tk.mybatis:mapper-generator:1.1.5'
+    compile 'org.apache.commons:commons-text:1.6'
+    compile 'org.apache.commons:commons-compress:1.18'
+    compile "org.apache.commons:commons-lang3:3.6"
+    compile "org.apache.httpcomponents:httpclient:$httpclientVersion"
+    compile 'org.mybatis.generator:mybatis-generator-core:1.3.5'
 
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework.boot:spring-boot-starter-freemarker')
-	compile('org.springframework.boot:spring-boot-starter-mail')
-	compile("org.springframework.boot:spring-boot-starter-security")
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.boot:spring-boot-starter-log4j2')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-freemarker')
+    compile('org.springframework.boot:spring-boot-starter-mail')
+    compile("org.springframework.boot:spring-boot-starter-security")
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-log4j2')
 
-	//Beetl 代码生成使用
-	compile 'com.ibeetl:beetl:2.9.9'
+    //Beetl 代码生成使用
+    compile 'com.ibeetl:beetl:2.9.9'
 
 
-
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
     compileOnly 'org.projectlombok:lombok:1.18.8'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.8'

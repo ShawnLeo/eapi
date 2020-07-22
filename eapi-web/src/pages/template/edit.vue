@@ -659,7 +659,7 @@
           reader.onload = (e) => {
             // console.info();
             this.fileValue = e.target.result;
-          }
+          };
         });
         // if (v.length > 0) {
         //   // 转换null为""

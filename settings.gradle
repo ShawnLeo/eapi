@@ -8,5 +8,5 @@ pluginManagement {
 
 rootProject.name = 'eapi'
 
-include 'eapi-editor'
+include 'eapi-web'
 include 'eapi-server'

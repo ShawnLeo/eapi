@@ -134,12 +134,12 @@
       }
     },
     watch: {
-			value: {
-				handler() {
-				  // console.log(this.value)
-					this.init();
-				}
-			}
+      value: {
+        handler() {
+          // console.log(this.value)
+          this.init();
+        }
+      }
 
     }
   };
@@ -151,6 +151,7 @@
     height: 800px;
     overflow: hidden;
     border: 1px solid #eaeaea;
+
     .monaco-editor .scroll-decoration {
       box-shadow: none;
     }

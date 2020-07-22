@@ -51,11 +51,11 @@ spring:
   profiles: dev
   resources:
     static_locations:
-      - file:eapi-editor/dist/
+      - file:eapi-web/dist/
 #  devtools:
 #    restart:
 #      additional_paths:
-#        - eapi-editor/dist/
+#        - eapi-web/dist/
 #      additional_exclude: "**/*.js,**/*.css,**/*.html"
   h2:
     server:

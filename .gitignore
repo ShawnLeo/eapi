@@ -1,5 +1,7 @@
+.DS_Store
 .gradle
-/build/
+*/build/
+/code_gen_temp/
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
@@ -26,10 +28,10 @@
 /.nb-gradle/
 /out/
 /db/
-/code_gen_temp/
 
 
-.DS_Store
+
+
 node_modules
 /dist
 
