@@ -40,7 +40,6 @@ configurations {
 }
 dependencies {
 
-    compile project(":eapi-web")
     compile "com.alibaba:fastjson:$fastjsonVersion"
     compile("com.h2database:h2:1.4.197")
     compile('io.jsonwebtoken:jjwt:0.7.0')
@@ -70,11 +69,10 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-security")
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-log4j2')
-
     //Beetl 代码生成使用
     compile 'com.ibeetl:beetl:2.9.9'
 
-
+    runtime project(":eapi-web")
     testCompile('org.springframework.boot:spring-boot-starter-test')
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
     compileOnly 'org.projectlombok:lombok:1.18.8'
@@ -82,4 +80,11 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.8'
 
 
+}
+
+jar.dependsOn project(':eapi-web').getTasksByName('npmBuild', false)
+processResources {
+    from(project(':eapi-web').file('dist').path) {
+        into 'static'
+    }
 }

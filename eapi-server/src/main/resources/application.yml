@@ -1,4 +1,4 @@
-spring.profiles.active: dev
+#spring.profiles.active: dev
 
 server:
   port: 7050
@@ -16,6 +16,15 @@ logging:
   level:
     com.shawn: debug
 spring:
+  h2:
+    server:
+      enabled: true
+      args: -tcp -web
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
   jpa:
     hibernate:
       ddl-auto: update
@@ -45,6 +54,11 @@ spring:
   freemarker:
     template-loader-path: classpath:/freemarker
     suffix: .ftl
+host:
+  server: http://193.112.105.8/static/eapi-editor/latest/index.html
+swagger:
+  host: 193.112.105.8:7050
+  contact-email: easyapi@163.com
 
 ---
 spring:
@@ -57,42 +71,8 @@ spring:
 #      additional_paths:
 #        - eapi-web/dist/
 #      additional_exclude: "**/*.js,**/*.css,**/*.html"
-  h2:
-    server:
-      enabled: true
-      args: -tcp -web
-    console:
-      enabled: true
-      path: /h2-console
-      settings:
-        web-allow-others: true
 host:
   server: http://localhost:7050/eapi
 swagger:
   host: localhost:7050
-  contact-email: easyapi@163.com
-
----
-spring:
-  profiles: prod
-  h2:
-    server:
-      enabled: true
-      args: -tcp -web
-    console:
-      enabled: true
-      path: /h2-console
-      settings:
-        web-allow-others: true
-  datasource:
-    driver-class-name: org.h2.Driver
-#    url: jdbc:h2:file:~/.h2/swagger-ziroom;AUTO_SERVER=TRUE
-    url: jdbc:h2:tcp://127.0.0.1:9092/~/.h2/swagger
-    username: sa
-    password: sa
-    data: classpath:sql/data.sql
-host:
-  server: http://193.112.105.8/static/eapi-editor/latest/index.html
-swagger:
-  host: 193.112.105.8:7050
   contact-email: easyapi@163.com
