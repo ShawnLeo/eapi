@@ -33,7 +33,7 @@ cd eapi-server/build/libs && java -jar  eapi-server-0.0.1-SNAPSHOT.jar
 ```
 cd eapi-web && npm run serve
 ```
-### Step 2: Start Server
+#### Step 2: Start Server
  Run Java Application EapiApplication
  
    App running at:
