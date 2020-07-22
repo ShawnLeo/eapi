@@ -52,7 +52,7 @@
 	import {getProjectList, generatorSwaggerGen, generatorSwaggerDownload} from '../../../utils/interface';
 	import {setStore, getStore} from '../../../utils/storage';
 	import * as consts from '../../../utils/const';
-	import {baseUrl} from '../../../utils/env';
+	import {realBaseUrl} from '../../../utils/env';
 	import springBoot from '../../../components/generator/config/spring-boot';
 	import axios from '../../../components/generator/config/axios';
 
@@ -129,7 +129,7 @@
 											click: () => {
 												this.modalVisible = true;
 												this.swaggerConfig.targetProjectId = params.row.id;
-												this.swaggerConfig.targetProject = baseUrl + '/v2/api-docs/' +params.row.id + '?type=SWAGGER_JSON';
+												this.swaggerConfig.targetProject = realBaseUrl + '/v2/api-docs/' +params.row.id + '?type=SWAGGER_JSON';
 												this.packageInitFromDb() || this.packageInitFromConfig();
 											}
 										}

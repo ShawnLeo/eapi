@@ -4,6 +4,14 @@ server:
   port: 7050
   servlet:
     context-path: /eapi
+  compression:
+    enabled: true
+    mime-types: application/json,text/css,text/html
+    min-response-size: 2048
+  error:
+    whitelabel:
+      enabled: false
+  forward-headers-strategy: native
 logging:
   level:
     com.shawn: debug
@@ -41,6 +49,14 @@ spring:
 ---
 spring:
   profiles: dev
+  resources:
+    static_locations:
+      - file:eapi-editor/dist/
+#  devtools:
+#    restart:
+#      additional_paths:
+#        - eapi-editor/dist/
+#      additional_exclude: "**/*.js,**/*.css,**/*.html"
   h2:
     server:
       enabled: true
@@ -51,7 +67,7 @@ spring:
       settings:
         web-allow-others: true
 host:
-  server: http://localhost:7060
+  server: http://localhost:7050/eapi
 swagger:
   host: localhost:7050
   contact-email: easyapi@163.com

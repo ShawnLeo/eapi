@@ -166,7 +166,7 @@
 	import {getStore} from '../../../utils/storage';
 	import {ACCESS_TOKEN} from '../../../utils/const';
 	import {responseHandler} from '../../../utils/fetch';
-	import {baseUrl} from '../../../utils/env';
+	import {realBaseUrl} from '../../../utils/env';
 
 	export default {
 		name: 'setting',
@@ -219,7 +219,7 @@
 		},
 		methods: {
 			init() {
-				this.uploadUrl = baseUrl + '/swagger/import/file/' + this.projectId;
+				this.uploadUrl = realBaseUrl + '/swagger/import/file/' + this.projectId;
 				this.getProjectById();
 				this.customDataModel = JSON.parse(getStore('customDataModel'));
 			},

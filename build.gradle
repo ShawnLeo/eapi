@@ -1,11 +1,11 @@
-subprojects { 
-
+subprojects {
+    apply plugin: 'java'
     // JVM 版本号要求
 //    sourceCompatibility = 1.8
 //    targetCompatibility = 1.8
 
     // java编译的时候缺省状态下会因为中文字符而失败
-//    [compileJava,compileTestJava,javadoc]*.options*.encoding = 'UTF-8'
+    [compileJava,compileTestJava,javadoc]*.options*.encoding = 'UTF-8'
 
 //    repositories {
 //        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }

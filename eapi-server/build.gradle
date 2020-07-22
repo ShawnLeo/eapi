@@ -39,7 +39,10 @@ configurations {
 	all*.exclude group: 'org.springframework.boot',module: 'spring-boot-starter-logging'
 }
 dependencies {
-//	compile('com.alibaba:druid-spring-boot-starter:1.1.2')
+
+	if(new File(project(':').projectDir, 'eapi-editor').exists()){
+		runtime project(":eapi-editor")
+	}
 	compile "com.alibaba:fastjson:$fastjsonVersion"
 	compile ("com.h2database:h2:1.4.197")
 	compile('io.jsonwebtoken:jjwt:0.7.0')
@@ -72,6 +75,8 @@ dependencies {
 
 	//Beetl 代码生成使用
 	compile 'com.ibeetl:beetl:2.9.9'
+
+
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
     annotationProcessor 'org.projectlombok:lombok:1.18.8'

@@ -9,13 +9,15 @@ const PROJECT = '/project';
 
 const TAG = '/tag';
 
-
 const USER = '/user';
 
 const GENERATOR = '/generator';
 
 const TEMPLATE = '/template';
 
+const SWAGGER = '/swagger';
+
+const GROUP = '/group';
 
 /** ******* 项目-start ******** **/
 // 获取项目列表
@@ -33,14 +35,14 @@ export const deleteProjectById = (data, callback) => fetch(PROJECT + '/' + data.
 // 发布项目
 export const publishProject = (data, callback) => fetch(PROJECT + '/publish', {callback, reqBody: data}, 'POST');
 // url导入Swagger项目
-export const importFromSwaggerUrl = (data, callback) => fetch('/swagger/import/url/' + data.projectId, {
+export const importFromSwaggerUrl = (data, callback) => fetch(SWAGGER +'/import/url/' + data.projectId, {
 	callback, reqParams: {
 		swaggerUrl: data.swaggerUrl
 	}
 }, 'POST');
-export const exportSwaggerJson = (data, callback) => fetch('/swagger/export/' + data.projectId, {callback}, 'GET', 'blob');
+export const exportSwaggerJson = (data, callback) => fetch(SWAGGER + '/export/' + data.projectId, {callback}, 'GET', 'blob');
 //  根据接口ID导出Swagger项目
-export const exportByInterfaceIds = (data, callback) => fetch('/swagger/export/byinteface/' + data.projectId, {
+export const exportByInterfaceIds = (data, callback) => fetch(SWAGGER + '/export/byinteface/' + data.projectId, {
 	callback, reqParams: {interfaceIds: data.interfaceIds}
 }, 'GET', 'blob');
 
@@ -121,7 +123,7 @@ export const checkTagExists = (data, callback) => fetch(TAG + '/check', {callbac
 
 /** ******* 用户-start ******** **/
 // 登陆
-export const login = (data, callback) => fetch('/login', {callback, reqParams: data}, 'GET');
+export const login = (data, callback) => fetch( '/login', {callback, reqParams: data}, 'GET');
 // 创建标签
 export const getLoginUser = (callback) => fetch(USER + '/info', {callback}, 'GET');
 // 注册
@@ -145,32 +147,32 @@ export const emailReset = (data, callback) => fetch(USER + '/email/reset', {call
 
 /** ******* 项目组-start ******** **/
 // 查询项目组
-export const groupGet = (data, callback) => fetch('/group', {callback, reqParams: data}, 'GET');
+export const groupGet = (data, callback) => fetch(GROUP, {callback, reqParams: data}, 'GET');
 // 添加项目组
-export const groupAdd = (data, callback) => fetch('/group', {callback, reqBody: data}, 'POST');
+export const groupAdd = (data, callback) => fetch(GROUP, {callback, reqBody: data}, 'POST');
 // 修改项目组
-export const groupUpdate = (data, callback) => fetch('/group', {callback, reqBody: data}, 'PUT');
+export const groupUpdate = (data, callback) => fetch(GROUP, {callback, reqBody: data}, 'PUT');
 // 删除项目组
-export const groupDelete = (data, callback) => fetch('/group', {callback, reqParams: data}, 'DELETE');
+export const groupDelete = (data, callback) => fetch(GROUP, {callback, reqParams: data}, 'DELETE');
 // 我的项目组列表
-export const groupList = (callback) => fetch('/group/list', {callback}, 'GET');
+export const groupList = (callback) => fetch(GROUP + '/list', {callback}, 'GET');
 // 创建者转交项目组
-export const groupTransfer = (data, callback) => fetch('/group/transfer', {callback, reqParams: data}, 'GET');
+export const groupTransfer = (data, callback) => fetch(GROUP + '/transfer', {callback, reqParams: data}, 'GET');
 // 添加项目组成员
-export const groupUserAdd = (data, callback) => fetch('/group/user', {callback, reqBody: data}, 'POST');
+export const groupUserAdd = (data, callback) => fetch(GROUP + '/user', {callback, reqBody: data}, 'POST');
 // 项目组成员列表
-export const groupUserList = (data, callback) => fetch('/group/user/list', {callback, reqParams: data}, 'GET');
+export const groupUserList = (data, callback) => fetch(GROUP + '/user/list', {callback, reqParams: data}, 'GET');
 // 退出项目组
-export const groupUserQuit = (data, callback) => fetch('/group/user/quit', {callback, reqParams: data}, 'GET');
+export const groupUserQuit = (data, callback) => fetch(GROUP + '/user/quit', {callback, reqParams: data}, 'GET');
 // 退出项目组
-export const groupUserUpdate = (data, callback) => fetch('/group/user/update', {callback, reqBody: data}, 'POST');
+export const groupUserUpdate = (data, callback) => fetch(GROUP + '/user/update', {callback, reqBody: data}, 'POST');
 // 查询用户
-export const groupUserQuery = (data, callback) => fetch('/group/user/query/' + data.username, {
+export const groupUserQuery = (data, callback) => fetch(GROUP + '/user/query/' + data.username, {
 	callback,
 	reqParams: {groupId: data.groupId}
 }, 'GET');
 // 当前用户在某项目组下的角色
-export const getCurrUserRole = (data, callback) => fetch('/group/user/role', {callback, reqParams: data}, 'GET');
+export const getCurrUserRole = (data, callback) => fetch(GROUP + '/user/role', {callback, reqParams: data}, 'GET');
 /** ******* 项目组-end ******** **/
 
 export const generatorDatabaseAll = (data, callback) => fetch(GENERATOR + '/database/all', {

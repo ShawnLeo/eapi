@@ -41,8 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers("/login", "/user/register", "/user/email/**", "/v2/api-docs/**", "/swagger/export/byinteface/**", "/virtserver/**", "/generator/**",
-                        "/index.html", "/static/**", "/favicon.ico").permitAll()
+                .antMatchers("/login", "/user/register", "/user/email/**", "/v2/api-docs/**",
+                        "/swagger/export/byinteface/**", "/virtserver/**", "/generator/**",
+                        "/", "/index.html", "/static/**", "/favicon.ico").permitAll()
                 // 登陆拦截
                 .anyRequest().authenticated()
                 // 认证拦截，response返回
@@ -56,14 +57,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 //                .and().rememberMe().rememberMeServices(rememberMeServicesBean()).key(REMEMBER_KEY);
 
-
         // 跨域拦截
         // custom-filter顺序详见：
         //  https://docs.spring.io/spring-security/site/docs/4.2.4.BUILD-SNAPSHOT/reference/htmlsingle/#ns-custom-filters
         http.addFilterBefore(corsFilter(), ChannelProcessingFilter.class);
 
         // 自定义JWT认证拦截器
-        http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(authenticationTokenFilterBean(),
+                UsernamePasswordAuthenticationFilter.class);
 
         // 自定义资源角色拦截
 //        http.addFilterBefore(filterSecurityInterceptor(), FilterSecurityInterceptor.class);
@@ -75,7 +76,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(new MD5PasswordEncoder()); // 数据库验证用户
+        auth.userDetailsService(userDetailsService)
+                .passwordEncoder(new MD5PasswordEncoder()); // 数据库验证用户
         auth.authenticationProvider(authenticationProvider()); // MD5加密
     }
 

@@ -1,16 +1,30 @@
 import axios from 'axios';
-import i18n from '../locale';
 import router from '../router';
-import { baseUrl } from './env';
+import {realBaseUrl} from './env';
 import {Message} from 'iview';
 import {removeStore, getStore} from './storage';
 import {ACCESS_TOKEN, USER_INFO} from './const';
 
-export const responseHandler = function (response, options) { // 公共响应码集中处理
+axios.interceptors.request.use(
+    config => {
+      // 设置token
+      const token = getStore(ACCESS_TOKEN);
+      token && (config.headers.Authorization = 'Bearer ' + token);
+      // config.headers['client-id'] = appSecret;
+      config.metadata = {startTime: new Date()};
+      // console.log(config.metadata);
+      return config;
+    },
+    error => {
+      return Promise.error(error);
+    });
+
+export const responseHandler = function (response, options, metadata) { // 公共响应码集中处理
+
   let code = response.header.code;
   code = Number.parseInt(code, 10);
-  if (code === 0) {
-    options.callback(response);
+  if (code === 0 || code === 200) {
+    options.callback(response, metadata);
     return;
   }
   switch (code) {
@@ -21,7 +35,7 @@ export const responseHandler = function (response, options) { // 公共响应码
       break;
     default:
       if (options && options.doNotToast) { // 不要弹Toast，错误代码自己处理
-        options.callback(response);
+        options.callback(response, metadata);
       } else { // 默认toast处理
         Message.error(response.header.message);
       }
@@ -29,66 +43,86 @@ export const responseHandler = function (response, options) { // 公共响应码
   }
 };
 
-export const fetch = async (url = '', options = {}, type = 'GET', responseType = 'json') => {
-  await axios.request({
+export const fetch = (url = '', options = {}, type = 'GET',
+    responseType = 'json') => {
+
+  axios.request({
     url: url,
-    baseURL: baseUrl,
+    baseURL: realBaseUrl,
     method: type.toLowerCase(),
-    headers: {'Authorization': 'Bearer ' + getStore(ACCESS_TOKEN)},
     params: options.reqParams || {}, // 业务params 请求参数
     data: options.reqBody || {},
-		responseType: responseType
+    responseType: responseType
   }).then((response) => {
-    console.log('====== 返回信息 ======');
-    console.log('url：' + url);
-    console.log('返回数据：');
-    console.log(response.data);
-    if (responseType == 'json') {
-			responseHandler(response.data, options);
-    } else {
-			options.callback(response.data);
-    }
 
+    let metadata = {
+      duration: new Date() - response.config.metadata.startTime,
+      httpStatus: response.status
+    };
+    console.groupCollapsed('[' + url + ']返回信息');
+    console.info('状态：' + metadata.httpStatus);
+    console.info('耗时：' + metadata.duration + ' ms');
+    console.info(response.data);
+    console.groupEnd();
+
+    if (responseType === 'json') { // 统一处理数据
+      responseHandler(response.data, options, metadata);
+    } else {
+      options.callback(response.data);
+    }
   }).catch(function (error) {
-		errorHandler(url , options,  error);
+    errorHandler(url, options, error);
   });
 };
 
-const errorHandler =  (url , options,  error) => {
-	console.log('====== 请求出错 ======');
-	console.log('url：' + url);
-	console.log('错误信息：' + error);
-	let e = {header: {code: '', message: ''}};
-	if (error.response) {
-		e.header.code = error.response.status;
-		e.header.message = error.response.statusText;
-		switch (e.header.code) { // 异常情况
-			case 400:
-				e.header.message = i18n.t('responseError.code400');
-				break;
-			case 401:
-				e.header.message = i18n.t('responseError.code401');
-				break;
-			case 404:
-				e.header.message = i18n.t('responseError.code404');
-				break;
-			case 405:
-				e.header.message = i18n.t('responseError.code405');
-				break;
-			case 500:
-				e.header.message = i18n.t('responseError.code500');
-				break;
-			case 501:
-				console.log('接口[' + url + ']还未实现');
-				e = error.response.data;
-				break;
-			case 503:
-				e.header.message = i18n.t('responseError.code503');
-				break;
-		}
-	} else {
-		e.header.code = 600;
-		e.header.message = (error.message === 'Network Error') ? i18n.t('responseError.netError') : i18n.t('responseError.code600');
-	}
-	responseHandler(e, options);
+const errorHandler = (url, options, error) => {
+
+  let metadata = {};
+
+  let e = {code: '', message: ''};
+  if (error.response) {
+    metadata.duration = new Date() - error.response.config.metadata.startTime;
+    metadata.httpStatus = error.response.status;
+
+    console.groupCollapsed('[' + url + '] 请求出错');
+    console.info('状态：' + metadata.httpStatus);
+    console.info('耗时：' + metadata.duration + ' ms');
+    console.error('错误信息：' + error);
+    console.groupEnd();
+
+    e.code = error.response.status;
+    e.message = error.response.statusText;
+    switch (e.code) { // 异常情况
+      case 400:
+        e.message = '请求信息有误';
+        break;
+      case 401:
+        e.message = '权限不足';
+        break;
+      case 404:
+        e.message = '数据不存在';
+        break;
+      case 405:
+        e.message = '错误的请求类型';
+        break;
+      case 500:
+        e.message = '服务器开小差了，请稍后再试';
+        break;
+      case 501:
+        console.log('接口[' + url + ']还未实现');
+        e = error.response.data;
+        break;
+      case 503:
+        e.message = '系统维护，请稍后再试';
+        break;
+    }
+  } else {
+    e.code = 600;
+    e.message = (error.message === 'Network Error') ? '网络异常, 请检查网络稍后再试'
+        : '数据处理错误';
+    console.groupCollapsed('[' + url + '] 请求出错');
+    console.error('错误信息：' + error.message);
+    console.groupEnd();
+  }
+  responseHandler(e, options, metadata);
 };

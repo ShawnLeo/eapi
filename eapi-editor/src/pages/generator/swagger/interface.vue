@@ -61,7 +61,7 @@
 	} from '../../../utils/interface';
 
 	import {setStore, getStore} from '../../../utils/storage';
-	import {baseUrl} from '../../../utils/env';
+	import {realBaseUrl} from '../../../utils/env';
 	import * as consts from '../../../utils/const';
 	import {download} from '../../../utils/utils';
 
@@ -238,17 +238,17 @@
 				this.packageInitFromDb() || this.packageInitFromConfig();
 				this.modalVisible = true;
 				this.swaggerConfig.targetProjectId = this.projectId;
-				let url = baseUrl + '/swagger/export/byinteface/' + this.projectId + '?type=SWAGGER_JSON';
+				let url = realBaseUrl + '/swagger/export/byinteface/' + this.projectId + '?type=SWAGGER_JSON';
 				if (this.selection && this.selection.length > 0) {
 					let params = '?type=SWAGGER_JSON';
 					this.selection.forEach(selected => {
 						params = params + '&interfaceIds[]=' + selected.id;
 					});
-					url = baseUrl + '/swagger/export/byinteface/' + this.projectId + params;
+					url = realBaseUrl + '/swagger/export/byinteface/' + this.projectId + params;
 				}
 				this.swaggerConfig.targetProject = url;
 
-//				exportByInterfaceIds({projectId: this.projectId, interfaceIds: selectIds}, (response) => {});
+				// exportByInterfaceIds({projectId: this.projectId, interfaceIds: selectIds}, (response) => {});
 			},
 			searchData() {
 				this.filterInterfaces = this.interfaces.filter(item => item.name.toLowerCase().indexOf(this.searchModel.toLowerCase()) > -1);

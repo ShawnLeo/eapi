@@ -29,7 +29,7 @@
             <a class="select-clear" v-if="form.data" @click="cancelEdit">取消选择</a>
           </Alert>
           <Input v-model="searchKey" suffix="ios-search" @on-change="search" placeholder="输入节点名搜索"
-                 clearable />
+                 clearable/>
           <div class="custom-tree-bar" :style="{maxHeight: maxHeight}">
             <Tree ref="tree" :data="data" :render="renderContent" :load-data="loadData"
                   @on-check-change="changeSelect" :check-strictly="!strict"></Tree>
@@ -647,7 +647,7 @@
         this.editTitle = "";
       },
       getFile(data) {
-        if(data.type === 1) {
+        if (data.type === 1) {
           return;
         }
 
@@ -656,7 +656,7 @@
 
           let reader = new FileReader();
           reader.readAsText(resp, 'utf-8');
-          reader.onload =  (e) => {
+          reader.onload = (e) => {
             // console.info();
             this.fileValue = e.target.result;
           }
@@ -798,22 +798,27 @@
     .operation {
       margin-bottom: 2vh;
     }
+
     .select-count {
       font-size: 13px;
       font-weight: 600;
       color: #40a9ff;
     }
+
     .select-title {
       font-size: 12px;
       font-weight: 600;
       color: #40a9ff;
     }
+
     .select-clear {
       margin-left: 10px;
     }
+
     .page {
       margin-top: 2vh;
     }
+
     .drop-down {
       font-size: 13px;
       margin-left: 5px;
